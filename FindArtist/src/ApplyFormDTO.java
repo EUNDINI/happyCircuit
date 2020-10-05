@@ -1,3 +1,4 @@
+import java.io.File;
 
 public class ApplyFormDTO {
 	
@@ -9,12 +10,13 @@ public class ApplyFormDTO {
 	private String applyTitle; // 신청폼 제목
 	private String applyCategory; // 신청폼 카테고리
 	private String applyContent; // 신청폼 내용
+	private File applyAttachment; // 신청폼에 첨부할 수 있는 파일
 	
 	// 필드 추가 될만한 거 있으면 여기에 더 넣으면 될듯..?
 	
 	// 일단 생성자는 모든 필드를 포함한 거 하나만 만듬, 필드 수정 시에 생성자도 수정할 필요가 있음
 	public ApplyFormDTO(String userId, String userName, String userNickname, String applyTitle, String applyCategory,
-			String applyContent) {
+			String applyContent, File applyAttachment) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -22,6 +24,8 @@ public class ApplyFormDTO {
 		this.applyTitle = applyTitle;
 		this.applyCategory = applyCategory;
 		this.applyContent = applyContent;
+		this.applyAttachment = applyAttachment;
+		
 	}
 	
 	public String getUserId() {
@@ -59,6 +63,14 @@ public class ApplyFormDTO {
 	}
 	public void setApplyContent(String applyContent) {
 		this.applyContent = applyContent;
+	}
+
+	public File getApplyAttachment() {
+		return applyAttachment;
+	}
+
+	public void setApplyAttachment(File applyAttachment) {
+		this.applyAttachment = applyAttachment;
 	}
 	
 	
