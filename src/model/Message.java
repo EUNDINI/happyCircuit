@@ -1,14 +1,15 @@
-package happy;
+package model;
 
-public class MessageDTO {
+import java.text.SimpleDateFormat;
+
+public class Message {
 	
-	private long _id;
-	private String message;
-	private String senderId; //username... nickname... name...
-	//이걸 그냥 user의 _id나 id만 받아와도 될 것 같은데...
-	private String time;
+	private long _id;			//메시지의 id
+	private String message;		//메시지 내용
+	private String senderId;	//보내는 사람 id string id로 받아올지 long _id로 받아올지
+	private SimpleDateFormat time;	//메시지를 보낸 시간
 	
-	public MessageDTO(String message, String senderId, String time) {
+	public Message(String message, String senderId, SimpleDateFormat time) {
 		this.message = message;
 		this.senderId = senderId;
 		this.time = time;
@@ -38,11 +39,11 @@ public class MessageDTO {
 		this.senderId = senderId;
 	}
 
-	public String getTime() {
+	public SimpleDateFormat getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(SimpleDateFormat time) {
 		this.time = time;
 	}
 }

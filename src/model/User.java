@@ -1,17 +1,17 @@
-package happy;
+package model;
 
 import java.awt.Image;
 
-public class UserDTO {
+public class User {
 	
-	private long _id;
-	private String id;
-	private String pw;
-	private String nickname;
-	private String profile; //introduction..?
-	private Image image;
+	private long _id;			//user의 _id
+	private String id;			//user의 id
+	private String pw;			//user의 비밀번호
+	private String nickname;	//user의 nickname 수정 가능?
+	private String profile;		//user 소개 introduction..?
+	private Image image;		//user의 이미지
 	
-	public UserDTO(long _id, String id, String pw, String nickname, String profile, Image image) {
+	public User(long _id, String id, String pw, String nickname, String profile, Image image) {
 		this._id = _id;
 		this.id = id;
 		this.pw = pw;
