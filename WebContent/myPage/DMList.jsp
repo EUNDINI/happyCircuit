@@ -27,6 +27,9 @@
 	table {
 		margin: 50px 0px;
 	}
+	td {
+		padding: 5px;
+	}
 	.flex-container {
 		display: flex;
 		flex-direction: column;
@@ -34,6 +37,9 @@
 	}
 	.flex-item {
 		flex-grow: 1;
+	}
+	.hover-cursor {
+		cursor: pointer;
 	}
     @media (orientation: portrait) {
       	.DM-list {
@@ -46,7 +52,7 @@
 	<div class="DM-list align-center">
 		<table>
 			<tr>
-				<td>
+				<td onclick="" class="hover-cursor">
 					<img src="../sample/holding_onto_gravity.jpg" class="artist-img">
 					<div class="flex-container">
 						<div class="flex-item"><span>artist</span></div>
@@ -55,7 +61,7 @@
 				</td>			
 			</tr>
 			<tr>
-				<td>
+				<td onclick="" class="hover-cursor">
 					<img src="../sample/holding_onto_gravity.jpg" class="artist-img">
 					<div class="flex-container">
 						<div class="flex-item"><span>artist</span></div>

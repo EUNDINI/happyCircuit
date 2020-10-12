@@ -55,9 +55,15 @@
     .message-right {
     	text-align: right;
     	margin-top: 10px;
+    	margin-left: 0px;
     }
     .message-left {
     	margin-bottom: 10px;
+    	margin-right: 0px;
+    }
+    .time {
+    	display: inline-block;
+    	font-size: 0.8em;
     }
     .create-message {
       	width: 96%;
@@ -75,7 +81,7 @@
       	box-shadow: 0 1px 1px #AAAAAA inset, 0 0 8px #AAAAAA;
       	outline: 0 none;
     } 
-    .btn-submit {
+    .btn-submit, .btn-delete {
       	background-color: #AAAAAA;
       	color: white;
       	padding: 10px;
@@ -84,7 +90,7 @@
       	width: 50px;
       	border: 1px solid #AAAAAA;
     }
-    .btn-submit:hover {
+    .btn-submit:hover, .btn-delete:hover{
         text-decoration: none;
         background-color: white;
         color: #AAAAAA;
@@ -92,6 +98,13 @@
         transition-duration: 0.2s;
         transition-timing-function: ease-in-out;
     }
+    .btn-delete {
+    	text-decoration: none;
+    	font-size: 0.9em;
+    }
+	.hover-cursor {
+		cursor: pointer;
+	}
     @media (orientation: portrait) {
       	.dm {
         	width: 95%;
@@ -101,39 +114,61 @@
 </head>
 <body>
 	<div class="dm align-center">
-	<div align="right">
-		<div class="message message-right">
-			안녕하세요			
+		<div align="right">
+			<div class="time time-right">
+				12:30
+			</div>
+			<div class="message message-right">
+				안녕하세요			
+			</div>
 		</div>
-	</div>
-		<div class="sender-left">
-			<span>artist2</span>
+		<div>
+			<div class="sender-left">
+				<span>artist2</span>
+			</div>
+			<div class="message message-left">
+				예 안녕하세요
+			</div>
+			<div class="time time-left">
+				12:30
+			</div>
 		</div>
-		<div class="message message-left">
-			예 안녕하세요
+		<div align="right">
+			<div class="time time-right">
+				12:30
+			</div>
+			<div class="message message-right">
+				안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다		
+			</div>
 		</div>
-	<div align="right">
-		<div class="message message-right">
-			안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다		
+		<div align="right">
+			<div class="time time-right">
+				12:30
+			</div>
+			<div class="message message-right">
+				안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다
+			</div>
 		</div>
-	</div>
-	<div align="right">
-		<div class="message message-right">
-			안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다
-		</div>
-	</div>
-		<div class="sender-left">
-			<span>artist2</span>
-		</div>
-		<div class="message message-left">
-			예 안녕하세요
+		<div>
+			<div class="sender-left">
+				<span>artist2</span>
+			</div>
+			<div class="message message-left">
+				예 안녕하세요
+			</div>
+			<div class="time time-left">
+				12:30
+			</div>
 		</div>
 		<div class="create-message">
 			<form>
 				<input type="text" class="enter-message">
-				<input type="submit" class="btn-submit" value="전송">
+				<input type="submit" class="btn-submit hover-cursor" value="전송">
 			</form>
 		</div>
+	</div>
+	<div align="center">
+		<a href="" class="btn-delete">방 삭제</a>
 	</div>
 </body>
 </html>
