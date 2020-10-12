@@ -64,7 +64,7 @@
     	margin-top: 20px;
     	margin-bottom: 50px; 
 	}
-	.btn-update, .btn-delete, .DM {
+	.btn-update, .btn-delete, .DM, .btn-DM {
       	background-color: #AAAAAA;
       	color: white;
       	padding: 10px;
@@ -75,7 +75,7 @@
     	text-decoration: none;
     	font-size: 0.9em;
     }
-    .btn-update:hover, .btn-update:hover, .DM:hover {
+    .btn-update:hover, .btn-update:hover, .DM:hover, .btn-DM:hover {
         text-decoration: none;
         background-color: white;
         color: #AAAAAA;
@@ -92,7 +92,7 @@
 </style>
 </head>
 <body>
-	<a href="" class="DM">DM</a>
+	<a href="" class="DM">DM</a> <!-- 내 DM 목록 -->
 	
 	<div class="align-center profile-image">
 		<img src="../sample/holding_onto_gravity.jpg" class="profile-img">
@@ -103,6 +103,7 @@
 	</div>
 	<div class="update">
 		<a href="" class="btn-update">수정</a>
+		<a href="" class="btn-DM">DM보내기</a>
 	</div>
 	
 	<div class="align-center like-list">
