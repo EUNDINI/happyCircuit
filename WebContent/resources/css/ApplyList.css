@@ -1,0 +1,22 @@
+@charset "EUC-KR";
+body {
+    margin-top:20px;
+}
+.pagination {
+	margin:0 auto; 
+	display: block;
+	text-align: center;
+}
+.pagination > li > a {
+	float: none;
+	margin-left: -5px;
+	
+}
+ 
+.col-sm-3 {
+	float: right;
+}
+
+.write-find-artist {
+	float: left;
+}
