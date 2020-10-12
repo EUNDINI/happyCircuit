@@ -36,7 +36,7 @@
     .wrap-btns {
     	margin: 30px auto;
     }
-	.btn-update, .btn-cancel {
+	.btn-update {
       	background-color: #AAAAAA;
       	color: white;
       	padding: 10px;
@@ -48,7 +48,7 @@
     	font-size: 0.9em;
     	margin: 10px;
     }
-    .btn-update:hover, .btn-cancel:hover {
+    .btn-update:hover {
         text-decoration: none;
         background-color: white;
         color: #AAAAAA;
@@ -73,7 +73,6 @@
 		</form>
 		<div class="wrap-btns">
 			<a href="" class="btn-update">수정</a>
-			<a href="" class="btn-cancel">취소</a>
 		</div>
 	</div>
 </body>
