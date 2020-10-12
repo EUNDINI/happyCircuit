@@ -29,7 +29,7 @@
 		padding: 10px;
 		width: 60%;
 		min-width: 500px;
-		margin: 50px auto;
+		margin-top: 50px;
 		background-color: #EEEEEE;
 	}
 	.like-list {
@@ -60,6 +60,29 @@
 		font-size: 0.8em;
 		color: #AAAAAA !important;
 	}
+	.update, .delete {
+    	margin-top: 20px;
+    	margin-bottom: 50px; 
+	}
+	.btn-update, .btn-delete, .DM {
+      	background-color: #AAAAAA;
+      	color: white;
+      	padding: 10px;
+      	border-radius: 15px;
+      	border: 0px;
+      	width: 50px;
+      	border: 1px solid #AAAAAA;
+    	text-decoration: none;
+    	font-size: 0.9em;
+    }
+    .btn-update:hover, .btn-update:hover, .DM:hover {
+        text-decoration: none;
+        background-color: white;
+        color: #AAAAAA;
+        transition-property: background-color, color;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+    }
 	.hover-cursor {
 		cursor: pointer;
 	}
@@ -77,6 +100,9 @@
 	
 	<div class="align-center profile-introduction">
 		<span>소개입니다. 구역 구분을 위해 색을 넣어둔 거고 나중엔 뺄 겁니다~ 아니면 연한 회색이나</span>
+	</div>
+	<div class="update">
+		<a href="" class="btn-update">수정</a>
 	</div>
 	
 	<div class="align-center like-list">
@@ -105,6 +131,9 @@
 			}
 		}
 		%>
+	</div>
+	<div class="delete">
+		<a href="" class="btn-delete">탈퇴</a>
 	</div>
 </body>
 </html>
