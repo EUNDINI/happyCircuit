@@ -3,6 +3,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controller.board.*;
+import controller.findArtist.CollaborateController;
+import controller.findArtist.CreateCollaborationController;
+import controller.findArtist.CreatePostController;
+import controller.findArtist.DeletePostController;
+import controller.findArtist.ListPostController;
+import controller.findArtist.SearchPostController;
+import controller.findArtist.UpdatePostController;
+import controller.findArtist.ViewPostController;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
@@ -20,6 +28,17 @@ public class RequestMapping {
 		mappings.put("/board/boardModify", new MusicUpdateController());
 		mappings.put("/board/boardDelete", new MusicDeleteController());
 		mappings.put("/board/boardSearch", new MusicSearchController());
+		
+		// findArtist 관련 RequestMapping
+		mappings.put("/findArtist/list", new ListPostController());
+		mappings.put("/findArtist/create/post", new ForwardController("/findArtist/createPost.jsp"));
+		mappings.put("/findArtist/create", new CreatePostController());
+		mappings.put("/findArtist/view/post", new ViewPostController());
+		mappings.put("/findArtist/delete/post", new DeletePostController());
+		mappings.put("/findArtist/update", new UpdatePostController());
+		mappings.put("/findArtist/search/post", new SearchPostController());
+		mappings.put("/findArtist/collaborate", new CollaborateController());
+		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
 	}
 
 	public Controller findController(String uri) {

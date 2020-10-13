@@ -8,12 +8,11 @@
 <meta charset="EUC-KR">
 <title>구인 게시판</title>
 	<link rel="stylesheet" href="../resources/css/bootstrap.css">
-    <link rel="stylesheet" href="../resources/css/ApplyList.css">
+    <link rel="stylesheet" href="../resources/css/listPost.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -56,7 +55,7 @@
                                 </tr>
                                 
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">3</th>
                                     <td>보컬</td>
                                     <td>객원 보컬 구합니다</td>
 									<td>문현정</td>
@@ -91,7 +90,7 @@
 					
 					<div class="write-find-artist">
 						<form>
-							<input type="button" name="writeApply" value="작성" onclick="location.href='ApplyForm.jsp'" class="btn btn-primary">
+							<input type="button" name="writeApply" value="작성" onclick="location.href='createPost.jsp'" class="btn btn-primary">
 				        </form>
 					</div>
 					<!-- end write button -->
