@@ -25,7 +25,7 @@
 	</div>
 
 	<div id="boardWrite">
-		<form>
+		<form method="post" enctype="multipart/form-data">
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>
 					<td height=20 align=center bgcolor=#cccccc><font color=white>
@@ -52,7 +52,7 @@
 							<tr>
 								<th>제목</th>
 								<td><input type=text name=title size=60
-									style='border: none; border-bottom: 1px solid #ccc;'></td>
+									style='border: none; border-bottom: 1px solid #ccc;' placeholder='노래 제목을 입력하세요.'></td>
 							</tr>
 
 							<tr>
