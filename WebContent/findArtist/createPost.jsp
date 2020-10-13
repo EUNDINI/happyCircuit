@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="container">
-	    <form name="applyForm" method="POST" action="ApplyDetailView.jsp" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="applyForm" method="POST" action="viewPost.jsp" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">±Û¾²±â</font></b><hr>
 	        
 	        <div class="row">
