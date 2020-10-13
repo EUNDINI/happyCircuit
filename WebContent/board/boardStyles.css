@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 
-body{
+body {
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -166,7 +166,7 @@ body{
 }
 
 #home #tab1:checked ~ #content1, #tab2:checked ~ #content2, #tab3:checked 
-	~ #content3, #tab4:checked ~ #content4, #tab5:checked ~ #content5,
+	 ~ #content3, #tab4:checked ~ #content4, #tab5:checked ~ #content5,
 	#tab6:checked 
 	 ~ #content6, #tab7:checked ~ #content7 {
 	display: block;
@@ -290,14 +290,14 @@ body{
 }
 
 /* boardWirte & boardRead */
-#boardWrite, #boardRead {
+#boardWrite, #boardRead, #boardModify {
 	padding: 10px 0;
 	margin: auto;
 	width: 80%;
 	text-align: center;
 }
 
-#boardWrite table, #boardRead table {
+#boardWrite table, #boardRead table, #boardModify table {
 	margin: auto;
 	border-collapse: separate;
 	border-spacing: 1px;
@@ -310,7 +310,7 @@ body{
 	border: 0;
 }
 
-#boardWrite table tr, #boardRead table tr {
+#boardWrite table tr, #boardRead table tr, #boardModify table tr {
 	width: 50px;
 	padding: 10px;
 	margin: 5px;
@@ -320,7 +320,7 @@ body{
 	border-bottom: 1px solid #ccc;
 }
 
-#boardWrite table th, #boardRead table th {
+#boardWrite table th, #boardRead table th, #boardModify table th {
 	width: 100px;
 	padding: 10px;
 	margin: auto;
@@ -330,7 +330,7 @@ body{
 	font-size: 12pt;
 }
 
-#boardWrite table td, #boardRead table td {
+#boardWrite table td, #boardRead table td, #boardModify table th {
 	width: 100px;
 	padding: 10px;
 	margin: auto;
@@ -339,7 +339,8 @@ body{
 	font-weight: normal;
 }
 
-#boardWrite span input, #boardRead table span button #boardRead table tr td p a image{
+#boardWrite span input, #boardRead table span button, #boardModify span input
+	{
 	color: black;
 	border: none;
 	width: 80px;
