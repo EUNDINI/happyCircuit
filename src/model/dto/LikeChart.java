@@ -1,13 +1,25 @@
-package model;
+package model.dto;
 
-public class LikeChartDTO {
+public class LikeChart {
 	private long MusicId;			// 음악 아이디
-	private int ranking;			// 순위
+	private int ranking;				// 순위
 	private int likeCount;			// 좋아요
-	private String musicName;	// 음악이름
+	private String musicName;		// 음악이름
 	private String regName;		// 등록자 이름
 	private String musicLink;		// 등록 링크
-	private String regDate; 		// 등록일
+	private String regDate; 			// 등록일
+	
+	public LikeChart(long musicId, int ranking, int likeCount, String musicName, String regName, String musicLink,
+			String regDate) {
+		MusicId = musicId;
+		this.ranking = ranking;
+		this.likeCount = likeCount;
+		this.musicName = musicName;
+		this.regName = regName;
+		this.musicLink = musicLink;
+		this.regDate = regDate;
+	}
+	
 	
 	public long getMusicId() {
 		return MusicId;
@@ -15,6 +27,7 @@ public class LikeChartDTO {
 	public void setMusicId(long musicId) {
 		MusicId = musicId;
 	}
+
 	public int getRanking() {
 		return ranking;
 	}
