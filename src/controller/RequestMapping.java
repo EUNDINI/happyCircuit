@@ -11,6 +11,8 @@ import controller.findArtist.ListPostController;
 import controller.findArtist.SearchPostController;
 import controller.findArtist.UpdatePostController;
 import controller.findArtist.ViewPostController;
+import controller.myPage.*;
+import controller.DM.*;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
@@ -39,6 +41,21 @@ public class RequestMapping {
 		mappings.put("/findArtist/search/post", new SearchPostController());
 		mappings.put("/findArtist/collaborate", new CollaborateController());
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
+	
+		//myPage
+		mappings.put("/mypage", new MyPageController());
+		mappings.put("/mypage/update", new UpdateUserController());;
+		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
+		
+		//DM
+		mappings.put("/DM", new ListDMController());
+		mappings.put("/DM/create", new CreateDMController());
+		mappings.put("/DM/room", new ViewDMController());
+		mappings.put("/DM/delete", new DeleteDMController());
+		mappings.put("/DM/message/create", new CreateMessageController());
+		
+		//user.......... 이거 일단 마이페이지에 있는데 어카지
+		mappings.put("/user/delete", new MyPageController());
 	}
 
 	public Controller findController(String uri) {
