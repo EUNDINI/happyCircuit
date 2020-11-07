@@ -7,14 +7,14 @@ public class Post {
 
 	private Artist artist; // post를 작성한 아티스트. FK
 	
-	private long postId; // 신청폼 번호, pk(기본키)
+	private int postId; // 신청폼 번호, pk(기본키)
 	private String postTitle; // 신청폼 제목
 	private SimpleDateFormat postDate; // 신청폼을 작성한 날짜
-	private long postView; // 신청폼 조회수
+	private int postView; // 신청폼 조회수
 	private String postContent; // 신청폼 내용
 	private File postAttachment; // 신청폼에 첨부할 수 있는 파일
 	
-	public Post(Artist artist, long postId, String postTitle, SimpleDateFormat postDate, long postView,
+	public Post(Artist artist, int postId, String postTitle, SimpleDateFormat postDate, int postView,
 			String postContent, File postAttachment) {
 		super();
 		this.artist = artist;
@@ -32,10 +32,10 @@ public class Post {
 	public void setArtist(Artist artist) {
 		this.artist = artist;
 	}
-	public long getPostId() {
+	public int getPostId() {
 		return postId;
 	}
-	public void setPostId(long postId) {
+	public void setPostId(int postId) {
 		this.postId = postId;
 	}
 	public String getPostTitle() {
@@ -50,10 +50,10 @@ public class Post {
 	public void setPostDate(SimpleDateFormat postDate) {
 		this.postDate = postDate;
 	}
-	public long getPostView() {
+	public int getPostView() {
 		return postView;
 	}
-	public void setPostView(long postView) {
+	public void setPostView(int postView) {
 		this.postView = postView;
 	}
 	public String getPostContent() {

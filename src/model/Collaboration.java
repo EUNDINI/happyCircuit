@@ -8,12 +8,12 @@ public class Collaboration { // 협업 신청폼
 	private Post post; // 자신이 협업신청을 누른 post의 객체
 	private Artist artist; // 협업신청한 사람
 	
-	private long collaborationId; // 신청폼 번호, pk(기본키)
+	private int collaborationId; // 신청폼 번호, pk(기본키)
 	private String collaborationTitle; // 신청폼 제목
 	private SimpleDateFormat collaborationDate; // 신청폼을 작성한 날짜
 	private String applyContent; // 신청폼 내용
 	
-	public Collaboration(Post post, Artist artist, long collaborationId, String collaborationTitle,
+	public Collaboration(Post post, Artist artist, int collaborationId, String collaborationTitle,
 			SimpleDateFormat collaborationDate, String applyContent) {
 		super();
 		this.post = post;
@@ -40,11 +40,11 @@ public class Collaboration { // 협업 신청폼
 		this.artist = artist;
 	}
 
-	public long getCollaborationId() {
+	public int getCollaborationId() {
 		return collaborationId;
 	}
 
-	public void setCollaborationId(long collaborationId) {
+	public void setCollaborationId(int collaborationId) {
 		this.collaborationId = collaborationId;
 	}
 
