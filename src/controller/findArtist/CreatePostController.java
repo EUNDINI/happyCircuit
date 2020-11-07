@@ -11,7 +11,7 @@ public class CreatePostController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return "findArtist/view/post.jsp";
+		return "redirect:/findArtist/view/post";
 	}
 
 }

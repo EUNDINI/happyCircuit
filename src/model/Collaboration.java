@@ -4,70 +4,48 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 public class Collaboration { // 협업 신청폼
-	private String postId; // post를 작성한 사용자의 아이디
-	private long postNumber; // post의 번호
-	//위에 2개는 fk(외래키)로 받아올 거
 	
-	private String colllaborationId; // Collaboration을 보내는 사용자 아이디
-	private String userNickname; // Collaboration을 보내는 사용자 닉네임 
+	private Post post; // 자신이 협업신청을 누른 post의 객체
+	private Artist artist; // 협업신청한 사람
 	
-	private long collaborationNumber; // 신청폼 번호, pk(기본키)
-	private String collaborationTitle; // 신청폼 제목, 작성한 post의 이름으로 저장됨, post 객체의 postTitle를 가져올 예정!!!!!,  fk(외래키)로 받아올 거
+	private long collaborationId; // 신청폼 번호, pk(기본키)
+	private String collaborationTitle; // 신청폼 제목
 	private SimpleDateFormat collaborationDate; // 신청폼을 작성한 날짜
 	private String applyContent; // 신청폼 내용
 	
-	public Collaboration(String postId, long postNumber, String colllaborationId, String userNickname,
-			long collaborationNumber, String collaborationTitle, SimpleDateFormat collaborationDate,
-			String applyContent) {
+	public Collaboration(Post post, Artist artist, long collaborationId, String collaborationTitle,
+			SimpleDateFormat collaborationDate, String applyContent) {
 		super();
-		this.postId = postId;
-		this.postNumber = postNumber;
-		this.colllaborationId = colllaborationId;
-		this.userNickname = userNickname;
-		this.collaborationNumber = collaborationNumber;
+		this.post = post;
+		this.artist = artist;
+		this.collaborationId = collaborationId;
 		this.collaborationTitle = collaborationTitle;
 		this.collaborationDate = collaborationDate;
 		this.applyContent = applyContent;
 	}
 
-	public String getPostId() {
-		return postId;
+	public Post getPost() {
+		return post;
 	}
 
-	public void setPostId(String postId) {
-		this.postId = postId;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
-	public long getPostNumber() {
-		return postNumber;
+	public Artist getArtist() {
+		return artist;
 	}
 
-	public void setPostNumber(long postNumber) {
-		this.postNumber = postNumber;
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
 
-	public String getColllaborationId() {
-		return colllaborationId;
+	public long getCollaborationId() {
+		return collaborationId;
 	}
 
-	public void setColllaborationId(String colllaborationId) {
-		this.colllaborationId = colllaborationId;
-	}
-
-	public String getUserNickname() {
-		return userNickname;
-	}
-
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
-	}
-
-	public long getCollaborationNumber() {
-		return collaborationNumber;
-	}
-
-	public void setCollaborationNumber(long collaborationNumber) {
-		this.collaborationNumber = collaborationNumber;
+	public void setCollaborationId(long collaborationId) {
+		this.collaborationId = collaborationId;
 	}
 
 	public String getCollaborationTitle() {
@@ -93,6 +71,5 @@ public class Collaboration { // 협업 신청폼
 	public void setApplyContent(String applyContent) {
 		this.applyContent = applyContent;
 	}
-
 	
 }
