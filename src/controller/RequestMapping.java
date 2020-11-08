@@ -12,6 +12,9 @@ import controller.findArtist.SearchPostController;
 import controller.findArtist.UpdatePostController;
 import controller.findArtist.ViewPostController;
 import controller.myPage.*;
+import controller.user.LoginController;
+import controller.user.LogoutController;
+import controller.user.RegisterUserController;
 import controller.DM.*;
 
 public class RequestMapping {

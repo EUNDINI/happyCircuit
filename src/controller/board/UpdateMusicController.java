@@ -33,6 +33,7 @@ public class UpdateMusicController implements Controller {
 		String genre = request.getParameter("genre");
 		int originalMusicId = Integer.parseInt(request.getParameter("originalMusicId"));
 		int priorMusicId = Integer.parseInt(request.getParameter("priorMusicId"));
+		int nth = 0;
 		//String nickname = request.getParameter("nickname");
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId"); 
@@ -42,7 +43,7 @@ public class UpdateMusicController implements Controller {
 		int readCount =  Integer.parseInt(request.getParameter("readCount"));
 		int likeCount = Integer.parseInt(request.getParameter("likecount"));
 		
-		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, file);
+		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, nth, file);
 		MusicBoard musicBoard = new MusicBoard(music, content, readCount, likeCount);
 		musicDAO.updateMusicBoard(musicBoard);
 		
