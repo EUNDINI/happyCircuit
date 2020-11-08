@@ -4,8 +4,8 @@ import java.io.File;
 import java.sql.Blob;
 import java.util.List;
 
-import model.dto.Music;
-import model.dto.MusicBoard;
+import model.Music;
+import model.MusicBoard;
 
 public class MusicDAO {
 	
@@ -39,6 +39,12 @@ public class MusicDAO {
 	}
 
 	public List<MusicBoard> findMusicBoardList(int currentPage, int countPerPage) throws Exception {
+
+		return null;
+
+	}
+	
+	public List<MusicBoard> findMusicBoardList() throws Exception {
 
 		return null;
 
@@ -91,10 +97,9 @@ public class MusicDAO {
 		
 		return false;
 	}
-	
-	
+		
 	//음악파일 변환
-	public File blobToFile(Blob musicBlob) {
+	public File blobToFile(Blob blob) {
 		File music = null;
 		
 		return music;
