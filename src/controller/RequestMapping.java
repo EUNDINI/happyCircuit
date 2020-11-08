@@ -1,8 +1,6 @@
 package controller;
 import java.util.HashMap;
 import java.util.Map;
-
-import controller.board.*;
 import controller.findArtist.CollaborateController;
 import controller.findArtist.CreateCollaborationController;
 import controller.findArtist.CreatePostController;
@@ -16,6 +14,12 @@ import controller.user.LoginController;
 import controller.user.LogoutController;
 import controller.user.RegisterUserController;
 import controller.DM.*;
+import controller.article.CreateMusicController;
+import controller.article.DeleteMusicController;
+import controller.article.GetMusicListController;
+import controller.article.LikeChartController;
+import controller.article.SearchMusicController;
+import controller.article.UpdateMusicController;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
@@ -25,16 +29,16 @@ public class RequestMapping {
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
 
 		// Login & Logout / Register
-		mappings.put("/user/login/form", new ForwardController("/user/login.jsp"));
+		mappings.put("/user/login/form", new ForwardController("/user/login_register.jsp"));
 		mappings.put("/user/login", new LoginController());
 		mappings.put("/user/logout", new LogoutController());
-		mappings.put("/user/register/form", new ForwardController("/user/register.jsp"));
+		mappings.put("/user/register/form", new ForwardController("/user/login_register.jsp"));
 		mappings.put("/user/register", new RegisterUserController());
 
 		// MusicBoard Mapping - 맞나?....
 		mappings.put("/home", new LikeChartController());
 		mappings.put("/board/boardMain", new GetMusicListController());
-		mappings.put("/board/boardWrite/form", new ForwardController("/board/boardWrite.jsp"));
+		mappings.put("/board/boardWrite/form", new ForwardController("/article/articleWrite.jsp"));
 		mappings.put("/board/boardWrite", new CreateMusicController());
 		mappings.put("/board/boardModify/form", new UpdateMusicController());
 		mappings.put("/board/boardModify", new UpdateMusicController());

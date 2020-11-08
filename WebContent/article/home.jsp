@@ -6,7 +6,7 @@
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="boardStyles.css">
+<link rel="stylesheet" href="articleStyles.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
@@ -17,7 +17,7 @@
 	<div id='menu'>
 		<ul>
 			<li class='active'><a href='#'>Home</a></li>
-			<li><a href='boardMain.jsp'>Board</a></li>
+			<li><a href='articleMain.jsp'>Board</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
 			<button>Login</button>

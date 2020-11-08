@@ -1,4 +1,4 @@
-package controller.board;
+package controller.article;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import model.MusicBoard;
+import model.MusicArticle;
 import model.dao.MusicDAO;
 
 public class ReadMusicController implements Controller {
@@ -14,14 +14,14 @@ public class ReadMusicController implements Controller {
 	
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {			
-    	MusicBoard musicBoard = null;
+    	MusicArticle musicArticle = null;
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
-		musicBoard = musicDAO.findMusicBoard(musicId);			
+		musicArticle = musicDAO.findMusicArticle(musicId);			
 		
-		List<MusicBoard> nthCreationList = musicDAO.NthCreationMusicList(musicId);
+		List<MusicArticle> nthCreationList = musicDAO.NthCreationMusicList(musicId);
 		
-		request.setAttribute("musicBoard", musicBoard);	
+		request.setAttribute("musicArticle", musicArticle);	
 		request.setAttribute("NthCreationList", nthCreationList);
-		return "/board/boardRead.jsp";
+		return "/article/articleRead.jsp";
     }
 }

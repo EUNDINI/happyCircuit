@@ -1,4 +1,4 @@
-package controller.board;
+package controller.article;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class LikeChartController implements Controller {
 		List<LikeChart> likeChart = likeChartDAO.getLikeChart(condition); //현재페이지와 페이지의 표시할 글의 수
 		request.setAttribute("likeChart", likeChart);
 		
-		return "/board/home.jsp";
+		return "/article/home.jsp";
 	}
 
 

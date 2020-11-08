@@ -10,10 +10,10 @@ public class Music {
 	private String musicName;			// 음악 이름
 	private String musicGenre;		// 음악 장르
 	private int nth;
-	private File musicFile;				// 음악 파일 - DB에는 BLOB로 저장
+	private String musicPath;				// 음악 파일 - DB에는 BLOB로 저장
 	
 	public Music(int musicId, int originalMusicId, int priorMusicId, String userId, String musicName,
-			String musicGenre, int nth, File musicFile) {
+			String musicGenre, int nth, String musicPath) {
 		this.musicId = musicId;
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
@@ -21,18 +21,18 @@ public class Music {
 		this.musicName = musicName;
 		this.musicGenre = musicGenre;
 		this.nth = nth;
-		this.musicFile = musicFile;
+		this.musicPath = musicPath;
 	}
 	
 	public Music(int originalMusicId, int priorMusicId, String userId, String musicName,
-			String musicGenre, int nth, File musicFile) {
+			String musicGenre, int nth, String musicPath) {
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
 		this.userId = userId;
 		this.musicName = musicName;
 		this.musicGenre = musicGenre;
 		this.nth = nth;
-		this.musicFile = musicFile;
+		this.musicPath = musicPath;
 	}
 	
 	public int getMusicId() {
@@ -82,10 +82,13 @@ public class Music {
 	public void setMusicGenre(String musicGenre) {
 		this.musicGenre = musicGenre;
 	}
-	public File getMusicFile() {
-		return musicFile;
+
+	public String getMusicPath() {
+		return musicPath;
 	}
-	public void setMusicFile(File musicFile) {
-		this.musicFile = musicFile;
+
+	public void setMusicPath(String musicPath) {
+		this.musicPath = musicPath;
 	}
+	
 }

@@ -1,4 +1,4 @@
-package controller.board;
+package controller.article;
 
 import java.io.File;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import model.Music;
-import model.MusicBoard;
+import model.MusicArticle;
 import model.dao.MusicDAO;
 
 public class UpdateMusicController implements Controller {
@@ -22,11 +22,11 @@ public class UpdateMusicController implements Controller {
 		
 		// 검색해서 수정 폼 채우기!
 		if (request.getMethod().equals("GET")) {
-			long musicId = Integer.parseInt(request.getParameter("id"));
-			MusicBoard musicBoard = musicDAO.findMusicBoard(musicId);
+			int musicId = Integer.parseInt(request.getParameter("id"));
+			MusicArticle musicBoard = musicDAO.findMusicArticle(musicId);
 			request.setAttribute("musicboard", musicBoard);
 
-			return "/board/boardModify.jsp";
+			return "/article/articleModify.jsp";
 		}
 		
 		String title = request.getParameter("title");
@@ -38,16 +38,17 @@ public class UpdateMusicController implements Controller {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId"); 
 		File file = null; // 받아온 파일
+		String musicPath = null;
 		
 		String content = request.getParameter("content");
 		int readCount =  Integer.parseInt(request.getParameter("readCount"));
 		int likeCount = Integer.parseInt(request.getParameter("likecount"));
 		
-		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, nth, file);
-		MusicBoard musicBoard = new MusicBoard(music, content, readCount, likeCount);
-		musicDAO.updateMusicBoard(musicBoard);
+		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, nth, musicPath);
+		MusicArticle musicArticle = new MusicArticle(music, content, readCount, likeCount);
+		musicDAO.updateMusicArticle(musicArticle);
 		
-		return "redirect:/board/boardMain.jsp";
+		return "redirect:/article/articleMain.jsp";
 	}
 
 }
