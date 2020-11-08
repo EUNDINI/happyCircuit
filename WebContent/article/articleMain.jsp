@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,21 +6,21 @@
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="articleStyles.css">
+<link rel="stylesheet" href="boardStyles.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
-<title>Board</title>
+<title>Article</title>
 </head>
 <body>
 	<!-- 이후에 할일 : 페이지 처리 / DB연결해서 글리스트 가져오기  -->
 	<div id='menu'>
 		<ul>
 			<li><a href='home.jsp'>Home</a></li>
-			<li class='active'><a href='#'>Board</a></li>
+			<li class='active'><a href='#'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button>Login</button>
+			<button onclick="location.href='../user/login_register.jsp'">Login</button>
 		</ul>
 	</div>
 
@@ -39,7 +39,7 @@
 		<div id="boardPage">
 			<button
 				style="color: black; border: none; width: 80px; height: 40px;"
-				onclick="location.href='boardWrite.jsp'">글작성</button>
+				onclick="location.href='articleWrite.jsp'">글작성</button>
 		</div>
 		<br>
 		<div id="boardSearch">

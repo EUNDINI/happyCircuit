@@ -6,11 +6,11 @@
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="articleStyles.css">
+<link rel="stylesheet" href="boardStyles.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
-<title>Board Modify</title>
+<title>Article Modify</title>
 </head>
 <body>
 	<!-- 이후에 할일 : 확인 누르면 db에 저장-->
@@ -20,7 +20,7 @@
 			<li class='active'><a href='articleMain.jsp'>Board</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button>Login</button>
+			<button onclick="location.href='../user/login_register.jsp'">Login</button>
 		</ul>
 	</div>
 
