@@ -1,39 +1,30 @@
-package happy;
+package model;
 
 import java.awt.Image;
 
-public class UserDTO {
+public class Artist {
 	
-	private long _id;
-	private String id;
-	private String pw;
-	private String nickname;
-	private String profile; //introduction..?
-	private Image image;
+	private String artistId;			//artist의 id
+	private String pw;			//artist의 비밀번호
+	private String nickname;	//artist의 nickname 수정 가능?
+	private String profile;		//artist 소개 introduction..?
+	private Image image;		//artist의 이미지
 	
-	public UserDTO(long _id, String id, String pw, String nickname, String profile, Image image) {
-		this._id = _id;
-		this.id = id;
+	public Artist(String artistId, String pw, String nickname, String profile, Image image) {
+		super();
+		this.artistId = artistId;
 		this.pw = pw;
 		this.nickname = nickname;
 		this.profile = profile;
 		this.image = image;
 	}
 
-	public long get_id() {
-		return _id;
+	public String getArtistId() {
+		return artistId;
 	}
 
-	public void set_id(long _id) {
-		this._id = _id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setArtistId(String artistId) {
+		this.artistId = artistId;
 	}
 
 	public String getPw() {
@@ -67,6 +58,5 @@ public class UserDTO {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	
 	
 }
