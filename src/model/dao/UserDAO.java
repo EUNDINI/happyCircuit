@@ -14,6 +14,7 @@ public class UserDAO {
 		jdbcUtil = new JDBCUtil(); // JDBCUtil 객체 생성
 	}
 
+	// 1. 은진
 	public int create(User user) throws SQLException {
 		String sql = "INSERT";		
 		Object[] param = new Object[] { };				
@@ -32,6 +33,7 @@ public class UserDAO {
 		return 0;		
 	}
 	
+	// 2. 지우
 	public int update(User user) throws SQLException {
 		String sql = "UPDATE ";
 		Object[] param = new Object[] {};				
@@ -51,6 +53,7 @@ public class UserDAO {
 		return 0;
 	}
 
+	//3. 은진
 	public int remove(String userId) throws SQLException {
 		String sql = "DELETE FROM USERINFO WHERE userid=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 delete문과 매개 변수 설정
@@ -69,7 +72,7 @@ public class UserDAO {
 		return 0;
 	}
 
-	
+	// 4. 지우
 	// usesrId를 이용해 user 찾기
 	public User findUser(String userId) throws SQLException {
         String sql = "";              
@@ -89,6 +92,7 @@ public class UserDAO {
 		return null;
 	}
 
+	// 5. 은진
 	public List<User> findUserList() throws SQLException {
         String sql = "";
 		jdbcUtil.setSqlAndParameters(sql, null);		// JDBCUtil에 query문 설정
@@ -110,6 +114,7 @@ public class UserDAO {
 		return null;
 	}
 	
+	// 6. 지우
 	/**
 	 * 전체 사용자 정보를 검색한 후 현재 페이지와 페이지당 출력할 사용자 수를 이용하여
 	 * 해당하는 사용자 정보만을 List에 저장하여 반환.
@@ -139,6 +144,7 @@ public class UserDAO {
 		return null;
 	}
 	
+	// 7. 은진
 	/**
 	 * 주어진 사용자 ID에 해당하는 사용자가 존재하는지 검사 
 	 */
