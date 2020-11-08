@@ -1,4 +1,4 @@
-package controller.board;
+package controller.article;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ import com.oreilly.servlet.MultipartRequest;
 import controller.*;
 import model.dao.MusicDAO;
 import model.Music;
-import model.MusicBoard;
+import model.MusicArticle;
 
 public class CreateMusicController implements Controller {
 	private MusicDAO MusicDAO = new MusicDAO();
@@ -27,15 +27,16 @@ public class CreateMusicController implements Controller {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId"); 
 		File file = null;
+		String musicPath = null;
 		
 		String genre = request.getParameter("genre");
 		String content = request.getParameter("content");
 
-		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, nth, file);
-		MusicBoard musicBoard = new MusicBoard(music, content, 0, 0);
-		MusicDAO.createMusicBoard(musicBoard);
+		Music music = new Music(originalMusicId, priorMusicId, userId, title, genre, nth, musicPath);
+		MusicArticle musicArticle = new MusicArticle(music, content, 0, 0);
+		MusicDAO.createMusicArticle(musicArticle);
 
-		return "redirect:/board/boardMain";
+		return "redirect:/article/articleMain.jsp";
 	}
 
 }

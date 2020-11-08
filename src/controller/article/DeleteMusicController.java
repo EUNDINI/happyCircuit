@@ -1,4 +1,4 @@
-package controller.board;
+package controller.article;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +15,8 @@ public class DeleteMusicController implements Controller {
 		// 작성자와 로그인 아이디 검사 추가
 		
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
-		musicDAO.deleteMusicBoard(musicId);
+		musicDAO.deleteMusicArticle(musicId);
 		
-		return "redirect:/board/boardMain.jsp";
+		return "redirect:/article/articleMain.jsp";
 	}
 }

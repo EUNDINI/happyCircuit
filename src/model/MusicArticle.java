@@ -1,13 +1,13 @@
 package model;
 
-public class MusicBoard {
+public class MusicArticle {
 	private Music music; 		// 음악정보 
 	private String content; 	// 게시물 내용
 	private int readCount; 		// 조회수
 	private int likeCount; 		// 좋아요
 	private String regDate; 			// 등록일
 	
-	public MusicBoard(Music music, String content, int readCount, int likeCount, String regDate) {
+	public MusicArticle(Music music, String content, int readCount, int likeCount, String regDate) {
 		this.music = music;
 		this.content = content;
 		this.readCount = readCount;
@@ -15,7 +15,7 @@ public class MusicBoard {
 		this.regDate = regDate;
 	}
 	
-	public MusicBoard(Music music, String content, int readCount, int likeCount) {
+	public MusicArticle(Music music, String content, int readCount, int likeCount) {
 		this.music = music;
 		this.content = content;
 		this.readCount = readCount;

@@ -5,7 +5,7 @@ import java.sql.Blob;
 import java.util.List;
 
 import model.Music;
-import model.MusicBoard;
+import model.MusicArticle;
 
 public class MusicDAO {
 	
@@ -18,7 +18,7 @@ public class MusicDAO {
 		return 0;
 	}
 
-	public Music readMusic(long id) throws Exception {
+	public Music readMusic(int id) throws Exception {
 
 		return null;
 	}
@@ -29,58 +29,58 @@ public class MusicDAO {
 
 	}
 
-	public int deleteMusic(long id) throws Exception {
+	public int deleteMusic(int id) throws Exception {
 		return 0;
 	}
 	
-	//MusicBoard에 관한 DAO
-	public int getMusicBoardList() {
+	//MusicArticle에 관한 DAO
+	public int getMusicArticleList() {
 		return 0;
 	}
 
-	public List<MusicBoard> findMusicBoardList(int currentPage, int countPerPage) throws Exception {
-
-		return null;
-
-	}
-	
-	public List<MusicBoard> findMusicBoardList() throws Exception {
-
-		return null;
-
-	}
-
-	public int createMusicBoard(MusicBoard musicBoard) throws Exception {
-
-		return 0;
-	}
-
-	public MusicBoard readMusicBoard(long id) throws Exception {
-
-		return null;
-	}
-
-	public int updateMusicBoard(MusicBoard musicBoard) throws Exception {
-
-		return 0;
-
-	}
-
-	public int deleteMusicBoard(long id) throws Exception {
-		return 0;
-	}
-
-	public List<MusicBoard> SearchMusicBoard(String condition, String search) throws Exception {
+	public List<MusicArticle> findMusicArticleList(int currentPage, int countPerPage) throws Exception {
 
 		return null;
 
 	}
 	
-	public MusicBoard findMusicBoard(long id) {
+	public List<MusicArticle> findMusicArticleList() throws Exception {
+
+		return null;
+
+	}
+
+	public int createMusicArticle(MusicArticle MusicArticle) throws Exception {
+
+		return 0;
+	}
+
+	public MusicArticle readMusicArticle(int id) throws Exception {
+
 		return null;
 	}
 
-	public List<MusicBoard> NthCreationMusicList(long id) throws Exception {
+	public int updateMusicArticle(MusicArticle MusicArticle) throws Exception {
+
+		return 0;
+
+	}
+
+	public int deleteMusicArticle(int id) throws Exception {
+		return 0;
+	}
+
+	public List<MusicArticle> SearchMusicArticle(String condition, String search) throws Exception {
+
+		return null;
+
+	}
+	
+	public MusicArticle findMusicArticle(int id) {
+		return null;
+	}
+
+	public List<MusicArticle> NthCreationMusicList(int id) throws Exception {
 
 		return null;
 	}
@@ -97,18 +97,4 @@ public class MusicDAO {
 		
 		return false;
 	}
-		
-	//음악파일 변환
-	public File blobToFile(Blob blob) {
-		File music = null;
-		
-		return music;
-	}
-	
-	public Blob fileToBlob(File musicFile) {
-		Blob music = null;
-		
-		return music; 
-	}
-
 }
