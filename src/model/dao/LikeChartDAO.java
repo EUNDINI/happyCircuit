@@ -2,7 +2,7 @@ package model.dao;
 
 import java.util.List;
 
-import model.dto.LikeChart;
+import model.LikeChart;
 
 public class LikeChartDAO {
 	
