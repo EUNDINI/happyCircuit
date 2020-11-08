@@ -3,7 +3,7 @@ package model.service;
 import java.util.List;
 
 import model.dao.MusicDAO;
-import model.dto.MusicBoard;
+import model.MusicBoard;
 
 public class MusicBoardManager {
 	private static MusicBoardManager MusicManager = new MusicBoardManager();
