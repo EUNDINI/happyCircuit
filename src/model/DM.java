@@ -1,14 +1,21 @@
 package model;
 
+import java.util.List;
+
 public class DM {
 	
 	private long dmId;		//DM방의 id (채팅방같이)
-	private Artist artistId;//해당 DM에 속한 artist의 id
+	private List<Artist> artistList;//해당 DM에 속한 artist의 id
 	
-	public DM(long dmId, Artist artistId) {
+	public DM(long dmId) {
 		super();
 		this.dmId = dmId;
-		this.artistId = artistId;
+	}
+
+	public DM(long dmId, List<Artist> artistList) {
+		super();
+		this.dmId = dmId;
+		this.artistList = artistList;
 	}
 
 	public long getDmId() {
@@ -19,12 +26,12 @@ public class DM {
 		this.dmId = dmId;
 	}
 
-	public Artist getArtistId() {
-		return artistId;
+	public List<Artist> getArtistList() {
+		return artistList;
 	}
 
-	public void setArtistId(Artist artistId) {
-		this.artistId = artistId;
+	public void setArtistList(List<Artist> artistList) {
+		this.artistList = artistList;
 	}
-		
+			
 }
