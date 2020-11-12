@@ -1,4 +1,4 @@
-package model.dto;
+package model;
 
 public class LikeChart {
 	private long MusicId;			// 음악 아이디
