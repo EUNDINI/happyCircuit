@@ -3,7 +3,7 @@ package model.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.dao.UserDAO;
+import model.dao.ArtistDAO;
 import model.User;
 
 /**
@@ -15,11 +15,11 @@ import model.User;
  */
 public class UserManager {
 	private static UserManager userMan = new UserManager();
-	private UserDAO userDAO;
+	private ArtistDAO userDAO;
 
 	private UserManager() {
 		try {
-			userDAO = new UserDAO();
+			userDAO = new ArtistDAO();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class UserManager {
 		return true;
 	}
 
-	public UserDAO getUserDAO() {
+	public ArtistDAO getUserDAO() {
 		return this.userDAO;
 	}
 }
