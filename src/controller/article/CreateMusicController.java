@@ -9,10 +9,9 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 
 import controller.*;
-import model.dao.MusicDAO;
 import model.Music;
 import model.MusicArticle;
-
+import model.dao.MusicDAO;
 public class CreateMusicController implements Controller {
 	private MusicDAO MusicDAO = new MusicDAO();
 

@@ -2,7 +2,7 @@ package model.dao;
 
 import java.util.List;
 
-import model.dto.LikeChart;
+import model.LikeChart;
 
 public class LikeChartDAO {
 	
@@ -10,5 +10,6 @@ public class LikeChartDAO {
 	public List<LikeChart> getLikeChart(String genre) throws Exception {
 
 		return null;
+
 	}
 }

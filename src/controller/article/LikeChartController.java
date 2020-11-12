@@ -16,7 +16,7 @@ public class LikeChartController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String condition = request.getParameter("tabs");
-		List<LikeChart> likeChart = likeChartDAO.getLikeChart(condition); //현재페이지와 페이지의 표시할 글의 수
+		List<LikeChart> likeChart = likeChartDAO.getLikeChart(condition);
 		request.setAttribute("likeChart", likeChart);
 		
 		return "/article/home.jsp";
