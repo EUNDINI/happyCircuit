@@ -1,7 +1,7 @@
 package model;
 
 public class LikeChart {
-	private int MusicId;			// 음악 아이디
+	private long MusicId;			// 음악 아이디
 	private int ranking;				// 순위
 	private int likeCount;			// 좋아요
 	private String musicName;		// 음악이름
@@ -9,7 +9,7 @@ public class LikeChart {
 	private String musicLink;		// 등록 링크
 	private String regDate; 			// 등록일
 	
-	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String regName, String musicLink,
+	public LikeChart(long musicId, int ranking, int likeCount, String musicName, String regName, String musicLink,
 			String regDate) {
 		MusicId = musicId;
 		this.ranking = ranking;
@@ -21,10 +21,10 @@ public class LikeChart {
 	}
 	
 	
-	public int getMusicId() {
+	public long getMusicId() {
 		return MusicId;
 	}
-	public void setMusicId(int musicId) {
+	public void setMusicId(long musicId) {
 		MusicId = musicId;
 	}
 

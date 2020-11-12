@@ -21,7 +21,8 @@ public class LoginController implements Controller {
 			HttpSession session = request.getSession();
 			session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
 
-			return "redirect:/article/articleMain.jsp";
+
+			return "redirect:/user/list";
 		} catch (Exception e) {
 			request.setAttribute("loginFailed", true);
 			request.setAttribute("exception", e);

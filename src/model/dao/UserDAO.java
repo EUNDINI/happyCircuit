@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Artist;
 import model.User;
 
 public class UserDAO {
@@ -15,7 +14,6 @@ public class UserDAO {
 		jdbcUtil = new JDBCUtil(); // JDBCUtil 객체 생성
 	}
 
-	// 1. 은진
 	public int create(User user) throws SQLException {
 		String sql = "INSERT";		
 		Object[] param = new Object[] { };				
@@ -34,15 +32,9 @@ public class UserDAO {
 		return 0;		
 	}
 	
-	// 2. 지우
-	public int update(Artist artist) throws SQLException {
-		String sql = "UPDATE ARTIST "
-					+ "SET password=?, nickname=?, profile=?, image=? "
-					+ "WHERE artistId=? ";
-		Object[] param = new Object[] {artist.getPw(), artist.getNickname(),
-						(!artist.getProfile().isEmpty()) ? artist.getProfile() : null, 
-						(!artist.getImage().isEmpty()) ? artist.getImage() : null, 
-						artist.getArtistId()};				
+	public int update(User user) throws SQLException {
+		String sql = "UPDATE ";
+		Object[] param = new Object[] {};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil에 update문과 매개 변수 설정
 			
 		try {				
@@ -59,7 +51,6 @@ public class UserDAO {
 		return 0;
 	}
 
-	//3. 은진
 	public int remove(String userId) throws SQLException {
 		String sql = "DELETE FROM USERINFO WHERE userid=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 delete문과 매개 변수 설정
@@ -78,21 +69,17 @@ public class UserDAO {
 		return 0;
 	}
 
-	// 4. 지우
-	// ArtistId를 이용해 Artist 찾기
-	public Artist findArtist(String artistId) throws SQLException {
-        String sql = "SELECT password, nickname, profile, image "
-        			+ "FROM artist "
-        			+ "WHERE artistId=? ";              
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	// JDBCUtil에 query문과 매개 변수 설정
+	
+	// usesrId를 이용해 user 찾기
+	public User findUser(String userId) throws SQLException {
+        String sql = "";              
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
 			if (rs.next()) {						// 학생 정보 발견
-				Artist artist = new Artist(artistId, rs.getString("password"),
-								rs.getString("nickname"), rs.getString("profile"),
-								rs.getString("image"));
-				return artist;
+				User user = new User();
+				return user;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -102,7 +89,6 @@ public class UserDAO {
 		return null;
 	}
 
-	// 5. 은진
 	public List<User> findUserList() throws SQLException {
         String sql = "";
 		jdbcUtil.setSqlAndParameters(sql, null);		// JDBCUtil에 query문 설정
@@ -124,12 +110,11 @@ public class UserDAO {
 		return null;
 	}
 	
-	// 6. 지우
 	/**
 	 * 전체 사용자 정보를 검색한 후 현재 페이지와 페이지당 출력할 사용자 수를 이용하여
 	 * 해당하는 사용자 정보만을 List에 저장하여 반환.
 	 */
-	public List<Artist> findArtistList(int currentPage, int countPerPage) throws SQLException {
+	public List<User> findUserList(int currentPage, int countPerPage) throws SQLException {
 		String sql = "";
 		jdbcUtil.setSqlAndParameters(sql, null,					// JDBCUtil에 query문 설정
 				ResultSet.TYPE_SCROLL_INSENSITIVE,				// cursor scroll 가능
@@ -139,12 +124,12 @@ public class UserDAO {
 			ResultSet rs = jdbcUtil.executeQuery();				// query 실행			
 			int start = ((currentPage-1) * countPerPage) + 1;	// 출력을 시작할 행 번호 계산
 			if ((start >= 0) && rs.absolute(start)) {			// 커서를 시작 행으로 이동
-				List<Artist> artistList = new ArrayList<Artist>();	// User들의 리스트 생성
+				List<User> userList = new ArrayList<User>();	// User들의 리스트 생성
 				do {
-					Artist artist = new Artist();
-					artistList.add(artist);							// 리스트에 User 객체 저장
+					User user = new User();
+					userList.add(user);							// 리스트에 User 객체 저장
 				} while ((rs.next()) && (--countPerPage > 0));		
-				return artistList;							
+				return userList;							
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -154,7 +139,6 @@ public class UserDAO {
 		return null;
 	}
 	
-	// 7. 은진
 	/**
 	 * 주어진 사용자 ID에 해당하는 사용자가 존재하는지 검사 
 	 */

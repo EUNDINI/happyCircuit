@@ -14,7 +14,7 @@ public class LogoutController implements Controller {
 		session.removeAttribute(UserSessionUtils.USER_SESSION_KEY);
 		session.invalidate();		
         
-        return "redirect:/article/home.jsp";
+        return "redirect:/board/home.jsp";
 	}
 
 }
