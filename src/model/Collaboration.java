@@ -2,42 +2,29 @@ package model;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Collaboration { // 협업 신청폼
 	
-	private Post post; // 자신이 협업신청을 누른 post의 객체
-	private Artist artist; // 협업신청한 사람
-	
 	private int collaborationId; // 신청폼 번호, pk(기본키)
 	private String collaborationTitle; // 신청폼 제목
-	private SimpleDateFormat collaborationDate; // 신청폼을 작성한 날짜
-	private String applyContent; // 신청폼 내용
+	private Date collaborationDate; // 신청폼을 작성한 날짜
+	private String collaborationContent; // 신청폼 내용
 	
-	public Collaboration(Post post, Artist artist, int collaborationId, String collaborationTitle,
-			SimpleDateFormat collaborationDate, String applyContent) {
+	private int postId; // 자신이 협업신청을 누른 post의 객체
+	private int artistId; // 협업신청한 사람
+	
+	public Collaboration () {}
+	
+	public Collaboration(int collaborationId, String collaborationTitle, Date collaborationDate,
+			String collaborationContent, int postId, int artistId) {
 		super();
-		this.post = post;
-		this.artist = artist;
 		this.collaborationId = collaborationId;
 		this.collaborationTitle = collaborationTitle;
 		this.collaborationDate = collaborationDate;
-		this.applyContent = applyContent;
-	}
-
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
-	}
-
-	public Artist getArtist() {
-		return artist;
-	}
-
-	public void setArtist(Artist artist) {
-		this.artist = artist;
+		this.collaborationContent = collaborationContent;
+		this.postId = postId;
+		this.artistId = artistId;
 	}
 
 	public int getCollaborationId() {
@@ -56,20 +43,36 @@ public class Collaboration { // 협업 신청폼
 		this.collaborationTitle = collaborationTitle;
 	}
 
-	public SimpleDateFormat getCollaborationDate() {
+	public Date getCollaborationDate() {
 		return collaborationDate;
 	}
 
-	public void setCollaborationDate(SimpleDateFormat collaborationDate) {
+	public void setCollaborationDate(Date collaborationDate) {
 		this.collaborationDate = collaborationDate;
 	}
 
-	public String getApplyContent() {
-		return applyContent;
+	public String getCollaborationContent() {
+		return collaborationContent;
 	}
 
-	public void setApplyContent(String applyContent) {
-		this.applyContent = applyContent;
+	public void setCollaborationContent(String collaborationContent) {
+		this.collaborationContent = collaborationContent;
+	}
+
+	public int getPostId() {
+		return postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
+
+	public int getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(int artistId) {
+		this.artistId = artistId;
 	}
 	
 }

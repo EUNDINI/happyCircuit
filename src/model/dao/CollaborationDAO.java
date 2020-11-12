@@ -2,6 +2,7 @@ package model.dao;
 
 import java.sql.SQLException;
 
+import model.Collaboration;
 import model.Post;
 
 public class CollaborationDAO {
@@ -12,13 +13,13 @@ private JDBCUtil jdbcUtil = null;
 	}
 	
 	// Collaboration(협업 신청 게시글) 생성
-	public int create(Post post) throws SQLException {
-		String sql = "INSERT INTO USERINFO VALUES (postId_seq.nextval, ?, SYSDATE, 0, ?, ?, ?, ?)";		
-		Object[] param = new Object[] { post.getPostTitle(), 
-						post.getPostContent(),
-						post.getPostAttachment(), 
-						post.getPostCategoryId(), 
-						post.getArtistId() };				
+	public int create(Collaboration collaboration) throws SQLException {
+		String sql = "INSERT INTO COLLABORATION VALUES (collaborationId_seq.nextval, ?, ?, ?, SYSDATE, ?)";		
+		Object[] param = new Object[] { collaboration.getPostId(), 
+				collaboration.getArtistId(), 
+				collaboration.getCollaborationTitle(), 
+				collaboration.getCollaborationDate(),
+				collaboration.getCollaborationContent()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						
 		try {				
@@ -35,15 +36,13 @@ private JDBCUtil jdbcUtil = null;
 	}
 	
 	// Collaboration(협업 신청 게시글) 수정
-	public int update(Post post) throws SQLException {
-		String sql = "UPDATE Post "
-					+ "SET postTitle=?, postContent=?, postAttachment=?, postCategory=? "
-					+ "WHERE postId=? ";
-		Object[] param = new Object[] { post.getPostTitle(), 
-				post.getPostContent(),
-				post.getPostAttachment(), 
-				post.getPostCategoryId(),
-				post.getPostId() };				
+	public int update(Collaboration collaboration) throws SQLException {
+		String sql = "UPDATE Collaboration "
+					+ "SET collaborationTitle=?, collaborationContent=? "
+					+ "WHERE collaborationId=? ";
+		Object[] param = new Object[] { collaboration.getCollaborationTitle(), 
+				collaboration.getCollaborationContent(),
+				collaboration.getCollaborationId() };				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil에 update문과 매개 변수 설정
 			
 		try {				
@@ -61,9 +60,9 @@ private JDBCUtil jdbcUtil = null;
 	}
 	
 	// Collaboration(협업 신청 게시글) 삭제
-	public int remove(int postId) throws SQLException {
-		String sql = "DELETE FROM Post WHERE postId=?";		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {postId});	// JDBCUtil에 delete문과 매개 변수 설정
+	public int remove(int collaborationId) throws SQLException {
+		String sql = "DELETE FROM COLLABORATION WHERE collaborationId=?";		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {collaborationId});	// JDBCUtil에 delete문과 매개 변수 설정
 
 		try {				
 			int result = jdbcUtil.executeUpdate();	// delete 문 실행

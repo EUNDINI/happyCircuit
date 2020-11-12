@@ -38,7 +38,6 @@ public class RequestMapping {
 		mappings.put("/user/register", new RegisterUserController());
 
 		// MusicBoard Mapping - 맞나?....
-
 		mappings.put("/home", new LikeChartController());
 		mappings.put("/board/boardMain", new GetMusicListController());
 		mappings.put("/board/boardWrite/form", new ForwardController("/board/boardWrite.jsp"));
