@@ -23,12 +23,13 @@ import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
 
 public class RequestMapping {
-	// �� ��û uri�� ���� controller ��ü�� ������ HashMap ����
+
+	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
 	private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
 	public void initMapping() {
-		// �� uri�� �����Ǵ� controller ��ü�� ���� �� ����
 
+		// 각 uri에 대응되는 controller 객체를 생성 및 저장
 		// Login & Logout / Register
 		mappings.put("/user/login/form", new ForwardController("/user/login.jsp"));
 		mappings.put("/user/login", new LoginController());
@@ -36,7 +37,8 @@ public class RequestMapping {
 		mappings.put("/user/register/form", new ForwardController("/user/register.jsp"));
 		mappings.put("/user/register", new RegisterUserController());
 
-		// MusicBoard Mapping - �³�?....
+		// MusicBoard Mapping - 맞나?....
+
 		mappings.put("/home", new LikeChartController());
 		mappings.put("/board/boardMain", new GetMusicListController());
 		mappings.put("/board/boardWrite/form", new ForwardController("/board/boardWrite.jsp"));
@@ -46,7 +48,7 @@ public class RequestMapping {
 		mappings.put("/board/boardDelete", new DeleteMusicController());
 		mappings.put("/board/boardSearch", new SearchMusicController());
 
-		// findArtist ���� RequestMapping
+		// findArtist 관련 RequestMapping
 		mappings.put("/findArtist/list", new ListPostController());
 		mappings.put("/findArtist/create/post", new ForwardController("/findArtist/createPost.jsp"));
 		mappings.put("/findArtist/create", new CreatePostController());
@@ -58,26 +60,28 @@ public class RequestMapping {
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
 
 
-		// myPage
+
+
+		//myPage
 		mappings.put("/mypage", new MyPageController());
 		mappings.put("/mypage/update", new UpdateUserController());
 		;
 		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
 
-		// DM
+		//DM
+
 		mappings.put("/DM", new ListDMController());
 		mappings.put("/DM/create", new CreateDMController());
 		mappings.put("/DM/room", new ViewDMController());
 		mappings.put("/DM/delete", new DeleteDMController());
 		mappings.put("/DM/message/create", new CreateMessageController());
 
-
-		// user.......... �̰� �ϴ� ������������ �ִµ� ��ī��
+		//user.......... 이거 일단 마이페이지에 있는데 어카지
 		mappings.put("/user/delete", new MyPageController());
 	}
 
 	public Controller findController(String uri) {
-		// �־��� uri�� �����Ǵ� controller ��ü�� ã�� ��ȯ
+		// 주어진 uri에 대응되는 controller 객체를 찾아 반환
 		return mappings.get(uri);
 	}
 }
