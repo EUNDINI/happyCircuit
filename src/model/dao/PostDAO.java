@@ -16,7 +16,7 @@ public class PostDAO {
 	
 	// Post(구인 게시글) 생성
 	public int create(Post post) throws SQLException {
-		String sql = "INSERT INTO USERINFO VALUES (postId_seq.nextval, ?, SYSDATE, 0, ?, ?, ?, ?)";		
+		String sql = "INSERT INTO POST VALUES (postId_seq.nextval, ?, SYSDATE, 0, ?, ?, ?, ?)";		
 		Object[] param = new Object[] { post.getPostTitle(), 
 						post.getPostContent(),
 						post.getPostAttachment(), 
