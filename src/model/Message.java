@@ -1,46 +1,30 @@
 package model;
 
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Message {
 	
-	private long msgId;			//메시지의 id
-	private Artist artistId;	//보내는 사람 id
-	private long dmId;			//메시지가 포함된 DM방의 id
+	private int msgId;			//메시지의 id
 	private String message;		//메시지 내용
-	private SimpleDateFormat sentTime;	//메시지를 보낸 시간
+	private Date sentTime;		//메시지를 보낸 시간
+	private Artist artist;		//보내는 사람
+	private DM dm;			//메시지가 포함된 DM방의 id
 	
-	public Message(long msgId, Artist artistId, long dmId, String message, SimpleDateFormat sentTime) {
+	public Message(int msgId, String message, Date sentTime, Artist artist, DM dm) {
 		super();
 		this.msgId = msgId;
-		this.artistId = artistId;
-		this.dmId = dmId;
 		this.message = message;
 		this.sentTime = sentTime;
+		this.artist = artist;
+		this.dm = dm;
 	}
 
-	public long getMsgId() {
+	public int getMsgId() {
 		return msgId;
 	}
 
-	public void setMsgId(long msgId) {
+	public void setMsgId(int msgId) {
 		this.msgId = msgId;
-	}
-
-	public Artist getArtistId() {
-		return artistId;
-	}
-
-	public void setArtistId(Artist artistId) {
-		this.artistId = artistId;
-	}
-
-	public long getDmId() {
-		return dmId;
-	}
-
-	public void setDmId(long dmId) {
-		this.dmId = dmId;
 	}
 
 	public String getMessage() {
@@ -51,12 +35,28 @@ public class Message {
 		this.message = message;
 	}
 
-	public SimpleDateFormat getSentTime() {
+	public Date getSentTime() {
 		return sentTime;
 	}
 
-	public void setSentTime(SimpleDateFormat sentTime) {
+	public void setSentTime(Date sentTime) {
 		this.sentTime = sentTime;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artistId) {
+		this.artist = artistId;
+	}
+
+	public DM getDm() {
+		return dm;
+	}
+
+	public void setDmId(DM dm) {
+		this.dm = dm;
 	}
 	
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.LikeChart;
+import model.dao.LikeChartDAO;
 import model.dao.MusicDAO;
 
 public class LikeChartController implements Controller {

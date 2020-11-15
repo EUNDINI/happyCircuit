@@ -22,6 +22,7 @@ public class RegisterUserController implements Controller {
 			request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
 			request.setAttribute("user", user);
+
 			return "/user/register.jsp";
 		}
 	}
