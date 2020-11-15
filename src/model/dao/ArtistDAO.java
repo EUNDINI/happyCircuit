@@ -13,7 +13,7 @@ public class ArtistDAO {
 	public ArtistDAO() {
 		jdbcUtil = new JDBCUtil(); // JDBCUtil °´Ã¼ »ý¼º
 	}
-
+	
 	public int create(Artist artist) throws SQLException {
 		String sql = "INSERT INTO ARTIST VALUES (?, ?, ?, ?, ?)";		
 		Object[] param = new Object[] {artist.getArtistId(), artist.getPw(),
