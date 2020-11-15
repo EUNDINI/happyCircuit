@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.dao.ArtistDAO;
+import model.Artist;
 import model.User;
 
 /**
@@ -15,11 +16,11 @@ import model.User;
  */
 public class UserManager {
 	private static UserManager userMan = new UserManager();
-	private ArtistDAO userDAO;
+	private ArtistDAO artistDAO;
 
 	private UserManager() {
 		try {
-			userDAO = new ArtistDAO();
+			artistDAO = new ArtistDAO();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,47 +31,47 @@ public class UserManager {
 		return userMan;
 	}
 	
-	public int create(User user) throws SQLException, ExistingUserException {
-		if (userDAO.existingUser(user.getUserId())) {
-			throw new ExistingUserException(user.getUserId() + "는 존재하는 아이디입니다.");
+	public int create(Artist artist) throws SQLException, ExistingUserException {
+		if (artistDAO.existingArtist(artist.getArtistId())) {
+			throw new ExistingUserException(artist.getArtistId() + "는 존재하는 아이디입니다.");
 		}
-		return userDAO.create(user);
+		return artistDAO.create(artist);
 	}
 
-	public int update(User user) throws SQLException {
-		return userDAO.update(user);
+	public int update(Artist artist) throws SQLException {
+		return artistDAO.update(artist);
 	}	
 
-	public int remove(String userId) throws SQLException {
-		return userDAO.remove(userId);
+	public int remove(String artistId) throws SQLException {
+		return artistDAO.remove(artistId);
 	}
 
-	public User findUser(String userId)
+	public Artist findUser(String artistId)
 		throws SQLException, UserNotFoundException {
-		User user = userDAO.findUser(userId);
+		Artist artist = artistDAO.findArtist(artistId);
 		
-		if (user == null) {
-			throw new UserNotFoundException(userId + "는 존재하지 않는 아이디입니다.");
+		if (artist == null) {
+			throw new UserNotFoundException(artistId + "는 존재하지 않는 아이디입니다.");
 		}		
-		return user;
+		return artist;
 	}
 
-	public List<User> findUserList(int currentPage, int countPerPage)
-		throws SQLException {
-		return userDAO.findUserList(currentPage, countPerPage);
-	}
+//	public List<Artist> findArtistList(int currentPage, int countPerPage)
+//		throws SQLException {
+//		return userDAO.findArtistList(currentPage, countPerPage);
+//	}
+//
+//	public boolean login(String userId, String password)
+//		throws SQLException, UserNotFoundException, PasswordMismatchException {
+//		User user = findArtist(userId);
+//
+//		if (!user.matchPassword(password)) {
+//			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+//		}
+//		return true;
+//	}
 
-	public boolean login(String userId, String password)
-		throws SQLException, UserNotFoundException, PasswordMismatchException {
-		User user = findUser(userId);
-
-		if (!user.matchPassword(password)) {
-			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
-		}
-		return true;
-	}
-
-	public ArtistDAO getUserDAO() {
-		return this.userDAO;
+	public ArtistDAO getArtistDAO() {
+		return this.artistDAO;
 	}
 }
