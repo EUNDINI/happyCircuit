@@ -1,100 +1,376 @@
 package model.dao;
 
-import java.io.File;
-import java.sql.Blob;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.LikeChart;
 import model.Music;
 import model.MusicArticle;
+import model.dao.JDBCUtil;
 
 public class MusicDAO {
-	
-	//음악에서 자동으로 id생성 -> board의 fk와 pk로 설정
-	// Music에 관한 DAO	
-	public long createMusic(Music music) throws Exception {
+	private JDBCUtil jdbcUtil = null;
 
-		
-		// 생성후에 생성된 id를 찾아 반환하자
+	// 음악에서 자동으로 id생성 -> board의 fk와 pk로 설정
+	// Music에 관한 DAO
+	// create = controller에서 2번
+	// read = controller에서 1번
+	// update = controller에서 1번
+	// delete = controller에서 2번
+	// isArticleWriter는 controller에서 부르자
+
+	public MusicDAO() {
+		jdbcUtil = new JDBCUtil();
+	}
+
+	public int createMusic(Music music) throws Exception {
+		String sql = "INSERT INTO MUSIC ()  VALUES (music_seq.nextval,?,?,?,?,?,?,?)";
+		Object[] param = new Object[] { music.getOriginalMusicId(), music.getPriorMusicId(), music.getUserId(),
+				music.getMusicName(), music.getMusicGenre(), music.getNth(), music.getMusicPath() };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문과 매개 변수 설정
+
+		String key[] = { "musicId" };
+		try {
+			jdbcUtil.executeUpdate(key); // insert 문 실행
+			ResultSet rs = jdbcUtil.getGeneratedKeys();
+
+			if (rs.next()) {
+				int generatedKey = rs.getInt(1);
+				music.setMusicId(generatedKey);
+				return generatedKey;
+			}
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
+
 		return 0;
 	}
 
-	public Music readMusic(int id) throws Exception {
+	public Music findMusic(int musicId) throws Exception {
+		String sql = "SELECT * FROM MUSIC WHERE musicId = ?";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId }); // JDBCUtil에 query문과 매개 변수 설정
+		Music music = null;
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			if (rs.next()) {
+				music = new Music(musicId, rs.getInt("originalMusicId"), rs.getInt("priorMusicId"),
+						rs.getString("userId"), rs.getString("musicName"), rs.getString("musicGenre"), rs.getInt("nth"),
+						rs.getString("musicPath"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
 
-		return null;
+		return music;
 	}
 
 	public int updateMusic(Music music) throws Exception {
+		String sql = "UPDATE MUSIC " + "SET musicName=?, musicGenre=?, musicPath=? " + "WHERE musicId=?";
+		Object[] param = new Object[] { music.getMusicName(), music.getMusicGenre(), music.getMusicPath(),
+				music.getMusicId() };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
+		try {
+			int result = jdbcUtil.executeUpdate(); // update 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 
 	}
 
-	public int deleteMusic(int id) throws Exception {
-		return 0;
-	}
-	
-	//MusicArticle에 관한 DAO
-	public int getMusicArticleList() {
+	public int deleteMusic(int musicId) throws Exception {
+		String sql = "DELETE FROM MUSIC WHERE musicId=?";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId }); // JDBCUtil에 delete문과 매개 변수 설정
+
+		try {
+			int result = jdbcUtil.executeUpdate(); // delete 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 	}
 
+	// MusicArticle에 관한 DAO
 	public List<MusicArticle> findMusicArticleList(int currentPage, int countPerPage) throws Exception {
+		int start = countPerPage * (currentPage - 1) + 1;
+		String sql = "SELECT * FROM MUSICARTICLE where ROWNUM BETWEEN ? and ? ORDER BY regDate";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { start, start + countPerPage});
 
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>(); // Community들의 리스트 생성
+			while (rs.next()) {
+				MusicArticle musicArticle = new MusicArticle(rs.getString("content"), rs.getDate("regDate"),
+						rs.getInt("readCount"), rs.getInt("likeCount"));
+				Music music = findMusic(rs.getInt("musicId"));
+				musicArticle.setMusic(music);
+				musicArticleList.add(musicArticle); // List에 Community 객체 저장
+			}
+			return musicArticleList;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
 		return null;
-
 	}
-	
+
 	public List<MusicArticle> findMusicArticleList() throws Exception {
+		String sql = "SELECT * FROM MUSICARTICLE ORDER BY regDate";
+		jdbcUtil.setSqlAndParameters(sql, null); // JDBCUtil에 query문 설정
 
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>(); // Community들의 리스트 생성
+			while (rs.next()) {
+				MusicArticle musicArticle = new MusicArticle(rs.getString("content"), rs.getDate("regDate"),
+						rs.getInt("readCount"), rs.getInt("likeCount"));
+				Music music = findMusic(rs.getInt("musicId"));
+				musicArticle.setMusic(music);
+				musicArticleList.add(musicArticle); // List에 Community 객체 저장
+			}
+			return musicArticleList;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
 		return null;
-
 	}
 
-	public int createMusicArticle(MusicArticle MusicArticle) throws Exception {
+	public int createMusicArticle(MusicArticle musicArticle) throws Exception {
+		String sql = "INSERT INTO USERINFO VALUES (?, ?, SYSDATE, ?, ?)";
+		Object[] param = new Object[] { musicArticle.getMusic().getMusicId(), musicArticle.getContent(),
+				musicArticle.getReadCount(), musicArticle.getLikeCount() };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문과 매개 변수 설정
 
+		try {
+			int result = jdbcUtil.executeUpdate(); // insert 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 	}
 
-	public MusicArticle readMusicArticle(int id) throws Exception {
+	public MusicArticle findMusicArticle(int musicArticleId) throws Exception {
+		int res = IncreaseReadCount(musicArticleId);
+		if(res == 0)	return null;
 
-		return null;
+		String sql = "SELECT * FROM MUSICARTICLE WHERE musicId=? ";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicArticleId }); // JDBCUtil에 query문과 매개 변수 설정
+		MusicArticle musicArticle = null;
+		Music music = findMusic(musicArticleId);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			if (rs.next()) { // 학생 정보 발견
+				musicArticle = new MusicArticle(music, rs.getString("Content"), rs.getDate("regDate"),
+						rs.getInt("readCount"), rs.getInt("likeCount"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
+		return musicArticle;
 	}
 
-	public int updateMusicArticle(MusicArticle MusicArticle) throws Exception {
+	public int updateMusicArticle(MusicArticle musicArticle) throws Exception {
+		int res = IncreaseReadCount(musicArticle.getMusic().getMusicId());
+		if (res == 0)
+			return 0;
 
+		res = updateMusic(musicArticle.getMusic());
+		if (res == 0)
+			return 0;
+
+		String sql = "UPDATE MUSICARTICLE SET content=? WHERE musicId=?";
+		Object[] param = new Object[] { musicArticle.getContent(), musicArticle.getMusic().getMusicId() };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
+
+		try {
+			int result = jdbcUtil.executeUpdate(); // update 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 
 	}
 
-	public int deleteMusicArticle(int id) throws Exception {
+	public int deleteMusicArticle(int musicArticleId) throws Exception {
+		String sql = "DELETE FROM MUSIICARTICLE WHERE musicId=?";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicArticleId }); // JDBCUtil에 delete문과 매개 변수 설정
+
+		try {
+			int result = jdbcUtil.executeUpdate(); // delete 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
 		return 0;
 	}
 
 	public List<MusicArticle> SearchMusicArticle(String condition, String search) throws Exception {
+		String sql = "SELECT * FROM MUSICARTICLE WHERE ?=? ORDER BY regDate";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { condition, search });
 
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>(); // Community들의 리스트 생성
+			while (rs.next()) {
+				MusicArticle musicArticle = new MusicArticle(rs.getString("content"), rs.getDate("regDate"),
+						rs.getInt("readCount"), rs.getInt("likeCount"));
+				Music music = findMusic(rs.getInt("musicId"));
+				musicArticle.setMusic(music);
+				musicArticleList.add(musicArticle); // List에 Community 객체 저장
+			}
+			return musicArticleList;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
 		return null;
-
 	}
-	
-	public MusicArticle findMusicArticle(int id) {
+
+	public List<MusicArticle> NthCreationMusicList(int musicId) throws Exception {
+		String sql = "SELECT * FROM MUSICARTICLE WHERE originalMusicId=? ORDER BY regDate";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId });
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>(); // Community들의 리스트 생성
+			while (rs.next()) {
+				MusicArticle musicArticle = new MusicArticle(rs.getString("content"), rs.getDate("regDate"),
+						rs.getInt("readCount"), rs.getInt("likeCount"));
+				Music music = findMusic(rs.getInt("musicId"));
+				musicArticle.setMusic(music);
+				musicArticleList.add(musicArticle); // List에 Community 객체 저장
+			}
+			return musicArticleList;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
+		}
 		return null;
 	}
 
-	public List<MusicArticle> NthCreationMusicList(int id) throws Exception {
+	public int IncreaseReadCount(int musicArticleId) {
+		String sql = "UPDATE MUSICARTICLE SET readCount=readCount+1 WHERE musicId=?";
+		Object[] param = new Object[] { musicArticleId };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
-		return null;
+		try {
+			int result = jdbcUtil.executeUpdate(); // update 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
+		return 0;
 	}
 
-	public void IncreaseReadCount(long id) {
+	public int IncreaseLikeCount(int musicArticleId) {
+		String sql = "UPDATE MUSICARTICLE SET likeCount=likeCount+1 WHERE musicId=?";
+		Object[] param = new Object[] { musicArticleId };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
+		try {
+			int result = jdbcUtil.executeUpdate(); // update 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close(); // resource 반환
+		}
+		return 0;
 	}
 
-	public void IncreaseLikeCount(long id) {
-
-	}
-	
-	public boolean isBoardWriter(long id) {
-		
+	public boolean isArticleWriter(int musicArticleId, String userId) {
+		try {
+			MusicArticle musicArticle = findMusicArticle(musicArticleId);
+			if (musicArticle.getMusic().getUserId().equals(userId))
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
+	
+	//LikeChart
+	
+	// 오늘을 기준으로 좋아요수가 가장많은 10개를 가져오기
+		public List<LikeChart> getLikeChart(String genre) throws Exception {
+			String sql = null;
+			if(genre.equals("all")) {
+				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MUSICARTICLE where ROWNUM <= 10 ORDER BY likeCount, regDate";
+				jdbcUtil.setSqlAndParameters(sql, null);
+			}
+			else {
+				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MUSICARTICLE a, MUSIC m where a.musicId = m.musicId and"
+						+ "m.musicGenre = ? and  ROWNUM <= 10 ORDER BY likeCount, regDate";
+				jdbcUtil.setSqlAndParameters(sql, new Object[] { genre});
+			}
+			
+			try {
+				ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+				List<LikeChart> likeChartList = new ArrayList<LikeChart>(); // Community들의 리스트 생성
+				while (rs.next()) {
+					LikeChart likeChart = null;
+					Music music = findMusic(rs.getInt("musicId"));
+					likeChart = new LikeChart(music.getMusicId(), rs.getInt("ranking"), rs.getInt("likeCount"), music.getMusicName(), 
+							music.getUserId(), rs.getDate("regDate"));
+					
+					likeChartList.add(likeChart); // List에 Community 객체 저장
+				}
+				return likeChartList;
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				jdbcUtil.close(); // resource 반환
+			}
+			return null;
+		}
 }

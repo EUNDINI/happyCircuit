@@ -1,7 +1,4 @@
 package model;
-
-import java.io.File;
-
 public class Music {
 	private int musicId;						// 음악의 아이디
 	private int originalMusicId;		// 원곡의 아이디	- 없으면 현재 음악이 원곡
@@ -11,6 +8,8 @@ public class Music {
 	private String musicGenre;		// 음악 장르
 	private int nth;
 	private String musicPath;				// 음악 파일 - DB에는 BLOB로 저장
+	
+	public Music() {};
 	
 	public Music(int musicId, int originalMusicId, int priorMusicId, String userId, String musicName,
 			String musicGenre, int nth, String musicPath) {

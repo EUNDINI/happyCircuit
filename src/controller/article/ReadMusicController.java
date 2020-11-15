@@ -16,7 +16,7 @@ public class ReadMusicController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {			
     	MusicArticle musicArticle = null;
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
-		musicArticle = musicDAO.findMusicArticle(musicId);			
+		musicArticle = musicDAO.findMusicArticle(musicId);		
 		
 		List<MusicArticle> nthCreationList = musicDAO.NthCreationMusicList(musicId);
 		
