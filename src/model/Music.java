@@ -5,31 +5,31 @@ public class Music {
 	private int priorMusicId;			// 이전음악의 아이디 - 없으면 2차
 	private String artistId;				// 사용자 아이디
 	private String musicName;			// 음악 이름
-	private String musicGenre;		// 음악 장르
+	private String genre;		// 음악 장르
 	private int nth;
 	private String musicPath;				// 음악 파일 - DB에는 BLOB로 저장
 	
 	public Music() {};
 	
 	public Music(int musicId, int originalMusicId, int priorMusicId, String artistId, String musicName,
-			String musicGenre, int nth, String musicPath) {
+			String genre, int nth, String musicPath) {
 		this.musicId = musicId;
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
 		this.artistId = artistId;
 		this.musicName = musicName;
-		this.musicGenre = musicGenre;
+		this.genre = genre;
 		this.nth = nth;
 		this.musicPath = musicPath;
 	}
 	
 	public Music(int originalMusicId, int priorMusicId, String artistId, String musicName,
-			String musicGenre, int nth, String musicPath) {
+			String genre, int nth, String musicPath) {
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
 		this.artistId = artistId;
 		this.musicName = musicName;
-		this.musicGenre = musicGenre;
+		this.genre = genre;
 		this.nth = nth;
 		this.musicPath = musicPath;
 	}
@@ -75,11 +75,11 @@ public class Music {
 	public void setMusicName(String musicName) {
 		this.musicName = musicName;
 	}
-	public String getMusicGenre() {
-		return musicGenre;
+	public String getGenre() {
+		return genre;
 	}
-	public void setMusicGenre(String musicGenre) {
-		this.musicGenre = musicGenre;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getMusicPath() {
