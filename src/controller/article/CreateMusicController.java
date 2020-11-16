@@ -24,14 +24,14 @@ public class CreateMusicController implements Controller {
 		int priorMusicId = Integer.parseInt(request.getParameter("priorMusicId"));
 		int nth = Integer.parseInt(request.getParameter("nth"));
 		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId"); 
+		String artistId = (String) session.getAttribute("artistId"); 
 		File file = null;
 		String musicPath = null;
 		
 		String genre = request.getParameter("genre");
 		String content = request.getParameter("content");
 
-		Music music = new Music(originalMusicId, priorMusicId, userId, musicName, genre, nth, musicPath);
+		Music music = new Music(originalMusicId, priorMusicId, artistId, musicName, genre, nth, musicPath);
 		MusicArticle musicArticle = new MusicArticle(music, content, 0, 0);
 		MusicDAO.createMusicArticle(musicArticle);
 
