@@ -1,27 +1,27 @@
-package controller.user;
+package controller.artist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import model.User;
-import model.service.ExistingUserException;
-import model.service.UserManager;
+import model.Artist;
+import model.service.ExistingArtistException;
+import model.service.ArtistManager;
 
-public class RegisterUserController implements Controller {
+public class RegisterArtistController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		User user = new User(); // getParamer로 가져와서 채우기
+		Artist artist = new Artist(); // getParamer로 가져와서 채우기
 		try {
-			UserManager manager = UserManager.getInstance();
-			manager.create(user);
+			ArtistManager manager = ArtistManager.getInstance();
+			manager.create(artist);
 			return "redirect:/board/home.jsp"; // 성공 시 사용자 리스트 화면으로 redirect
 
-		} catch (ExistingUserException e) { // 예외 발생 시 회원가입 form으로 forwarding
+		} catch (ExistingArtistException e) { // 예외 발생 시 회원가입 form으로 forwarding
 			request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
-			request.setAttribute("user", user);
+			request.setAttribute("artist", artist);
 			return "/article/login_register.jsp";
 		}
 	}

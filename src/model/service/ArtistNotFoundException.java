@@ -3,18 +3,18 @@ package model.service;
 /**
  * TODO
  */
-public class ExistingUserException extends Exception {
+public class ArtistNotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ExistingUserException() {
+	public ArtistNotFoundException() {
 		super();
 	}
 
-	public ExistingUserException(String arg0) {
+	public ArtistNotFoundException(String arg0) {
 		super(arg0);
 	}
 }

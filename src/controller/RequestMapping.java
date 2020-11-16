@@ -10,9 +10,6 @@ import controller.findArtist.SearchPostController;
 import controller.findArtist.UpdatePostController;
 import controller.findArtist.ViewPostController;
 import controller.myPage.*;
-import controller.user.LoginController;
-import controller.user.LogoutController;
-import controller.user.RegisterUserController;
 import controller.DM.*;
 import controller.article.CreateMusicController;
 import controller.article.DeleteMusicController;
@@ -20,22 +17,25 @@ import controller.article.GetMusicListController;
 import controller.article.LikeChartController;
 import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
+import controller.artist.LoginController;
+import controller.artist.LogoutController;
+import controller.artist.RegisterArtistController;
 
 public class RequestMapping {
-	// °¢ ¿äÃ» uri¿¡ ´ëÇÑ controller °´Ã¼¸¦ ÀúÀåÇÒ HashMap »ý¼º
+	// ï¿½ï¿½ ï¿½ï¿½Ã» uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HashMap ï¿½ï¿½ï¿½ï¿½
 	private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
 	public void initMapping() {
-		// °¢ uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ »ý¼º ¹× ÀúÀå
+		// ï¿½ï¿½ uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		// Login & Logout / Register
 		mappings.put("/user/login/form", new ForwardController("/user/login_register.jsp"));
 		mappings.put("/user/login", new LoginController());
 		mappings.put("/user/logout", new LogoutController());
 		mappings.put("/user/register/form", new ForwardController("/user/login_register.jsp"));
-		mappings.put("/user/register", new RegisterUserController());
+		mappings.put("/user/register", new RegisterArtistController());
 
-		// MusicBoard Mapping - ¸Â³ª?....
+		// MusicBoard Mapping - ï¿½Â³ï¿½?....
 		mappings.put("/home", new LikeChartController());
 		mappings.put("/board/boardMain", new GetMusicListController());
 		mappings.put("/board/boardWrite/form", new ForwardController("/article/articleWrite.jsp"));
@@ -45,7 +45,7 @@ public class RequestMapping {
 		mappings.put("/board/boardDelete", new DeleteMusicController());
 		mappings.put("/board/boardSearch", new SearchMusicController());
 
-		// findArtist °ü·Ã RequestMapping
+		// findArtist ï¿½ï¿½ï¿½ï¿½ RequestMapping
 		mappings.put("/findArtist/list", new ListPostController());
 		mappings.put("/findArtist/create/post", new ForwardController("/findArtist/createPost.jsp"));
 		mappings.put("/findArtist/create", new CreatePostController());
@@ -68,12 +68,12 @@ public class RequestMapping {
 		mappings.put("/DM/delete", new DeleteDMController());
 		mappings.put("/DM/message/create", new CreateMessageController());
 
-		//user.......... ÀÌ°Å ÀÏ´Ü ¸¶ÀÌÆäÀÌÁö¿¡ ÀÖ´Âµ¥ ¾îÄ«Áö
+		//user.......... ï¿½Ì°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Âµï¿½ ï¿½ï¿½Ä«ï¿½ï¿½
 		mappings.put("/user/delete", new MyPageController());
 	}
 
 	public Controller findController(String uri) {
-		// ÁÖ¾îÁø uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ Ã£¾Æ ¹ÝÈ¯
+		// ï¿½Ö¾ï¿½ï¿½ï¿½ uriï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ controller ï¿½ï¿½Ã¼ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½È¯
 		return mappings.get(uri);
 	}
 }

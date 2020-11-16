@@ -1,25 +1,25 @@
-package controller.user;
+package controller.artist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import model.service.UserManager;
+import model.service.ArtistManager;
 
 public class LoginController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userId = request.getParameter("userId");
+		String artistId = request.getParameter("artistId");
 		String passwd = request.getParameter("passwd");
 		
 		try {
-			UserManager manager = UserManager.getInstance();
-			manager.login(userId, passwd);
+			ArtistManager manager = ArtistManager.getInstance();
+			manager.login(artistId, passwd);
 
 			HttpSession session = request.getSession();
-			session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
+			session.setAttribute(ArtistSessionUtils.ARTIST_SESSION_KEY, artistId);
 
 			return "redirect:/article/articleMain.jsp";
 		} catch (Exception e) {

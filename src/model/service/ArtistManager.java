@@ -14,11 +14,11 @@ import model.User;
  * 비지니스 로직이 복잡한 경우에는 비지니스 로직만을 전담하는 클래스를 
  * 별도로 둘 수 있다.
  */
-public class UserManager {
-	private static UserManager userMan = new UserManager();
+public class ArtistManager {
+	private static ArtistManager userMan = new ArtistManager();
 	private ArtistDAO artistDAO;
 
-	private UserManager() {
+	private ArtistManager() {
 		try {
 			artistDAO = new ArtistDAO();
 		} catch (Exception e) {
@@ -27,13 +27,13 @@ public class UserManager {
 		}			
 	}
 	
-	public static UserManager getInstance() {
+	public static ArtistManager getInstance() {
 		return userMan;
 	}
 	
-	public int create(Artist artist) throws SQLException, ExistingUserException {
+	public int create(Artist artist) throws SQLException, ExistingArtistException {
 		if (artistDAO.existingArtist(artist.getArtistId())) {
-			throw new ExistingUserException(artist.getArtistId() + "는 존재하는 아이디입니다.");
+			throw new ExistingArtistException(artist.getArtistId() + "는 존재하는 아이디입니다.");
 		}
 		return artistDAO.create(artist);
 	}
@@ -47,11 +47,11 @@ public class UserManager {
 	}
 
 	public Artist findUser(String artistId)
-		throws SQLException, UserNotFoundException {
+		throws SQLException, ArtistNotFoundException {
 		Artist artist = artistDAO.findArtist(artistId);
 		
 		if (artist == null) {
-			throw new UserNotFoundException(artistId + "는 존재하지 않는 아이디입니다.");
+			throw new ArtistNotFoundException(artistId + "는 존재하지 않는 아이디입니다.");
 		}		
 		return artist;
 	}
@@ -60,16 +60,21 @@ public class UserManager {
 //		throws SQLException {
 //		return userDAO.findArtistList(currentPage, countPerPage);
 //	}
-//
-//	public boolean login(String userId, String password)
-//		throws SQLException, UserNotFoundException, PasswordMismatchException {
-//		User user = findArtist(userId);
-//
-//		if (!user.matchPassword(password)) {
-//			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
-//		}
-//		return true;
-//	}
+
+	public boolean login(String artistId, String password)
+		throws SQLException, ArtistNotFoundException, PasswordMismatchException {
+		Artist artist = findArtist(artistId);
+
+		if (!artist.matchPassword(password)) {
+			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+		}
+		return true;
+	}
+
+	private Artist findArtist(String artistId) {
+		
+		return null;
+	}
 
 	public ArtistDAO getArtistDAO() {
 		return this.artistDAO;
