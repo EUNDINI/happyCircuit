@@ -25,8 +25,8 @@ public class MusicDAO {
 	}
 
 	public int createMusic(Music music) throws Exception {
-		String sql = "INSERT INTO MUSIC ()  VALUES (music_seq.nextval,?,?,?,?,?,?,?)";
-		Object[] param = new Object[] { music.getOriginalMusicId(), music.getPriorMusicId(), music.getUserId(),
+		String sql = "INSERT INTO Music VALUES (music_seq.nextval,?,?,?,?,?,?,?)";
+		Object[] param = new Object[] { music.getOriginalMusicId(), music.getPriorMusicId(), music.getArtistId(),
 				music.getMusicName(), music.getMusicGenre(), music.getNth(), music.getMusicPath() };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문과 매개 변수 설정
 
@@ -52,14 +52,14 @@ public class MusicDAO {
 	}
 
 	public Music findMusic(int musicId) throws Exception {
-		String sql = "SELECT * FROM MUSIC WHERE musicId = ?";
+		String sql = "SELECT * FROM Music WHERE musicId = ?";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId }); // JDBCUtil에 query문과 매개 변수 설정
 		Music music = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
 			if (rs.next()) {
 				music = new Music(musicId, rs.getInt("originalMusicId"), rs.getInt("priorMusicId"),
-						rs.getString("userId"), rs.getString("musicName"), rs.getString("musicGenre"), rs.getInt("nth"),
+						rs.getString("artistId"), rs.getString("musicName"), rs.getString("musicGenre"), rs.getInt("nth"),
 						rs.getString("musicPath"));
 			}
 		} catch (Exception ex) {
@@ -72,7 +72,7 @@ public class MusicDAO {
 	}
 
 	public int updateMusic(Music music) throws Exception {
-		String sql = "UPDATE MUSIC " + "SET musicName=?, musicGenre=?, musicPath=? " + "WHERE musicId=?";
+		String sql = "UPDATE Music " + "SET musicName=?, musicGenre=?, musicPath=? " + "WHERE musicId=?";
 		Object[] param = new Object[] { music.getMusicName(), music.getMusicGenre(), music.getMusicPath(),
 				music.getMusicId() };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
@@ -92,7 +92,7 @@ public class MusicDAO {
 	}
 
 	public int deleteMusic(int musicId) throws Exception {
-		String sql = "DELETE FROM MUSIC WHERE musicId=?";
+		String sql = "DELETE FROM Music WHERE musicId=?";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId }); // JDBCUtil에 delete문과 매개 변수 설정
 
 		try {
@@ -111,7 +111,7 @@ public class MusicDAO {
 	// MusicArticle에 관한 DAO
 	public List<MusicArticle> findMusicArticleList(int currentPage, int countPerPage) throws Exception {
 		int start = countPerPage * (currentPage - 1) + 1;
-		String sql = "SELECT * FROM MUSICARTICLE where ROWNUM BETWEEN ? and ? ORDER BY regDate";
+		String sql = "SELECT * FROM MusicArticle where ROWNUM BETWEEN ? and ? ORDER BY regDate";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { start, start + countPerPage});
 
 		try {
@@ -135,7 +135,7 @@ public class MusicDAO {
 	}
 
 	public List<MusicArticle> findMusicArticleList() throws Exception {
-		String sql = "SELECT * FROM MUSICARTICLE ORDER BY regDate";
+		String sql = "SELECT * FROM MusicArticle ORDER BY regDate";
 		jdbcUtil.setSqlAndParameters(sql, null); // JDBCUtil에 query문 설정
 
 		try {
@@ -159,7 +159,7 @@ public class MusicDAO {
 	}
 
 	public int createMusicArticle(MusicArticle musicArticle) throws Exception {
-		String sql = "INSERT INTO USERINFO VALUES (?, ?, SYSDATE, ?, ?)";
+		String sql = "INSERT INTO MusicArticle VALUES (?, ?, SYSDATE, ?, ?)";
 		Object[] param = new Object[] { musicArticle.getMusic().getMusicId(), musicArticle.getContent(),
 				musicArticle.getReadCount(), musicArticle.getLikeCount() };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문과 매개 변수 설정
@@ -181,7 +181,7 @@ public class MusicDAO {
 		int res = IncreaseReadCount(musicArticleId);
 		if(res == 0)	return null;
 
-		String sql = "SELECT * FROM MUSICARTICLE WHERE musicId=? ";
+		String sql = "SELECT * FROM MusicArticle WHERE musicId=? ";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicArticleId }); // JDBCUtil에 query문과 매개 변수 설정
 		MusicArticle musicArticle = null;
 		Music music = findMusic(musicArticleId);
@@ -208,7 +208,7 @@ public class MusicDAO {
 		if (res == 0)
 			return 0;
 
-		String sql = "UPDATE MUSICARTICLE SET content=? WHERE musicId=?";
+		String sql = "UPDATE MusicArticle SET content=? WHERE musicId=?";
 		Object[] param = new Object[] { musicArticle.getContent(), musicArticle.getMusic().getMusicId() };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
@@ -227,7 +227,7 @@ public class MusicDAO {
 	}
 
 	public int deleteMusicArticle(int musicArticleId) throws Exception {
-		String sql = "DELETE FROM MUSIICARTICLE WHERE musicId=?";
+		String sql = "DELETE FROM MusicArticle WHERE musicId=?";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicArticleId }); // JDBCUtil에 delete문과 매개 변수 설정
 
 		try {
@@ -244,7 +244,7 @@ public class MusicDAO {
 	}
 
 	public List<MusicArticle> SearchMusicArticle(String condition, String search) throws Exception {
-		String sql = "SELECT * FROM MUSICARTICLE WHERE ?=? ORDER BY regDate";
+		String sql = "SELECT * FROM MusicArticle WHERE ?=? ORDER BY regDate";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { condition, search });
 
 		try {
@@ -268,7 +268,7 @@ public class MusicDAO {
 	}
 
 	public List<MusicArticle> NthCreationMusicList(int musicId) throws Exception {
-		String sql = "SELECT * FROM MUSICARTICLE WHERE originalMusicId=? ORDER BY regDate";
+		String sql = "SELECT * FROM MusicArticle WHERE originalMusicId=? ORDER BY regDate";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId });
 
 		try {
@@ -292,7 +292,7 @@ public class MusicDAO {
 	}
 
 	public int IncreaseReadCount(int musicArticleId) {
-		String sql = "UPDATE MUSICARTICLE SET readCount=readCount+1 WHERE musicId=?";
+		String sql = "UPDATE MusicArticle SET readCount=readCount+1 WHERE musicId=?";
 		Object[] param = new Object[] { musicArticleId };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
@@ -310,7 +310,7 @@ public class MusicDAO {
 	}
 
 	public int IncreaseLikeCount(int musicArticleId) {
-		String sql = "UPDATE MUSICARTICLE SET likeCount=likeCount+1 WHERE musicId=?";
+		String sql = "UPDATE MusicArticle SET likeCount=likeCount+1 WHERE musicId=?";
 		Object[] param = new Object[] { musicArticleId };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
@@ -327,10 +327,10 @@ public class MusicDAO {
 		return 0;
 	}
 
-	public boolean isArticleWriter(int musicArticleId, String userId) {
+	public boolean isArticleWriter(int musicArticleId, String artistId) {
 		try {
 			MusicArticle musicArticle = findMusicArticle(musicArticleId);
-			if (musicArticle.getMusic().getUserId().equals(userId))
+			if (musicArticle.getMusic().getArtistId().equals(artistId))
 				return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -344,11 +344,11 @@ public class MusicDAO {
 		public List<LikeChart> getLikeChart(String genre) throws Exception {
 			String sql = null;
 			if(genre.equals("all")) {
-				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MUSICARTICLE where ROWNUM <= 10 ORDER BY likeCount, regDate";
+				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MusicArticle where ROWNUM <= 10 ORDER BY likeCount, regDate";
 				jdbcUtil.setSqlAndParameters(sql, null);
 			}
 			else {
-				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MUSICARTICLE a, MUSIC m where a.musicId = m.musicId and"
+				sql = "SELECT musicId, likeCount, regDate, ROWNUM AS ranking FROM MusicArticle a, MUSIC m where a.musicId = m.musicId and"
 						+ "m.musicGenre = ? and  ROWNUM <= 10 ORDER BY likeCount, regDate";
 				jdbcUtil.setSqlAndParameters(sql, new Object[] { genre});
 			}
@@ -360,7 +360,7 @@ public class MusicDAO {
 					LikeChart likeChart = null;
 					Music music = findMusic(rs.getInt("musicId"));
 					likeChart = new LikeChart(music.getMusicId(), rs.getInt("ranking"), rs.getInt("likeCount"), music.getMusicName(), 
-							music.getUserId(), rs.getDate("regDate"));
+							music.getArtistId(), rs.getDate("regDate"));
 					
 					likeChartList.add(likeChart); // List에 Community 객체 저장
 				}

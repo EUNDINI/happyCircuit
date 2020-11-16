@@ -3,7 +3,7 @@ public class Music {
 	private int musicId;						// 음악의 아이디
 	private int originalMusicId;		// 원곡의 아이디	- 없으면 현재 음악이 원곡
 	private int priorMusicId;			// 이전음악의 아이디 - 없으면 2차
-	private String userId;				// 사용자 아이디
+	private String artistId;				// 사용자 아이디
 	private String musicName;			// 음악 이름
 	private String musicGenre;		// 음악 장르
 	private int nth;
@@ -11,23 +11,23 @@ public class Music {
 	
 	public Music() {};
 	
-	public Music(int musicId, int originalMusicId, int priorMusicId, String userId, String musicName,
+	public Music(int musicId, int originalMusicId, int priorMusicId, String artistId, String musicName,
 			String musicGenre, int nth, String musicPath) {
 		this.musicId = musicId;
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
-		this.userId = userId;
+		this.artistId = artistId;
 		this.musicName = musicName;
 		this.musicGenre = musicGenre;
 		this.nth = nth;
 		this.musicPath = musicPath;
 	}
 	
-	public Music(int originalMusicId, int priorMusicId, String userId, String musicName,
+	public Music(int originalMusicId, int priorMusicId, String artistId, String musicName,
 			String musicGenre, int nth, String musicPath) {
 		this.originalMusicId = originalMusicId;
 		this.priorMusicId = priorMusicId;
-		this.userId = userId;
+		this.artistId = artistId;
 		this.musicName = musicName;
 		this.musicGenre = musicGenre;
 		this.nth = nth;
@@ -53,12 +53,12 @@ public class Music {
 		this.priorMusicId = priorMusicId;
 	}
 	
-	public String getUserId() {
-		return userId;
+	public String getArtistId() {
+		return artistId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setArtistId(String userId) {
+		this.artistId = userId;
 	}
 
 	public String getMusicName() {
