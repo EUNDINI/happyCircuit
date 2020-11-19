@@ -11,9 +11,6 @@ import controller.findArtist.SearchPostController;
 import controller.findArtist.UpdatePostController;
 import controller.findArtist.ViewPostController;
 import controller.myPage.*;
-import controller.user.LoginController;
-import controller.user.LogoutController;
-import controller.user.RegisterUserController;
 import controller.DM.*;
 import controller.article.CreateMusicController;
 import controller.article.DeleteMusicController;
@@ -21,21 +18,23 @@ import controller.article.GetMusicListController;
 import controller.article.LikeChartController;
 import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
+import controller.artist.LoginController;
+import controller.artist.LogoutController;
+import controller.artist.RegisterArtistController;
 
 public class RequestMapping {
-
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
 	private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
 	public void initMapping() {
-
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
+		
 		// Login & Logout / Register
-		mappings.put("/user/login/form", new ForwardController("/user/login.jsp"));
-		mappings.put("/user/login", new LoginController());
-		mappings.put("/user/logout", new LogoutController());
-		mappings.put("/user/register/form", new ForwardController("/user/register.jsp"));
-		mappings.put("/user/register", new RegisterUserController());
+		mappings.put("/artist/login/form", new ForwardController("/artist/login_register.jsp"));
+		mappings.put("/artist/login", new LoginController());
+		mappings.put("/artist/logout", new LogoutController());
+		mappings.put("/artist/register/form", new ForwardController("/artist/artist_register.jsp"));
+		mappings.put("/artist/register", new RegisterArtistController());
 
 		// MusicBoard Mapping - 맞나?....
 		mappings.put("/home", new LikeChartController());
@@ -63,8 +62,7 @@ public class RequestMapping {
 
 		//myPage
 		mappings.put("/mypage", new MyPageController());
-		mappings.put("/mypage/update", new UpdateUserController());
-		;
+		mappings.put("/mypage/update", new UpdateArtistController());;
 		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
 
 		//DM
@@ -76,7 +74,7 @@ public class RequestMapping {
 		mappings.put("/DM/message/create", new CreateMessageController());
 
 		//user.......... 이거 일단 마이페이지에 있는데 어카지
-		mappings.put("/user/delete", new MyPageController());
+		mappings.put("/artist/delete", new DeleteArtistController());
 	}
 
 	public Controller findController(String uri) {
