@@ -27,7 +27,7 @@ public class LoginController implements Controller {
 			request.setAttribute("exception", e);
 		}
 		
-		 return "/user/login.jsp";	
+		 return "/artist/login.jsp";	
 	}
 
 }
