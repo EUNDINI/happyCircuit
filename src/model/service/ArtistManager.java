@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.dao.ArtistDAO;
 import model.Artist;
-import model.User;
 
 /**
  * 사용자 관리 API를 사용하는 개발자들이 직접 접근하게 되는 클래스.

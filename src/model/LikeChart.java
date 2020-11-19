@@ -1,22 +1,22 @@
 package model;
 
+import java.sql.Date;
+
 public class LikeChart {
 	private int MusicId;			// 음악 아이디
 	private int ranking;				// 순위
 	private int likeCount;			// 좋아요
 	private String musicName;		// 음악이름
 	private String regName;		// 등록자 이름
-	private String musicLink;		// 등록 링크
-	private String regDate; 			// 등록일
+	private Date regDate; 			// 등록일
 	
-	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String regName, String musicLink,
-			String regDate) {
+	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String regName,
+			Date regDate) {
 		MusicId = musicId;
 		this.ranking = ranking;
 		this.likeCount = likeCount;
 		this.musicName = musicName;
 		this.regName = regName;
-		this.musicLink = musicLink;
 		this.regDate = regDate;
 	}
 	
@@ -52,16 +52,10 @@ public class LikeChart {
 	public void setRegName(String regName) {
 		this.regName = regName;
 	}
-	public String getMusicLink() {
-		return musicLink;
-	}
-	public void setMusicLink(String musicLink) {
-		this.musicLink = musicLink;
-	}
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 }

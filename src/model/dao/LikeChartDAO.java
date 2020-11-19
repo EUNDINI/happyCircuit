@@ -10,5 +10,6 @@ public class LikeChartDAO {
 	public List<LikeChart> getLikeChart(String genre) throws Exception {
 
 		return null;
+
 	}
 }

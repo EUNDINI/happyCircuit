@@ -1,4 +1,5 @@
 package controller;
+
 import java.util.HashMap;
 import java.util.Map;
 import controller.findArtist.CollaborateController;
@@ -27,7 +28,7 @@ public class RequestMapping {
 
 	public void initMapping() {
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
-
+		
 		// Login & Logout / Register
 		mappings.put("/artist/login/form", new ForwardController("/artist/login_register.jsp"));
 		mappings.put("/artist/login", new LoginController());
@@ -38,7 +39,7 @@ public class RequestMapping {
 		// MusicBoard Mapping - 맞나?....
 		mappings.put("/home", new LikeChartController());
 		mappings.put("/board/boardMain", new GetMusicListController());
-		mappings.put("/board/boardWrite/form", new ForwardController("/article/articleWrite.jsp"));
+		mappings.put("/board/boardWrite/form", new ForwardController("/board/boardWrite.jsp"));
 		mappings.put("/board/boardWrite", new CreateMusicController());
 		mappings.put("/board/boardModify/form", new UpdateMusicController());
 		mappings.put("/board/boardModify", new UpdateMusicController());
@@ -56,12 +57,16 @@ public class RequestMapping {
 		mappings.put("/findArtist/collaborate", new CollaborateController());
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
 
+
+
+
 		//myPage
 		mappings.put("/mypage", new MyPageController());
 		mappings.put("/mypage/update", new UpdateArtistController());;
 		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
 
 		//DM
+
 		mappings.put("/DM", new ListDMController());
 		mappings.put("/DM/create", new CreateDMController());
 		mappings.put("/DM/room", new ViewDMController());

@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import controller.Controller;
 import model.LikeChart;
 import model.dao.LikeChartDAO;
+import model.dao.MusicDAO;
 
 public class LikeChartController implements Controller {
-	private LikeChartDAO likeChartDAO = new LikeChartDAO();
+	private MusicDAO likeChartDAO = new MusicDAO();
 	
 	//장르별로 컨트롤러를 만들어야 하나?
 	@Override
