@@ -29,22 +29,30 @@ public class RequestMapping {
 	public void initMapping() {
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
 		
-		// Login & Logout / Register
+		/	// Login & Logout / Register
 		mappings.put("/artist/login/form", new ForwardController("/artist/login_register.jsp"));
 		mappings.put("/artist/login", new LoginController());
 		mappings.put("/artist/logout", new LogoutController());
-		mappings.put("/artist/register/form", new ForwardController("/artist/artist_register.jsp"));
-		mappings.put("/artist/register", new RegisterArtistController());
+		//mappings.put("/artist/register/form", new ForwardController("/artist/login_register.jsp"));
+		mappings.put("/artist/register", new RegisterUserController());
 
-		// MusicBoard Mapping - 맞나?....
+		// MusicBoard Mapping
 		mappings.put("/home", new LikeChartController());
-		mappings.put("/board/boardMain", new GetMusicListController());
-		mappings.put("/board/boardWrite/form", new ForwardController("/board/boardWrite.jsp"));
-		mappings.put("/board/boardWrite", new CreateMusicController());
-		mappings.put("/board/boardModify/form", new UpdateMusicController());
-		mappings.put("/board/boardModify", new UpdateMusicController());
-		mappings.put("/board/boardDelete", new DeleteMusicController());
-		mappings.put("/board/boardSearch", new SearchMusicController());
+		mappings.put("/article/articleMain", new GetMusicListController());
+		
+		mappings.put("/article/articleWrite/form", new ForwardController("/article/articleWrite.jsp"));
+		mappings.put("/article/articleWrite", new CreateMusicController()); //ok
+		mappings.put("/article/articleNthWrite/form", new ForwardController("/article/articleNthWrite.jsp"));
+		mappings.put("/article/articleNthWrite", new CreateNthMusicController());
+		
+		mappings.put("/article/articleRead", new ReadMusicController());
+		
+		mappings.put("/article/articleModify/form", new UpdateMusicController());
+		mappings.put("/article/articleModify", new UpdateMusicController());
+		
+		mappings.put("/article/articleDelete", new DeleteMusicController());
+		
+		mappings.put("/article/articleSearch", new SearchMusicController());
 
 		// findArtist 관련 RequestMapping
 		mappings.put("/findArtist/list", new ListPostController());

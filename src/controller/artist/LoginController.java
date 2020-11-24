@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controller.Controller;
 import model.service.ArtistManager;
 
 public class LoginController implements Controller {
@@ -26,8 +25,9 @@ public class LoginController implements Controller {
 			request.setAttribute("loginFailed", true);
 			request.setAttribute("exception", e);
 		}
-		
+
 		 return "/artist/login.jsp";	
+
 	}
 
 }

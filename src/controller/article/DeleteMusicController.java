@@ -18,12 +18,14 @@ public class DeleteMusicController implements Controller {
 		String userId = (String) session.getAttribute("userId"); 
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
 	
-		if (!musicDAO.isArticleWriter(musicId, userId))
-						return "/article/articleMain.jsp";
-		
+		/*
+		 * if (!musicDAO.isArticleWriter(musicId, userId)) return
+		 * "/article/articleMain.jsp";
+		 */
+
 		musicDAO.deleteMusicArticle(musicId);
 		musicDAO.deleteMusic(musicId);
 		
-		return "redirect:/article/articleMain.jsp";
+		return "redirect:/article/articleMain";
 	}
 }
