@@ -4,25 +4,25 @@ import java.util.List;
 
 public class DM {
 	
-	private long dmId;		//DM방의 id (채팅방같이)
+	private int dmId;		//DM방의 id (채팅방같이)
 	private List<Artist> artistList;//해당 DM에 속한 artist의 id
 	
-	public DM(long dmId) {
+	public DM(int dmId) {
 		super();
 		this.dmId = dmId;
 	}
 
-	public DM(long dmId, List<Artist> artistList) {
+	public DM(int dmId, List<Artist> artistList) {
 		super();
 		this.dmId = dmId;
 		this.artistList = artistList;
 	}
 
-	public long getDmId() {
+	public int getDmId() {
 		return dmId;
 	}
 
-	public void setDmId(long dmId) {
+	public void setDmId(int dmId) {
 		this.dmId = dmId;
 	}
 

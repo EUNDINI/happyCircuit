@@ -76,7 +76,7 @@ public class ArtistDAO {
 	}
 
 	// ArtistId를 이용해 Artist 찾기
-	public Artist findArtist(String artistId) throws SQLException {
+	public Artist findArtistById(String artistId) throws SQLException {
         String sql = "SELECT password, nickname, profile, image "
         			+ "FROM artist "
         			+ "WHERE artistId=?";              

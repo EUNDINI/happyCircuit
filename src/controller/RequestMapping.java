@@ -65,17 +65,13 @@ public class RequestMapping {
 		mappings.put("/findArtist/collaborate", new CollaborateController());
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
 
-
-
-
 		//myPage
 		mappings.put("/mypage", new MyPageController());
 		mappings.put("/mypage/update", new UpdateArtistController());;
 		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
 
 		//DM
-
-		mappings.put("/DM", new ListDMController());
+		mappings.put("/DM/list", new ListDMController());
 		mappings.put("/DM/create", new CreateDMController());
 		mappings.put("/DM/room", new ViewDMController());
 		mappings.put("/DM/delete", new DeleteDMController());
