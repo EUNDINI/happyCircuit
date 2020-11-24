@@ -18,7 +18,7 @@ public class DMDAO {
 	}
 	
 	//DM 테이블에 새로운 DM 생성 및 Membership 생성
-	public int createDMAndMembership(DM dm, List<Artist> artistList) throws SQLException {
+	public int createDMAndMembership(DM dm) throws SQLException {
 		String sql = "INSERT INTO DM VALUES (dmId_seq.nextval)";		
 
 		int result = 0;
@@ -40,7 +40,7 @@ public class DMDAO {
 		
 		for (int i = 0; i < 2; i++) {
 			sql = "INSERT INTO Membership VALUES (id.seq_nextval, ?, ?)";
-			Object[] param = new Object[] {dm.getDmId(), artistList.get(i).getArtistId()}; 
+			Object[] param = new Object[] {dm.getDmId(), dm.getArtistList().get(i).getArtistId()}; 
 			jdbcUtil.setSqlAndParameters(sql, param);
 			
 			try {				
@@ -59,14 +59,14 @@ public class DMDAO {
 	
 	//어떤 artist가 어떤 DM을 삭제하면(채팅방 나가기 느낌) Membership에서 삭제
 	//membership에 해당 dmid가 하나도 없으면 dm 테이블에서의 dmid도 삭제
-	public int deleteMembership(Artist artist, DM dm) throws SQLException {
-		String sql = "DELETE FROM Membership WHERE artistId=? AND dmID=?";		
-		Object[] param = new Object[] {artist.getArtistId(), dm.getDmId()};				
-		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
-
+	public int deleteMembership(String artistId, int dmId) throws SQLException {
+		String sql1 = "DELETE FROM Membership WHERE artistId=? AND dmID=?";		
+		Object[] param1 = new Object[] {artistId, dmId};				
+		jdbcUtil.setSqlAndParameters(sql1, param1);	// JDBCUtil 에 insert문과 매개 변수 설정
+		
 		int result = 0;
 		try {				
-			result = jdbcUtil.executeUpdate();	// insert 문 실행
+			result = jdbcUtil.executeUpdate();	
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
@@ -74,6 +74,31 @@ public class DMDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
+		
+		String sql2 = "SELECT FROM Membership WHERE dmId=?";
+		Object[] param2 = new Object[] {dmId};					
+		jdbcUtil.setSqlAndParameters(sql2, param2);		
+
+		try {				
+			result = jdbcUtil.executeUpdate();	
+			if (result == 0) { //membership에 해당 dmid가 하나도 없으면 dm 테이블에서의 dmid도 삭제
+				jdbcUtil.commit();
+				jdbcUtil.close();
+				
+				String sql3 = "DELETE FROM DM WHERE dmId=?";
+				Object[] param3 = new Object[] {dmId};					
+				jdbcUtil.setSqlAndParameters(sql3, param3);		
+				
+				result = jdbcUtil.executeUpdate();	
+			}
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {		
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}	
+		
 		return result;
 	}
 	
@@ -107,9 +132,9 @@ public class DMDAO {
 	}
 	
 	//해당 artist가 속한 DM 목록
-	public List<DM> findDMList(Artist artist) throws SQLException {
+	public List<DM> findDMListByArtistId(String artistId) throws SQLException {
 		String sql = "SELECT dmId FROM Membership WHERE artistId=? ORDER BY id desc ";
-		Object[] param = new Object[] {artist.getArtistId()};				
+		Object[] param = new Object[] {artistId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 
 		try {				
@@ -133,9 +158,9 @@ public class DMDAO {
 	
 	//Message 생성
 	public int createMessage(Message msg) throws SQLException {
-		String sql = "INSERT INTO Message VALUES (msgId_seq.nextval, ?, ?, ?, ?)";	
-		Object[] param = new Object[] {msg.getMessage(), msg.getSentTime(),
-						msg.getArtist().getArtistId(), msg.getDm().getDmId()};				
+		String sql = "INSERT INTO Message VALUES (msgId_seq.nextval, ?, SYSDATE, ?, ?)";	
+		Object[] param = new Object[] {msg.getMessage(),
+						msg.getArtist().getArtistId(), msg.getDmId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 
 		int result = 0;
@@ -158,12 +183,12 @@ public class DMDAO {
 	}
 	 
 	//해당 DM방의 Message 리스트
-	public List<Message> findMessageList(DM dm) throws SQLException {
+	public List<Message> findMessageList(int dmId) throws SQLException {
 		String sql = "SELECT msgId, message, sentTime, artistId, password, nickname, profile, image "
 					+ "FROM Message m JOIN DM d ON m.dmId = d.dmId "
 					+ "JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE d.dmId=?";
-		Object[] param = new Object[] {dm.getDmId()};				
+		Object[] param = new Object[] {dmId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 
 		try {			
@@ -178,7 +203,7 @@ public class DMDAO {
 				Message msg = new Message(rs.getInt("msgId"),
 							rs.getString("message"), 
 							new Date(rs.getDate("sentTime").getTime()),
-							artist, dm);
+							artist, dmId);
 				msgList.add(msg);
 				return msgList;
 			}
