@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login & Register</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/artist/style.css" />
 </head>
 <body>
@@ -18,6 +19,7 @@
 			</div>
 			<div class="content">
 				<div class="signin-cont cont">
+
 					<form action="<c:url value='/artist/login' />" method="post" >
 						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
@@ -43,6 +45,7 @@
 							class="inpt" required="required" placeholder="Your NickName">
 						<label for="nickname">Your NickName</label> <input type="text"
 							name="profile" id="profile" class="inpt" required="required"
+
 							placeholder="Your Profile"> 
 							<label for="profile">Your
 							Profile</label> 

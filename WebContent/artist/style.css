@@ -68,6 +68,7 @@ body .container .tabs .tab a {
   transition: all 0.1s ease-in-out;
 }
 body .container .tabs .tab.active a, body .container .tabs .tab:hover a {
+
   color: #47c9af;
 }
 body .container .tabs .tab.active {
@@ -168,6 +169,7 @@ body .container .content input.submit {
   border-radius: 2px;
 }
 body .container .content input.submit:hover {
+
   background-color: #47c9af;
   color: #ffffff;
   -moz-transition: all 0.2s;
@@ -277,7 +279,6 @@ body .container .content .signup-cont {
   font-weight: 700;
   text-decoration: none;
 }
-
 .file_input label {
     position:relative;
     cursor:pointer;
@@ -291,3 +292,4 @@ body .container .content .signup-cont {
     text-align:center;
     line-height:30px;
 }
+

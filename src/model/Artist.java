@@ -61,4 +61,14 @@ public class Artist {
 		this.image = image;
 	}
 	
+	public boolean matchPassword(String pw) {
+		if (pw == null) {
+			return false;
+		}
+		return this.pw.equals(pw);
+	}
+	
+	public boolean isSameUser(String artistId) {
+        return this.artistId.equals(artistId);
+    }
 }
