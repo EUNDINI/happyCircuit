@@ -132,7 +132,7 @@ body {
 #home section {
 	display: none;
 	padding: 20px 0 0;
-	border-top: 1px solid #cccccc;
+	border-top: 1px solid #c0c0c0;
 	float: center;
 }
 
@@ -148,7 +148,7 @@ body {
 	padding: 15px 25px;
 	font-weight: 600;
 	text-align: center;
-	color: #cccccc;
+	color: #c0c0c0;
 	border: 1px solid transparent;
 }
 
@@ -173,7 +173,7 @@ body {
 }
 
 #home .chart {
-	width: 70%;
+	width: 60%;
 	margin: 0 auto;
 }
 
@@ -188,7 +188,14 @@ body {
 }
 
 #home .chart ol ol {
-	margin: 0 0 0 2em;
+	margin: 0 0 0 5px;
+}
+
+#home .chart ol a li {
+	position: relative;
+	height: 100%;
+	width: 30%;
+	float: left;
 }
 
 #home .chart a {
@@ -197,7 +204,7 @@ body {
 	padding: .4em .4em .4em 2em;
 	*padding: .4em;
 	margin: .5em 0;
-	background: #cccccc;
+	background: #d9d9d9;
 	color: #000;
 	text-decoration: none;
 	-moz-border-radius: .3em;
@@ -207,7 +214,7 @@ body {
 }
 
 #home .chart a:hover {
-	background: #d6d4d4;
+	background: #ccc;
 	text-decoration: none;
 	transform: scale(1.1);
 }
@@ -219,7 +226,7 @@ body {
 	left: -1.3em;
 	top: 50%;
 	margin-top: -1.3em;
-	background: #cccccc;
+	background: #d9d9d9;
 	height: 2em;
 	width: 2em;
 	line-height: 2em;
@@ -250,8 +257,7 @@ body {
 }
 
 #board table tr {
-	/* border-bottom: 1px solid #ccc; */
-	
+	hight: 5px;
 }
 
 #board table th {

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login & Register</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/artist/style.css" />
 </head>
 <body>
 
@@ -18,21 +18,21 @@
 			</div>
 			<div class="content">
 				<div class="signin-cont cont">
-					<form action="#" method="post" enctype="multipart/form-data">
-						<input type="email" name="email" id="email" class="inpt"
+					<form action="<c:url value='/artist/login' />" method="post" >
+						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
-							for="email">Your email</label> <input type="password"
+							for="artistId">Your ID</label> <input type="password"
 							name="password" id="password" class="inpt" required="required"
 							placeholder="Your password"> <label for="password">Your
-							password</label>
+							Password</label>
 						<div class="submit-wrap">
-							<input type="submit" value="Sign in" class="submit"> <a
-								href="#" class="more">Forgot your password?</a>
+							<input type="submit" value="Sign in" class="submit">
 						</div>
 					</form>
 				</div>
+				
 				<div class="signup-cont cont">
-					<form action="#" method="post" enctype="multipart/form-data">
+					<form action="<c:url value='/artist/register' />" method="post" enctype="multipart/form-data">
 
 						<input type="text" name="userId" id="userID" class="inpt"
 							required="required" placeholder="Your ID"> <label
@@ -43,9 +43,14 @@
 							class="inpt" required="required" placeholder="Your NickName">
 						<label for="nickname">Your NickName</label> <input type="text"
 							name="profile" id="profile" class="inpt" required="required"
-							placeholder="Your Profile"> <label for="profile">Your
-							Profile</label>
-
+							placeholder="Your Profile"> 
+							<label for="profile">Your
+							Profile</label> 
+							
+							<input type="file" name="image" id="image"
+							class="inpt" required="required" placeholder="Your Image">
+						<label for="image">Your Image</label>
+						
 						<div class="submit-wrap">
 							<input type="submit" value="Sign up" class="submit">
 						</div>

@@ -13,28 +13,35 @@ import model.dao.MusicDAO;
 import model.Music;
 import model.MusicArticle;
 
-public class CreateMusicController implements Controller {
-	private MusicDAO MusicDAO = new MusicDAO();
+public class CreateNthMusicController implements Controller {
+	private MusicDAO musicDAO = new MusicDAO();
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 파일 받아오코드 필요
 
-		//원작 글쓰기
 		String musicName = request.getParameter("title");
+		int priorMusicId = Integer.parseInt(request.getParameter("priorMusicId"));
+		System.out.println(priorMusicId);
+		int originalMusicId = musicDAO.findOriginalMusicId(priorMusicId);
+		
+		if(originalMusicId == 0)
+			originalMusicId = priorMusicId;
+		
+		int nth = musicDAO.findNth(priorMusicId) + 1;
 		HttpSession session = request.getSession();
 		//String artistId = (String) session.getAttribute("artistId");
-		String artistId = "artist1";
+		String artistId = "artist2";
 		File file = null;
 		String musicPath = null;
 
 		String genre = request.getParameter("genre");
 		String content = request.getParameter("content");
 
-		Music music = new Music(0, 0, artistId, musicName, genre, 1, musicPath);
+		Music music = new Music(originalMusicId, priorMusicId, artistId, musicName, genre, nth, musicPath);
 		MusicArticle musicArticle = new MusicArticle(music, content, 0, 0);
 
 		try {
-			MusicDAO.createMusicArticle(musicArticle);
+			musicDAO.createMusicArticle(musicArticle);
 			return "redirect:/article/articleMain";
 
 		} catch (Exception e) { // 예외 발생 시 입력 form으로 forwarding
@@ -42,7 +49,7 @@ public class CreateMusicController implements Controller {
 			request.setAttribute("exception", e);
 			request.setAttribute("musicArticle", musicArticle);
 			request.setAttribute("music", music);
-			return "/article/articleWrite/form";
+			return "/article/articleNthWrite/form";
 		}
 	}
 

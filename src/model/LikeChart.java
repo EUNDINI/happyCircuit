@@ -7,16 +7,16 @@ public class LikeChart {
 	private int ranking;				// 순위
 	private int likeCount;			// 좋아요
 	private String musicName;		// 음악이름
-	private String regName;		// 등록자 이름
+	private String artistId;		// 등록자 이름
 	private Date regDate; 			// 등록일
 	
-	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String regName,
+	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String artistId,
 			Date regDate) {
 		MusicId = musicId;
 		this.ranking = ranking;
 		this.likeCount = likeCount;
 		this.musicName = musicName;
-		this.regName = regName;
+		this.artistId = artistId;
 		this.regDate = regDate;
 	}
 	
@@ -46,11 +46,11 @@ public class LikeChart {
 	public void setMusicName(String musicName) {
 		this.musicName = musicName;
 	}
-	public String getRegName() {
-		return regName;
+	public String getArtistId() {
+		return artistId;
 	}
-	public void setRegName(String regName) {
-		this.regName = regName;
+	public void setArtistId(String artistId) {
+		this.artistId = artistId;
 	}
 	public Date getRegDate() {
 		return regDate;

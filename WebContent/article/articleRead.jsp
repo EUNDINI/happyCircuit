@@ -1,15 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.dao.MusicDAO"%>
+<%@ page import="model.Music"%>
+<%@ page import="model.MusicArticle"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	MusicDAO musicDAO = new MusicDAO();
+MusicArticle musicArticle = (MusicArticle) request.getAttribute("musicArticle");
+Music music = musicArticle.getMusic();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="boardStyles.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
+<script>
+window.articleRemove = function() {
+	var result = confirm("정말 삭제하시겠습니까?");
+	
+	if(result){
+		location.href='<c:url value='/article/articleDelete'><c:param name='musicId' value='<%=request.getParameter("musicId")%>'/> </c:url>';
+	}
+	
+	return false;
+}
+window.onload = function() {
+		<%HttpSession se = request.getSession();
+String artistId = (String) se.getAttribute("artistId");
+
+//if (music != null && artistId != null && musicDAO.isArticleWriter(music.getMusicId(), artistId)) {%>
+//			var btn = document.getElementById("btn");
+//			btn.style.display = 'none';
+		<%//}%>
+		return false;
+}
+
+function likeCount(){
+	var result = confirm("좋아요를 누르시겠습니까?");
+	if(result) {
+		location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='<%=request.getParameter("musicId")%>' /><c:param name='like' value='${musicArticle.likeCount}' /> </c:url>';
+	}		
+}
+</script>
 <style type="text/css">
 #nthCreationList {
 	padding: 10px 0;
@@ -59,18 +97,77 @@
 	color: #47c9af;
 	font-size: 15pt;
 }
+
+#prior td a:link {
+	color: black;
+	text-decoration: none;
+}
+
+#prior td a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+#prior td a:hover {
+	color: blue;
+	text-decoration: none;
+}
+
+.page_wrap {
+	text-align: center;
+	font-size: 0;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation ul {
+	list-style-type: none;
+	display: inline-block;
+}
+
+.page_nation .none {
+	display: none;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.page_nation a.selected {
+	background-color: #42454c;
+	color: #fff;
+	border: 1px solid #42454c;
+}
+.page_nation ul li {
+	float: left;
+}
 </style>
-<title>Board Read</title>
+<title>Article Read</title>
 </head>
 <body>
 	<!-- 이후에 할일 : db에서 정보 가져오기 / 수정, 삭제는 작성자만 보게 하기 / 삭제 하기-->
 	<div id='menu'>
 		<ul>
-			<li><a href='home.jsp'>Home</a></li>
-			<li class='active'><a href='articleMain.jsp'>Board</a></li>
+			<li><a href='<c:url value='/home' />'>Home</a></li>
+			<li class='active'><a
+				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button onclick="location.href='../user/login_register.jsp'">Login</button>
+			<button
+				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
 		</ul>
 	</div>
 
@@ -81,43 +178,55 @@
 						글보기</font></td>
 			</tr>
 			<tr>
+				<c:set var="music" value="${musicArticle.music}" />
 				<td bgcolor=white align=center>
 					<table id="writeTable" width='80%'>
 						<tr>
-							<td><strong>제목 [nth] </strong>&nbsp;ㅁ누차ㅣ으므차이ㅡㅊ이mo</td>
-							<td align=right><strong>글쓴이</strong>&nbsp;느ㅏㄴ미이ㅏ</td>
+							<td><strong>제목 [${music.nth}차] </strong>&nbsp;
+								${music.musicName}</td>
+							<td align=right><strong>글쓴이</strong>&nbsp;${music.artistId}</td>
 						</tr>
 
 						<tr>
 							<td colspan="2" style="word-break: break-word;">
 								<p>
 									<!-- 아마 나중에 jsp로 구현될 듯?  -->
+									<!-- 파일처리 -->
 									<audio controls="controls" autoplay loop id="audio"
 										style="height: 30px; width: 500px;">
-										<source src="../sample/IU.mp3" type="audio/mp3" />
+										<source src="${musicPath}" type="audio/mp3" />
 									</audio>
 								</p>
 
-								<p>sbdljkncjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkn sdknck dn
-									nklmmmmmmmmmdsn jkcm,x'dcdnnjkm dcsnjknnnnnnnnnnnj amclksm
-									dmslkccccccccccccc cdsnjk ;nasdk</p>
+								<p>${musicArticle.content}</p>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2" style="font-size: 6pt;"><strong>원작</strong>&nbsp;ㅁ누차ㅣ으므차이ㅡㅊ이mo
-								&nbsp;&nbsp;&nbsp; <strong>이전작</strong>&nbsp;ㅁ누차ㅣ으므차이ㅡㅊ이mo</td>
-						</tr>
-
+						<c:if test="${music.originalMusicId ne 0}">
+							<tr id="prior">
+								<td colspan="2" style="font-size: 6pt;"><strong>원작</strong>&nbsp;
+									<a
+									href="<c:url value='/article/articleRead'>
+						      <c:param name='musicId' value='${music.originalMusicId}'/>
+						   </c:url>">${originalMusicName}</a>
+									&nbsp;&nbsp;&nbsp; <strong>이전작</strong>&nbsp; <a
+									href="<c:url value='/article/articleRead'>
+						      <c:param name='musicId' value='${music.priorMusicId}'/>
+						   </c:url>">${priorMusicName}</a></td>
+							</tr>
+						</c:if>
 						<tr>
 							<td colspan="2" align=right id="readRight"><strong>날짜</strong>&nbsp;
-								2020.09.09&nbsp; &nbsp;&nbsp;<strong>조회수</strong>&nbsp; 3&nbsp;
-								&nbsp;&nbsp;<strong>좋아요</strong>&nbsp; 3 &nbsp;&nbsp;&nbsp;
-								<button>좋아요</button>&nbsp;&nbsp;&nbsp;
-								<button>2차 창작</button></td>
+								${musicArticle.regDate}&nbsp; &nbsp;&nbsp;<strong>조회수</strong>&nbsp;
+								${musicArticle.readCount}&nbsp; &nbsp;&nbsp;<strong>좋아요</strong>&nbsp;${musicArticle.likeCount}&nbsp;&nbsp;&nbsp;
+								<button onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
+								<button
+									onClick="location.href='/article/articleNthWrite.jsp?priorMusicId=${music.musicId}'">2차
+									창작</button></td>
 						</tr>
-					</table> <br> <span>
-						<button value="수정">수정</button>
-						<button value="삭제">삭제</button>
+					</table> <br> <span id="btn">
+						<button
+							onClick="location.href='<c:url value='/article/articleModify/form' > <c:param name='musicId' value='${music.musicId}'/></c:url>'">수정</button>
+						<button onClick="articleRemove()">삭제</button>
 				</span>
 				</td>
 			</tr>
@@ -125,44 +234,63 @@
 
 		<br>
 	</div>
+	
+	<c:if test="${not empty nthCreationList}">
+		<div id='nthCreationList'>
+			<table>
+				<thead>
+					<tr>
+						<th class="nth">Nth</th>
+						<th class="username">글쓴이</th>
+						<th>제목</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="nthMusicList" items="${nthCreationList}">
+						<tr>
+							<c:set var="nthMusic" value="${nthMusicList.music}" />
+							<td>${nthMusic.nth}</td>
+							<td>${nthMusic.artistId}</td>
+							<td><a
+								href="<c:url value='/article/articleRead'>
+						      <c:param name='musicId' value='${nthMusic.musicId}'/>
+						   </c:url>">${nthMusic.musicName}</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="page_wrap">
+				<div class="page_nation">
+			<ul>
+				<c:if test="${ curPageNum > 5 }">
+					<li><a
+						href="<c:url value='/article/articleRead' />?page=${ blockStartNum - 1 }&musicId=${music.musicId}">◀</a></li>
+				</c:if>
 
-	<div id='nthCreationList'>
-		<table>
-			<thead>
-				<tr>
-					<th class="nth">Nth</th>
-					<th class="username">글쓴이</th>
-					<th>제목</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>2</td>
-					<td>Lorem</td>
-					<td><a href='#'>Ipsum</a></td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>Lorem</td>
-					<td><a href='#'>Ipsum</a></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Lorem</td>
-					<td><a href='#'>Ipsum</a></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Lorem</td>
-					<td><a href='#'>Ipsum</a></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>Lorem</td>
-					<td><a href='#'>Ipsum</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+				<c:forEach var="i" begin="${ blockStartNum }"
+					end="${ blockLastNum }">
+					<c:choose>
+						<c:when test="${ i > lastPageNum }">
+							<li>${ i }</li>
+						</c:when>
+						<c:when test="${ i == curPageNum }">
+							<li class="selected">${ i }</li>
+						</c:when>
+						<c:otherwise>
+							<li><a
+								href="<c:url value='/article/articleRead' />?page=${ i }"&musicId=${music.musicId}>${ i }</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${ lastPageNum > blockLastNum }">
+					<li><a
+						href="<c:url value='/article/articleRead' />page=${ blockLastNum + 1 }&musicId=${music.musicId}">▶</a></li>
+				</c:if>
+			</ul>
+			</div>
+		</div>
+	</c:if>
 </body>
 </html>
