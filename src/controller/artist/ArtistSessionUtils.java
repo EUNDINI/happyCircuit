@@ -16,7 +16,6 @@ public class ArtistSessionUtils {
         if (getLoginArtistId(session) != null) {
             return true;
         }
-        
         return false;
     }
 

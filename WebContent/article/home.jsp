@@ -12,6 +12,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
+<script></script>
 <title>HOME</title>
 </head>
 <body>
@@ -27,11 +28,11 @@
 				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
 =======
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${empty artisitId}'>
+			<c:if test='${artisitId eq null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
 			</c:if>
-			<c:if test='${not empty artisitId}'>
+			<c:if test='${artisitId ne null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
 			</c:if>
@@ -40,17 +41,17 @@
 	</div>
 	<br>
 	<div id='home' align="center">
-			<input id="tab1" type="radio" name="tabs" checked value="all">
-			<label for="tab1">전체 인기차트</label> <input id="tab2" type="radio"
-				name="tabs" value="rock"> <label for="tab2">ROCK
-				인기차트</label> <input id="tab3" type="radio" name="tabs" value="rNb">
-			<label for="tab3">R&B 인기차트</label> <input id="tab4" type="radio"
-				name="tabs" value="pop"> <label for="tab4">POP 인기차트</label>
-			<input id="tab5" type="radio" name="tabs" value="edm"> <label
-				for="tab5">EDM 인기차트</label> <input id="tab6" type="radio"
-				name="tabs" value="hiphop"> <label for="tab6">HIP-HOP
-				인기차트</label> <input id="tab7" type="radio" name="tabs" value="etc">
-			<label for="tab7">기타장르 인기차트</label>
+		<input id="tab1" type="radio" name="tabs" checked value="all">
+		<label for="tab1">전체 인기차트</label> <input id="tab2" type="radio"
+			name="tabs" value="rock"> <label for="tab2">ROCK 인기차트</label>
+		<input id="tab3" type="radio" name="tabs" value="rNb"> <label
+			for="tab3">R&B 인기차트</label> <input id="tab4" type="radio" name="tabs"
+			value="pop"> <label for="tab4">POP 인기차트</label> <input
+			id="tab5" type="radio" name="tabs" value="edm"> <label
+			for="tab5">EDM 인기차트</label> <input id="tab6" type="radio" name="tabs"
+			value="hiphop"> <label for="tab6">HIP-HOP 인기차트</label> <input
+			id="tab7" type="radio" name="tabs" value="etc"> <label
+			for="tab7">기타장르 인기차트</label>
 
 
 		<section id="content1" align="center">
@@ -60,9 +61,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${all.musicId}'/>
-						   </c:url>"><li>Music : <strong>${all.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${all.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${all.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${all.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${all.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${all.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -75,9 +79,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rock.musicId}'/>
-						   </c:url>"><li>Music : <strong>${rock.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${rock.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${rock.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${rock.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${rock.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${rock.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -90,9 +97,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rNb.musicId}'/>
-						   </c:url>"><li>Music : <strong>${rNb.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${rNb.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${rNb.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${rNb.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${rNb.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${rNb.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -105,9 +115,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${pop.musicId}'/>
-						   </c:url>"><li>Music : <strong>${pop.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${pop.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${pop.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${pop.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${pop.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${pop.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -120,9 +133,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${edm.musicId}'/>
-						   </c:url>"><li>Music : <strong>${edm.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${edm.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${edm.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${edm.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${edm.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${edm.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -135,9 +151,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${hiphop.musicId}'/>
-						   </c:url>"><li>Music : <strong>${hiphop.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${hiphop.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${hiphop.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${hiphop.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${hiphop.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${hiphop.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -150,9 +169,12 @@
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${etc.musicId}'/>
-						   </c:url>"><li>Music : <strong>${etc.musicName}</strong></li>&nbsp;&nbsp;&nbsp;&nbsp;<li>Aritst : <strong>${etc.artistId}</strong></li>
-						   &nbsp;&nbsp;&nbsp;&nbsp;<li>Like : <strong>${etc.likeCount}</strong></li>
-						</a>
+						   </c:url>"><li>Music
+								: <strong>${etc.musicName}</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Aritst : <strong>${etc.artistId}</strong></li>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>Like : <strong>${etc.likeCount}</strong></li> </a>
 					</c:forEach>
 				</ol>
 			</div>
