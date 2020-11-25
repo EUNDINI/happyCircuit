@@ -5,21 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Login & Register</title>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/artist/style.css" />
 </head>
 <body>
 
 	<section class="container">
 		<article class="half">
-			<h1>Nth Create</h1>
+			<h1 style="color: #47c9af;">Nth Create</h1>
 			<div class="tabs">
 				<span class="tab signin active"><a href="#signin">Sign in</a></span>
 				<span class="tab signup"><a href="#signup">Sign up</a></span>
 			</div>
 			<div class="content">
 				<div class="signin-cont cont">
-
 					<form action="<c:url value='/artist/login' />" method="post" >
 						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
@@ -45,7 +43,6 @@
 							class="inpt" required="required" placeholder="Your NickName">
 						<label for="nickname">Your NickName</label> <input type="text"
 							name="profile" id="profile" class="inpt" required="required"
-
 							placeholder="Your Profile"> 
 							<label for="profile">Your
 							Profile</label> 

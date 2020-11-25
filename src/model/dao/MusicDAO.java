@@ -36,7 +36,6 @@ public class MusicDAO {
 		Object[] param;
 		String sql;
 		if (music.getPriorMusicId() != 0) {
-			System.out.println("sdlkcn");
 			sql = "INSERT INTO Music VALUES (music_seq.nextval,?,?,?,?,?,?,?)";
 			param = new Object[] { music.getArtistId(), music.getMusicName(), music.getGenre(), music.getMusicPath(),
 					music.getOriginalMusicId(), music.getPriorMusicId(), music.getNth() };
@@ -127,27 +126,23 @@ public class MusicDAO {
 	}
 
 	public int findNth(int priorMusicId) {
-		if (priorMusicId == 0)
-			return 1;
-		else {
-			String sql = "SELECT nth FROM Music WHERE priorMusicId=?";
-			Object[] param = new Object[] { priorMusicId };
-			jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
 
-			try {
-				ResultSet rs = jdbcUtil.executeQuery(); // query 실행
-				int nth;
-				if (rs.next()) {
-					nth = rs.getInt("nth");
-					return nth;
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				jdbcUtil.close(); // resource 반환
+		String sql = "SELECT nth FROM Music WHERE musicId=?";
+		Object[] param = new Object[] { priorMusicId };
+		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
+			int nth;
+			if (rs.next()) {
+				nth = rs.getInt("nth");
+				return nth;
 			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // resource 반환
 		}
-
 		return 0;
 	}
 
@@ -251,7 +246,6 @@ public class MusicDAO {
 
 	public int createMusicArticle(MusicArticle musicArticle) throws Exception {
 		int musicId = createMusic(musicArticle.getMusic());
-		System.out.println(musicId);
 		String sql = "INSERT INTO MusicArticle VALUES (?, ?, SYSDATE, ?, ?)";
 		Object[] param = new Object[] { musicId, musicArticle.getContent(), musicArticle.getReadCount(),
 				musicArticle.getLikeCount() };
@@ -272,7 +266,7 @@ public class MusicDAO {
 
 	public MusicArticle findMusicArticle(int musicArticleId) throws Exception {
 		int res = increaseReadCount(musicArticleId);
-		
+
 		if (res == 0)
 			return null;
 
@@ -336,9 +330,10 @@ public class MusicDAO {
 
 	public int countSearchMusicArticle(String condition, String search) {
 		String contain = "%" + search + "%";
-		String sql = "SELECT count(*) AS total FROM MusicArticle a, Music m WHERE a.musicId = m.musicId and " + condition + " like " +  "'" + contain+ "'";
-		//jdbcUtil.setSqlAndParameters(sql,new Object[] { condition, contain } );
-		jdbcUtil.setSqlAndParameters(sql,null);
+		String sql = "SELECT count(*) AS total FROM MusicArticle a, Music m WHERE a.musicId = m.musicId and "
+				+ condition + " like " + "'" + contain + "'";
+		// jdbcUtil.setSqlAndParameters(sql,new Object[] { condition, contain } );
+		jdbcUtil.setSqlAndParameters(sql, null);
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -358,9 +353,12 @@ public class MusicDAO {
 		int start = countPerPage * (currentPage - 1) + 1;
 		String contain = "%" + search + "%";
 
-		sql = "SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (select * from musicArticle where musicarticle.musicId in (SELECT music.musicid from music where " + condition + " like " +  "'" + contain+ "')" +" order by regdate desc) A WHERE ROWNUM <= ? ) WHERE RNUM >= ?";
-		//jdbcUtil.setSqlAndParameters(sql, new Object[] { condition, search, start + countPerPage - 1, start });
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {start + countPerPage - 1, start });
+		sql = "SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (select * from musicArticle where musicarticle.musicId in (SELECT music.musicid from music where "
+				+ condition + " like " + "'" + contain + "')"
+				+ " order by regdate desc) A WHERE ROWNUM <= ? ) WHERE RNUM >= ?";
+		// jdbcUtil.setSqlAndParameters(sql, new Object[] { condition, search, start +
+		// countPerPage - 1, start });
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { start + countPerPage - 1, start });
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>();
@@ -369,7 +367,7 @@ public class MusicDAO {
 						rs.getDate("regDate"), rs.getInt("readCount"), rs.getInt("likeCount"));
 				musicArticleList.add(musicArticle);
 			}
-			
+
 			for (int i = 0; i < musicArticleList.size(); i++) {
 				MusicArticle musicArticle = musicArticleList.get(i);
 				Music music = findMusic(musicArticle.getMusicId());
@@ -469,7 +467,6 @@ public class MusicDAO {
 	}
 
 	public int increaseLikeCount(int musicArticleId) {
-		System.out.println("like!!!!!!!!!");
 		String sql = "UPDATE MusicArticle SET likeCount=likeCount+1 WHERE musicId=?";
 		Object[] param = new Object[] { musicArticleId };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil에 update문과 매개 변수 설정

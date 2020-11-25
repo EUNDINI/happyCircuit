@@ -8,7 +8,6 @@ import controller.Controller;
 import model.service.ArtistManager;
 
 public class LoginController implements Controller {
-
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String artistId = request.getParameter("artistId");
