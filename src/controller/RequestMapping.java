@@ -13,9 +13,11 @@ import controller.findArtist.ViewPostController;
 import controller.myPage.*;
 import controller.DM.*;
 import controller.article.CreateMusicController;
+import controller.article.CreateNthMusicController;
 import controller.article.DeleteMusicController;
 import controller.article.GetMusicListController;
 import controller.article.LikeChartController;
+import controller.article.ReadMusicController;
 import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
 import controller.artist.LoginController;
@@ -29,12 +31,12 @@ public class RequestMapping {
 	public void initMapping() {
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
 		
-		/	// Login & Logout / Register
+		// Login & Logout / Register
 		mappings.put("/artist/login/form", new ForwardController("/artist/login_register.jsp"));
 		mappings.put("/artist/login", new LoginController());
 		mappings.put("/artist/logout", new LogoutController());
 		//mappings.put("/artist/register/form", new ForwardController("/artist/login_register.jsp"));
-		mappings.put("/artist/register", new RegisterUserController());
+		mappings.put("/artist/register", new RegisterArtistController());
 
 		// MusicBoard Mapping
 		mappings.put("/home", new LikeChartController());
