@@ -84,10 +84,11 @@ public class ArtistDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
-			if (rs.next()) {						// 학생 정보 발견
+			if (rs.next()) {
 				Artist artist = new Artist(artistId, rs.getString("password"),
 								rs.getString("nickname"), rs.getString("profile"),
 								rs.getString("image"));
+
 				return artist;
 			}
 		} catch (Exception ex) {
@@ -116,6 +117,7 @@ public class ArtistDAO {
 		} finally {
 			jdbcUtil.close();		// resource 반환
 		}
+		
 		return false;
 	}
 
