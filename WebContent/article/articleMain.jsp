@@ -4,11 +4,8 @@
 	<%@page import="java.util.List " %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	List<MusicArticle> mA = (List<MusicArticle>)request.getAttribute("musicArticleList");
-if(mA != null)
-	System.out.println(mA.size());
-else
-	System.out.println("null");
+	String artistId = (String)session.getAttribute("artistId");
+	System.out.println(artistId);
 %>
 <!DOCTYPE html>
 <html>
@@ -90,17 +87,16 @@ function searchArticle(){
 			<li class='active'><a href='#'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${empty artisitId}'>
+			<c:if test='${artisitId eq null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
 			</c:if>
-			<c:if test='${not empty artisitId}'>
+			<c:if test='${artisitId ne null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
 			</c:if>
 		</ul>
 	</div>
-
 	<div id="board">
 		<table>
 			<tr>

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="kr">
 <head>
 <meta charset="UTF-8">
 <title>Login & Register</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/artist/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/artist/style.css" />
 </head>
 <body>
 
@@ -18,7 +20,7 @@
 			</div>
 			<div class="content">
 				<div class="signin-cont cont">
-					<form action="<c:url value='/artist/login' />" method="post" >
+					<form action="<c:url value='/artist/login' />" method="post">
 						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
 							for="artistId">Your ID</label> <input type="password"
@@ -30,11 +32,12 @@
 						</div>
 					</form>
 				</div>
-				
-				<div class="signup-cont cont">
-					<form action="<c:url value='/artist/register' />" method="post" enctype="multipart/form-data">
 
-						<input type="text" name="userId" id="userID" class="inpt"
+				<div class="signup-cont cont">
+					<form action="<c:url value='/artist/register' />" method="post"
+						enctype="multipart/form-data">
+
+						<input type="text" name="artistId" id="userID" class="inpt"
 							required="required" placeholder="Your ID"> <label
 							for="userID">Your ID</label> <input type="password"
 							name="password" id="password" class="inpt" required="required"
@@ -43,14 +46,11 @@
 							class="inpt" required="required" placeholder="Your NickName">
 						<label for="nickname">Your NickName</label> <input type="text"
 							name="profile" id="profile" class="inpt" required="required"
-							placeholder="Your Profile"> 
-							<label for="profile">Your
-							Profile</label> 
-							
-							<input type="file" name="image" id="image"
-							class="inpt" required="required" placeholder="Your Image">
-						<label for="image">Your Image</label>
-						
+							placeholder="Your Profile"> <label for="profile">Your
+							Profile</label> <input type="file" name="image" id="image" class="inpt"
+							required="required" placeholder="Your Image"> <label
+							for="image">Your Image</label>
+
 						<div class="submit-wrap">
 							<input type="submit" value="Sign up" class="submit">
 						</div>

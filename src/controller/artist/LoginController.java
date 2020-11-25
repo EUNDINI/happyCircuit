@@ -10,7 +10,7 @@ public class LoginController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String artistId = request.getParameter("artistId");
-		String passwd = request.getParameter("passwd");
+		String passwd = request.getParameter("password");
 		
 		try {
 			ArtistManager manager = ArtistManager.getInstance();
@@ -19,13 +19,13 @@ public class LoginController implements Controller {
 			HttpSession session = request.getSession();
 			session.setAttribute(ArtistSessionUtils.ARTIST_SESSION_KEY, artistId);
 
-			return "redirect:/article/articleMain.jsp";
+			return "redirect:/article/articleMain";
+			
 		} catch (Exception e) {
 			request.setAttribute("loginFailed", true);
 			request.setAttribute("exception", e);
+			return "/artist/login_register.jsp";
 		}
-
-		 return "/artist/login.jsp";	
 
 	}
 

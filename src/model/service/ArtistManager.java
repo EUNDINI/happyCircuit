@@ -14,7 +14,7 @@ import model.Artist;
  * 별도로 둘 수 있다.
  */
 public class ArtistManager {
-	private static ArtistManager userMan = new ArtistManager();
+	private static ArtistManager artistMan = new ArtistManager();
 	private ArtistDAO artistDAO;
 
 	private ArtistManager() {
@@ -27,7 +27,7 @@ public class ArtistManager {
 	}
 	
 	public static ArtistManager getInstance() {
-		return userMan;
+		return artistMan;
 	}
 	
 	public int create(Artist artist) throws SQLException, ExistingArtistException {
@@ -45,20 +45,15 @@ public class ArtistManager {
 		return artistDAO.remove(artistId);
 	}
 
-	public Artist findUser(String artistId)
+	public Artist findArtist(String artistId)
 		throws SQLException, ArtistNotFoundException {
 		Artist artist = artistDAO.findArtist(artistId);
-		
 		if (artist == null) {
 			throw new ArtistNotFoundException(artistId + "는 존재하지 않는 아이디입니다.");
-		}		
+		}
+		
 		return artist;
 	}
-
-//	public List<Artist> findArtistList(int currentPage, int countPerPage)
-//		throws SQLException {
-//		return userDAO.findArtistList(currentPage, countPerPage);
-//	}
 
 	public boolean login(String artistId, String password)
 		throws SQLException, ArtistNotFoundException, PasswordMismatchException {
@@ -69,12 +64,7 @@ public class ArtistManager {
 		}
 		return true;
 	}
-
-	private Artist findArtist(String artistId) {
-		
-		return null;
-	}
-
+	
 	public ArtistDAO getArtistDAO() {
 		return this.artistDAO;
 	}
