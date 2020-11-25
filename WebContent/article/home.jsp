@@ -34,8 +34,6 @@ function isLogin() {
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href="<c:url value='/mypage' />">My Page</a></li>
-			<button
-				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
 			<li><a href='#'>My Page</a></li>
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
