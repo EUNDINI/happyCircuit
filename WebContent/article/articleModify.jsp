@@ -16,7 +16,8 @@ artistId = (String) session.getAttribute("artistId");
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/article/boardStyles.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
@@ -53,14 +54,20 @@ function checkGenre(){
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button
-				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			<c:if test='${not empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			</c:if>
+			<c:if test='${empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
+			</c:if>
 		</ul>
 	</div>
-	
+
 	<div id="boardWrite">
-	<!-- enctype="multipart/form-data" -->
-		<form name="form"  method="post"
+		<!-- enctype="multipart/form-data" -->
+		<form name="form" method="post"
 			action="<c:url value='/article/articleModify'><c:param name='musicId' value='${music.musicId}' /> </c:url>">
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>
@@ -101,10 +108,11 @@ function checkGenre(){
 								<th>파일 업로드</th>
 								<td><input type=file name=music size=60></td>
 							</tr>
-						</table> <br> 
-						<input type="hidden" name="musicId "value="${music.musicId}" />
-						<span> <input type="button" value="수정" onClick="articleModify()" /> 
-							<input type="button" value="취소" onClick="location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='${music.musicId}' /> </c:url>'" />
+						</table> <br> <input type="hidden" name="musicId "
+						value="${music.musicId}" /> <span> <input type="button"
+							value="수정" onClick="articleModify()" /> <input type="button"
+							value="취소"
+							onClick="location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='${music.musicId}' /> </c:url>'" />
 					</span>
 					</td>
 				</tr>
