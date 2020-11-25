@@ -216,4 +216,40 @@ public class DMDAO {
 		}	
 		return null;
 	}
+	
+	//마지막 Message
+	public Message findLastMessage(int dmId) throws SQLException {
+		String sql = "SELECT ROWNUM, msgId, message, sentTime, artistId, password, nickname, profile, image "
+					+ "FROM (SELECT msgId, message, sentTime, artistId "
+					+ "FROM Message "
+					+ "WHERE dmId=? "
+					+ "ORDER BY sentTime desc) m JOIN Artist a ON m.artistId = a.artistId "
+					+ "WHERE ROWNUM <= 1";
+		Object[] param = new Object[] {dmId};				
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
+	
+		try {			
+			ResultSet rs = jdbcUtil.executeQuery();
+			if(rs.next()) {
+				Artist artist = new Artist(rs.getString("artistId"),
+								rs.getString("password"), 
+								rs.getString("nickname"),
+								rs.getString("profile"), 
+								rs.getString("image"));
+				Message msg = new Message(rs.getInt("msgId"),
+							rs.getString("message"), 
+							new Date(rs.getDate("sentTime").getTime()),
+							artist, dmId);
+				return msg;
+			}
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {		
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}	
+		return null;
+	}
+	
 }
