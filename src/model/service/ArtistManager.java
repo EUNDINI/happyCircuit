@@ -47,7 +47,8 @@ public class ArtistManager {
 
 	public Artist findArtist(String artistId)
 		throws SQLException, ArtistNotFoundException {
-		Artist artist = artistDAO.findArtist(artistId);
+		Artist artist = artistDAO.findArtistById(artistId);
+		
 		if (artist == null) {
 			throw new ArtistNotFoundException(artistId + "는 존재하지 않는 아이디입니다.");
 		}

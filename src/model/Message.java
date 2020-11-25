@@ -8,15 +8,15 @@ public class Message {
 	private String message;		//메시지 내용
 	private Date sentTime;		//메시지를 보낸 시간
 	private Artist artist;		//보내는 사람
-	private DM dm;			//메시지가 포함된 DM방의 id
+	private int dmId;			//메시지가 포함된 DM방의 id
 	
-	public Message(int msgId, String message, Date sentTime, Artist artist, DM dm) {
+	public Message(int msgId, String message, Date sentTime, Artist artist, int dmId) {
 		super();
 		this.msgId = msgId;
 		this.message = message;
 		this.sentTime = sentTime;
 		this.artist = artist;
-		this.dm = dm;
+		this.dmId = dmId;
 	}
 
 	public int getMsgId() {
@@ -51,12 +51,12 @@ public class Message {
 		this.artist = artistId;
 	}
 
-	public DM getDm() {
-		return dm;
+	public int getDmId() {
+		return dmId;
 	}
 
-	public void setDmId(DM dm) {
-		this.dm = dm;
+	public void setDmId(int dmId) {
+		this.dmId = dmId;
 	}
 	
 }

@@ -1,16 +1,23 @@
 package controller.myPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
+import model.Music;
 
 public class RecommendMusicController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return "redirect:/myPage/recommendMusic.jsp";
+
+		List<Music> musicList = new ArrayList<Music>();
+		
+		
+		return "/myPage/recommendMusic.jsp";
 	}
 
 }
