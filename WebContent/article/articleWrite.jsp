@@ -44,7 +44,14 @@ function articleWrite() {
 			<li class='active'><a href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button onClick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			<c:if test='${empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			</c:if>
+			<c:if test='${not empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
+			</c:if>
 		</ul>
 	</div>
 

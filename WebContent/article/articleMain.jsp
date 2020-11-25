@@ -90,8 +90,14 @@ function searchArticle(){
 			<li class='active'><a href='#'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button
-				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			<c:if test='${empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			</c:if>
+			<c:if test='${not empty artisitId}'>
+				<button
+					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
+			</c:if>
 		</ul>
 	</div>
 

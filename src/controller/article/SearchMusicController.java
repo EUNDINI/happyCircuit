@@ -35,7 +35,7 @@ public class SearchMusicController implements Controller {
 		
 		System.out.println("Search " + musicArticleList.size());
 		
-		return "/article/articleMain";
+		return "/article/articleMain.jsp";
 	}
 
 }
