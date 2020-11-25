@@ -20,9 +20,11 @@ import controller.article.LikeChartController;
 import controller.article.ReadMusicController;
 import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
+import controller.artist.DeleteArtistController;
 import controller.artist.LoginController;
 import controller.artist.LogoutController;
 import controller.artist.RegisterArtistController;
+import controller.artist.UpdateArtistController;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
@@ -67,17 +69,13 @@ public class RequestMapping {
 		mappings.put("/findArtist/collaborate", new CollaborateController());
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
 
-
-
-
 		//myPage
 		mappings.put("/mypage", new MyPageController());
 		mappings.put("/mypage/update", new UpdateArtistController());;
 		mappings.put("/mypage/recommendMusic", new RecommendMusicController());
 
 		//DM
-
-		mappings.put("/DM", new ListDMController());
+		mappings.put("/DM/list", new ListDMController());
 		mappings.put("/DM/create", new CreateDMController());
 		mappings.put("/DM/room", new ViewDMController());
 		mappings.put("/DM/delete", new DeleteDMController());
