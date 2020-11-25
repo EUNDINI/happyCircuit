@@ -1,11 +1,10 @@
-package controller.myPage;
+package controller.artist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.dao.ArtistDAO;
 
@@ -16,9 +15,8 @@ public class DeleteArtistController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String artistId = request.getParameter("artistId");
-	
 		HttpSession session = request.getSession();	
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 	
 		if ((ArtistSessionUtils.isLoginArtist("admin", session) && 	// 로그인한 사용자가 관리자이고 	
 			 !artistId.equals("admin"))							// 삭제 대상이 일반 사용자인 경우, 

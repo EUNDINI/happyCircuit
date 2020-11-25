@@ -14,10 +14,10 @@ public class DeleteDMController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String artistId = request.getParameter("artistId");
-		int dmId = Integer.parseInt(request.getParameter("artistId"));
+
 		HttpSession session = request.getSession();	
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+		int dmId = Integer.parseInt(request.getParameter("artistId"));
 		
 		if (ArtistSessionUtils.getLoginArtistId(session).equals(artistId)) { //로그인한 artist가 해당 dm에 있으면
 			dmDAO.deleteMembership(artistId, dmId);

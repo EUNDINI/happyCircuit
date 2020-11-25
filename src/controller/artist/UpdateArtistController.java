@@ -1,11 +1,10 @@
-package controller.myPage;
+package controller.artist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.dao.ArtistDAO;
 
@@ -15,14 +14,15 @@ public class UpdateArtistController implements Controller {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		HttpSession session = request.getSession();
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+		Artist artist = artistDAO.findArtistById(artistId);
 		
 		//GET request: form 요청
 		if (request.getMethod().equals("GET")) {
-			String artistId = request.getParameter("artistId");
-			Artist artist = artistDAO.findArtistById(artistId);
 			request.setAttribute("artist", artist);
 			
-			HttpSession session = request.getSession();
 			if (ArtistSessionUtils.isLoginArtist(artistId, session) ||
 				ArtistSessionUtils.isLoginArtist("admin", session)) {
 				// 현재 로그인한 사용자가 수정 대상 사용자이거나 관리자인 경우 -> 수정 가능
@@ -38,13 +38,13 @@ public class UpdateArtistController implements Controller {
 		}
 		
 		//POST request (회원정보가 parameter로 전송됨)
-		Artist artist = new Artist(
-				request.getParameter("artistId"),
-				request.getParameter("pw"),
-				request.getParameter("nickname"),
+		Artist updateArtist = new Artist(
+				artistId,
+				artist.getPw(),
+				artist.getNickname(),
 				request.getParameter("profile"),
 				request.getParameter("image") );
-		artistDAO.update(artist);
+		artistDAO.update(updateArtist);
 		
 		return "redirect:/myPage";
 	}

@@ -20,9 +20,11 @@ import controller.article.LikeChartController;
 import controller.article.ReadMusicController;
 import controller.article.SearchMusicController;
 import controller.article.UpdateMusicController;
+import controller.artist.DeleteArtistController;
 import controller.artist.LoginController;
 import controller.artist.LogoutController;
 import controller.artist.RegisterArtistController;
+import controller.artist.UpdateArtistController;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성

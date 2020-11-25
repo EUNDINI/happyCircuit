@@ -1,11 +1,16 @@
 package controller.myPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.artist.ArtistSessionUtils;
 import model.Artist;
+import model.Music;
 import model.dao.ArtistDAO;
 import model.service.ArtistNotFoundException;
 
@@ -20,12 +25,16 @@ public class MyPageController implements Controller {
             return "redirect:/artist/login/form";		// login form 요청으로 redirect
         }
     	
-		String artistId = request.getParameter("artistId");
+		HttpSession session = request.getSession();
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 
     	Artist artist = null;
     	artist = artistDAO.findArtistById(artistId);	// 사용자 정보 검색	
+    	
+    	List<Music> musicList = new ArrayList<Music>();
 		
-    	request.setAttribute("artist", artist);		// 사용자 정보 저장		
+    	request.setAttribute("artist", artist);		// 사용자 정보 저장	
+    	request.setAttribute("musicList", musicList);
 		return "myPage/myPage.jsp";
 	}
 
