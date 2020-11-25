@@ -12,25 +12,34 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	type="text/javascript"></script>
 <script src="script.js"></script>
-<script></script>
+<script type="text/javascript">
+function isLogin() {
+	var artist = '${artistId}';
+	if(artist != ''){
+		document.getElementById("login").style.display = "none";
+		document.getElementById("logout").style.display = "block";
+	}
+	else {
+		document.getElementById("logout").style.display = "none";
+		document.getElementById("login").style.display = "block";
+	}
+}
+</script>
 <title>HOME</title>
 </head>
-<body>
-	<!-- 각각 연동 / 좋아요 차트 가져오기 -->
+<body onload='isLogin()'>
 	<div id='menu'>
 		<ul>
 			<li class='active'><a href='#'>Home</a></li>
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href="<c:url value='/mypage' />">My Page</a></li>
-			<c:if test='${artisitId eq null}'>
-				<button
-					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
-			</c:if>
-			<c:if test='${artisitId ne null}'>
-				<button
-					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if>
+			<button
+				onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
+			<li><a href='#'>My Page</a></li>
+			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+			<button id='login'
+				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
 	<br>

@@ -19,7 +19,6 @@ public class UpdateMusicController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println(request.getParameter("content"));
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
-		System.out.println("Dfsd");
 		Music music = musicDAO.findMusic(musicId);
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
 

@@ -24,9 +24,10 @@ public class RegisterArtistController implements Controller {
 				request.getParameter("profile"),
 				request.getParameter("image") );
 		try {
-			artistDAO.create(artist);
-			return "redirect:/home"; 
-
+			ArtistManager manager = ArtistManager.getInstance();
+			manager.create(artist);
+			return "redirect:/home"; // 성공 시 사용자 리스트 화면으로 redirect
+			
 		} catch (SQLException e) { // 예외 발생 시 회원가입 form으로 forwarding
 			request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);

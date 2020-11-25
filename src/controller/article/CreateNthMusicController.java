@@ -29,8 +29,7 @@ public class CreateNthMusicController implements Controller {
 		
 		int nth = musicDAO.findNth(priorMusicId) + 1;
 		HttpSession session = request.getSession();
-		//String artistId = (String) session.getAttribute("artistId");
-		String artistId = "artist2";
+		String artistId = (String) session.getAttribute("artistId");
 		File file = null;
 		String musicPath = null;
 

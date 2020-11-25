@@ -15,7 +15,7 @@ public class LogoutController implements Controller {
 
 		session.invalidate();		
         
-        return "redirect:/article/home.jsp";
+        return "redirect:/home";
 	}
 
 }

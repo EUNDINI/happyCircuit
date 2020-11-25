@@ -7,11 +7,11 @@ import model.dao.ArtistDAO;
 import model.Artist;
 
 /**
- * ì‚¬ìš©ì ê´€ë¦¬ APIë¥¼ ì‚¬ìš©í•˜ëŠ” ê°œë°œìë“¤ì´ ì§ì ‘ ì ‘ê·¼í•˜ê²Œ ë˜ëŠ” í´ë˜ìŠ¤.
- * UserDAOë¥¼ ì´ìš©í•˜ì—¬ ë°ì´í„°ë² ì´ìŠ¤ì— ë°ì´í„° ì¡°ì‘ ì‘ì—…ì´ ê°€ëŠ¥í•˜ë„ë¡ í•˜ë©°,
- * ë°ì´í„°ë² ì´ìŠ¤ì˜ ë°ì´í„°ë“¤ì„ ì´ìš©í•˜ì—¬ ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§ì„ ìˆ˜í–‰í•˜ëŠ” ì—­í• ì„ í•œë‹¤.
- * ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§ì´ ë³µì¡í•œ ê²½ìš°ì—ëŠ” ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§ë§Œì„ ì „ë‹´í•˜ëŠ” í´ë˜ìŠ¤ë¥¼ 
- * ë³„ë„ë¡œ ë‘˜ ìˆ˜ ìˆë‹¤.
+ * »ç¿ëÀÚ °ü¸® API¸¦ »ç¿ëÇÏ´Â °³¹ßÀÚµéÀÌ Á÷Á¢ Á¢±ÙÇÏ°Ô µÇ´Â Å¬·¡½º.
+ * UserDAO¸¦ ÀÌ¿ëÇÏ¿© µ¥ÀÌÅÍº£ÀÌ½º¿¡ µ¥ÀÌÅÍ Á¶ÀÛ ÀÛ¾÷ÀÌ °¡´ÉÇÏµµ·Ï ÇÏ¸ç,
+ * µ¥ÀÌÅÍº£ÀÌ½ºÀÇ µ¥ÀÌÅÍµéÀ» ÀÌ¿ëÇÏ¿© ºñÁö´Ï½º ·ÎÁ÷À» ¼öÇàÇÏ´Â ¿ªÇÒÀ» ÇÑ´Ù.
+ * ºñÁö´Ï½º ·ÎÁ÷ÀÌ º¹ÀâÇÑ °æ¿ì¿¡´Â ºñÁö´Ï½º ·ÎÁ÷¸¸À» Àü´ãÇÏ´Â Å¬·¡½º¸¦ 
+ * º°µµ·Î µÑ ¼ö ÀÖ´Ù.
  */
 public class ArtistManager {
 	private static ArtistManager artistMan = new ArtistManager();
@@ -32,7 +32,7 @@ public class ArtistManager {
 	
 	public int create(Artist artist) throws SQLException, ExistingArtistException {
 		if (artistDAO.existingArtist(artist.getArtistId())) {
-			throw new ExistingArtistException(artist.getArtistId() + "ëŠ” ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
+			throw new ExistingArtistException(artist.getArtistId() + "´Â Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
 		}
 		return artistDAO.create(artist);
 	}
@@ -47,9 +47,10 @@ public class ArtistManager {
 
 	public Artist findArtist(String artistId)
 		throws SQLException, ArtistNotFoundException {
-		Artist artist = artistDAO.findArtist(artistId);
+		Artist artist = artistDAO.findArtistById(artistId);
+		
 		if (artist == null) {
-			throw new ArtistNotFoundException(artistId + "ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
+			throw new ArtistNotFoundException(artistId + "´Â Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
 		}
 		
 		return artist;
@@ -60,7 +61,7 @@ public class ArtistManager {
 		Artist artist = findArtist(artistId);
 
 		if (!artist.matchPassword(password)) {
-			throw new PasswordMismatchException("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			throw new PasswordMismatchException("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
 		}
 		return true;
 	}
