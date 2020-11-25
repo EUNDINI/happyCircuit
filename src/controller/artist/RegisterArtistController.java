@@ -16,7 +16,7 @@ public class RegisterArtistController implements Controller {
 		try {
 			ArtistManager manager = ArtistManager.getInstance();
 			manager.create(artist);
-			return "redirect:/board/home.jsp"; // 성공 시 사용자 리스트 화면으로 redirect
+			return "redirect:/home"; // 성공 시 사용자 리스트 화면으로 redirect
 
 		} catch (ExistingArtistException e) { // 예외 발생 시 회원가입 form으로 forwarding
 			request.setAttribute("registerFailed", true);

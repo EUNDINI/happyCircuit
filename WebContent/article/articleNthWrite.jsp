@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String artistId = null;
-artistId = (String) session.getAttribute("artistId");
-
-//if (artistId == null || artistId.equals("")) {
-//	response.sendRedirect("articleMain.jsp");
-//}
-
-String priorMusicId= request.getParameter("priorMusicId");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,13 +42,7 @@ function articleList(targetUri) {
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${empty artisitId}'>
-				<button onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
-			</c:if>
-			<c:if test='${not empty artisitId}'>
-				<button
-					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if>
+			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 		</ul>
 	</div>
 
@@ -66,7 +50,7 @@ function articleList(targetUri) {
 	<!-- enctype="multipart/form-data"  -->
 		<form name="form" method="post"
 			action="<c:url value='/article/articleNthWrite'  />">
-			<input type='hidden' name='priorMusicId' value="<%= priorMusicId %>" />
+			<input type='hidden' name='priorMusicId' value="${priorMusicId}" />
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>
 					<td height=20 align=center bgcolor=#cccccc><font color=white>
@@ -77,7 +61,7 @@ function articleList(targetUri) {
 						<table id="writeTable" width='80%'>
 							<tr>
 								<th width="200px">작성자</th>
-								<td>${artistId}</td>
+								<td>${artistId</td>
 							</tr>
 
 							<tr>

@@ -8,9 +8,22 @@
 <title>Login & Register</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/artist/style.css" />
+<script type="text/javascript">
+function error(){
+		if(${loginFailed}){
+			alert('${exception}')
+		}
+		
+		if(${registerFailed})){
+			alert('${exception}')
+			document.getElementById("artistId").value = '${artist.artistId}';
+			document.getElementById("password").value = '${artist.pw}';
+			document.getElementById("profile").value = '${artist.profile}';
+		}
+}
+	</script>
 </head>
-<body>
-
+<body onload="error()">
 	<section class="container">
 		<article class="half">
 			<h1 style="color: #47c9af;">Nth Create</h1>
@@ -37,9 +50,9 @@
 					<form action="<c:url value='/artist/register' />" method="post"
 						enctype="multipart/form-data">
 
-						<input type="text" name="artistId" id="userID" class="inpt"
+						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
-							for="userID">Your ID</label> <input type="password"
+							for="artistId">Your ID</label> <input type="password"
 							name="password" id="password" class="inpt" required="required"
 							placeholder="Your password"> <label for="password">Your
 							Password</label> <input type="text" name="nickname" id="nickname"

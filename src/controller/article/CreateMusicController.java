@@ -22,8 +22,7 @@ public class CreateMusicController implements Controller {
 		//원작 글쓰기
 		String musicName = request.getParameter("title");
 		HttpSession session = request.getSession();
-		//String artistId = (String) session.getAttribute("artistId");
-		String artistId = "artist1";
+		String artistId = (String) session.getAttribute("artistId");
 		File file = null;
 		String musicPath = null;
 
