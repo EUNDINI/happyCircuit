@@ -16,7 +16,7 @@ public class RecommendMusicController implements Controller {
 
 		List<Music> musicList = new ArrayList<Music>();
 		
-		
+		request.setAttribute("musicList", musicList);
 		return "/myPage/recommendMusic.jsp";
 	}
 

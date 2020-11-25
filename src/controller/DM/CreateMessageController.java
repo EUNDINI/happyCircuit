@@ -18,10 +18,8 @@ public class CreateMessageController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Artist artist = artistDAO.findArtistById(request.getParameter("artistId"));
 		Message msg = new Message(
-				(Integer) null, 
-				request.getParameter("message"), 
-				null,
-				artist,
+				0, request.getParameter("message"), 
+				null, artist,
 				Integer.parseInt(request.getParameter("dmId")));
 		
 		try {

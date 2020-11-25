@@ -27,7 +27,7 @@ public class CreateDMController implements Controller {
 				list.add(artist);
 			}
 			
-			DM dm = new DM(Integer.parseInt(request.getParameter("dmId")), list);
+			DM dm = new DM(0, list);
 			dmDAO.createDMAndMembership(dm);
 			
 			request.setAttribute("dmId", dm.getDmId());
