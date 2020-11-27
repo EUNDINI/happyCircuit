@@ -76,7 +76,7 @@
 <body>
 	<div class="align-center main">
 		<img src="../sample/holding_onto_gravity.jpg"><!-- 현재 이미지 -->
-		<form action="" method="POST">
+		<form action="" method="POST" action="<c:url value='/mypage/update' />">
 			<input type="file" class="form-item" name="image">
 			<br>
 			<input type="text" class="form-item introduction" value="${artist.profile}" name="profile">

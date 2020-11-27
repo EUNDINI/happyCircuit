@@ -1,5 +1,6 @@
 package controller.DM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,13 @@ public class ViewDMController implements Controller {
 		int dmId = Integer.parseInt(request.getParameter("dmId"));
 		List<Message> msgList = dmDAO.findMessageList(dmId);
 		
-		//현재 로그인 된 artist와 msg를 보낸 artist가 같으면 true
-		List<Boolean> artistBooleanList = null;
 		HttpSession session = request.getSession();
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+
+		//현재 로그인 된 artist와 msg를 보낸 artist가 같으면 true
+		List<Boolean> artistBooleanList = new ArrayList<Boolean>();
 		for (Message msg : msgList) {
-			if (msg.getArtist().equals(ArtistSessionUtils.getLoginArtistId(session))) {
+			if (msg.getArtist().getArtistId().equals(artistId)) {
 				artistBooleanList.add(true);
 			} else {
 				artistBooleanList.add(false);
@@ -35,7 +38,6 @@ public class ViewDMController implements Controller {
 		
 		request.setAttribute("artistBooleanList", artistBooleanList);
 		request.setAttribute("msgList", msgList);
-		request.setAttribute("dmId", dmId);
 		return "/DM/detail.jsp";
 	}
 

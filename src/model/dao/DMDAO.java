@@ -95,7 +95,6 @@ public class DMDAO {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
-			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
 		
@@ -104,7 +103,7 @@ public class DMDAO {
 	
 	//DM에 속한 artist 목록
 	public List<Artist> findArtistListFromMembership(int dmId) throws SQLException {
-		String sql = "SELECT artistId, password, nickname, profile, image "
+		String sql = "SELECT a.artistId, password, nickname, profile, image "
 					+ "FROM Membership m JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE dmId=?";
 		Object[] param = new Object[] {dmId};				
@@ -119,13 +118,13 @@ public class DMDAO {
 						rs.getString("nickname"), rs.getString("profile"),
 						rs.getString("image"));
 				artistList.add(artist);
-				return artistList;
 			}
+			return artistList;
 		} catch (Exception ex) {
-			jdbcUtil.rollback();
+			System.out.println("error111111");
 			ex.printStackTrace();
+			jdbcUtil.rollback();
 		} finally {		
-			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
 		return null;
@@ -137,20 +136,19 @@ public class DMDAO {
 		Object[] param = new Object[] {artistId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 
-		try {				
+		try {		
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<DM> dmList = new ArrayList<DM>();
 			while (rs.next()) {
 				int dmId = rs.getInt("dmId");
-				DM dm = new DM(dmId, findArtistListFromMembership(dmId));
-				dmList.add(dm);
+				DM dm = new DM(dmId, null);
+				dmList.add(dm);	
 			}
 			return dmList;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
-			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
 		return null;
@@ -184,7 +182,7 @@ public class DMDAO {
 	 
 	//해당 DM방의 Message 리스트
 	public List<Message> findMessageList(int dmId) throws SQLException {
-		String sql = "SELECT msgId, message, sentTime, artistId, password, nickname, profile, image "
+		String sql = "SELECT a.artistId, password, nickname, profile, image, msgId, message, sentTime "
 					+ "FROM Message m JOIN DM d ON m.dmId = d.dmId "
 					+ "JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE d.dmId=?";
@@ -205,13 +203,12 @@ public class DMDAO {
 							new Date(rs.getDate("sentTime").getTime()),
 							artist, dmId);
 				msgList.add(msg);
-				return msgList;
 			}
+			return msgList;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
-			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
 		return null;
@@ -219,7 +216,7 @@ public class DMDAO {
 	
 	//마지막 Message
 	public Message findLastMessage(int dmId) throws SQLException {
-		String sql = "SELECT ROWNUM, msgId, message, sentTime, artistId, password, nickname, profile, image "
+		String sql = "SELECT ROWNUM, m.artistId, password, nickname, profile, image, msgId, message, sentTime "
 					+ "FROM (SELECT msgId, message, sentTime, artistId "
 					+ "FROM Message "
 					+ "WHERE dmId=? "
@@ -246,7 +243,6 @@ public class DMDAO {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
-			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환
 		}	
 		return null;

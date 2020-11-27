@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- onclick에 주소 추가해야 -->
 <!DOCTYPE html>
 <html>
@@ -96,7 +97,11 @@
 </style>
 </head>
 <body>
-	<a href="<c:url value='/DM/list' />" class="DM">DM</a> <!-- 내 DM 목록 -->
+	<c:if test="${isSameArtist}">
+		<a href="<c:url value='/DM/list'>
+				 	<c:param name='artistId' value='${artistId}'/>
+				 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+	</c:if>
 	
 	<div class="align-center profile-image">
 		<img src="${artist.image}" class="profile-img">
@@ -110,12 +115,27 @@
 		<span>${artist.profile}</span>
 	</div>
 	<div class="update">
-		<a href="<c:url value='/mypage/update' />" class="btn-update">수정</a>
-		<a href="<c:url value='/DM/create' />" class="btn-DM">DM보내기</a>
+		<c:if test="${isSameArtist}">
+			<a href="<c:url value='/mypage/update'>
+				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 </c:url>" class="btn-update">수정</a>
+		</c:if>
+		<c:if test="${!isSameArtist}">
+			<a href="<c:url value='/DM/create' />" class="btn-DM">DM보내기</a>
+		</c:if>
+        <c:if test="${updateFailed || deleteFailed}">
+	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
+	    </c:if>   
+	     
+		<c:if test="${isSameArtist}">
+			<a href="<c:url value='/mypage/recommendMusic'>
+				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 </c:url>" class="btn-update">음악 추천</a>
+		</c:if>
 	</div>
 	
 	<div class="align-center like-list">
-		<c:forEach var="music" items="${musicList} varStatus="status">
+		<c:forEach var="music" items="${musicList}" varStatus="status">
 			<c:if test="${status.index % 5 == 0}">
 				<div class="music-container">
 			</c:if>
