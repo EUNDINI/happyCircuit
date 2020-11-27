@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,7 @@
 	table, tr, td {
 		border: 1px solid #DDDDDD;
 		border-collapse: collapse;
+		width: 100%;
 	}
 	table {
 		margin: 50px 0px;
@@ -34,6 +36,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
+		height: 70px;
+		margin: auto 10px;
 	}
 	.flex-item {
 		flex-grow: 1;
@@ -53,17 +57,15 @@
 		<table>
 			<c:forEach var="dm" items="${dmList}" varStatus="status">
 				<tr>
-					<a href="<c:url value='/DM/room'>
-						   		<c:param name='dmId' value='${dm.dmId}'/>
-				 		 	 </c:url>">
-					<td onclick="location.href=" class="hover-cursor">
+					<td onclick="location.href=`<c:url value='/DM/room'>
+											   		<c:param name='dmId' value='${dm.dmId}'/>
+											 	</c:url>`" class="hover-cursor">
 						<img src="${artistList[status.index].image}" class="artist-img">
 						<div class="flex-container">
 							<div class="flex-item"><span>${artistList[status.index].nickname}</span></div>
 							<div class="flex-item"><span>${lastMsgList[status.index].message}</span></div>
 						</div>
 					</td>	
-					</a>		
 				</tr>
 			</c:forEach>
 			<!-- 

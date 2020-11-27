@@ -119,7 +119,7 @@
 			<c:if test="${artistBooleanList[status.index]}">
 				<div align="right">
 					<div class="time time-right">
-						${msg.sentTime}
+						${msg.getStringSentTime()}
 					</div>
 					<div class="message message-right">
 						${msg.message}
@@ -135,7 +135,7 @@
 						${msg.message}
 					</div>
 					<div class="time time-left">
-						${msg.sentTime}
+						${msg.getStringSentTime()}
 					</div>
 				</div>
 			</c:if>

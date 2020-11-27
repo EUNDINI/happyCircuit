@@ -45,8 +45,9 @@ public class UpdateArtistController implements Controller {
 				request.getParameter("profile"),
 				request.getParameter("image") );
 		artistDAO.update(updateArtist);
-		
-		return "redirect:/myPage";
+
+		request.setAttribute("artistId", artistId);
+		return "/myPage/myPage.jsp";
 	}
 
 }
