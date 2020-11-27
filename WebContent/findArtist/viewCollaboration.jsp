@@ -3,7 +3,7 @@
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	Post post = (Post)request.getAttribute("post");
+	Collaboration collaboration = (Collaboration)request.getAttribute("collaboration");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,25 +18,23 @@
 </head>
 <body>
 	<div class="container">
-		<!-- 디엠쪽으로 action 보내게 수정해야 함  --> 
-	    <form name="createCollaboration" method="POST" action="<c:url value='/findArtist/create/collaboration' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="applyForm" method="POST" action="listPost.jsp" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">협업 신청</font></b><hr>
 	        
 	        <div class="required-field-block">
-	            <input type="text" name="collaborationTitle" class="form-control" placeholder="제목을 입력해주세요.">
+	            <input type="text" name="collaborationTitle" class="form-control" value="${collaboration.collaborationTitle}">
 	            <div class="required-icon">
 	                <div class="text"> <br></div>
 	            </div>
 	        </div>
 	       
 	        <div class="required-field-block">
-	            <textarea  name="collaborationContent" rows="15" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+	            <textarea  name="collaborationContent" rows="15" class="form-control">${collaboration.collaborationContent}</textarea>
 	        </div>
-	        <br>
+	        <br> 
 	        
-	        <input type="text" name="postId" value="${post.postId}" style="display:none">
-	         
-	        <input type="submit" value="신청" class="btn btn-primary">  
+	        <a href="<c:url value='/findArtist/list' />">
+	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
 	          
 	    </form>
 	</div>

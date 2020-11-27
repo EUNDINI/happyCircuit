@@ -11,20 +11,22 @@ public class Collaboration { // 협업 신청폼
 	private Date collaborationDate; // 신청폼을 작성한 날짜
 	private String collaborationContent; // 신청폼 내용
 	
-	private int postId; // 자신이 협업신청을 누른 post의 객체
-	private int artistId; // 협업신청한 사람
+	private int postId; // 자신이 협업신청을 누른 post의 id
+	private String postArtistId; // post를 작성한 사람의 id
+	private String collaborationArtistId; // 협업신청한 사람의 id
 	
 	public Collaboration () {}
-	
+
 	public Collaboration(int collaborationId, String collaborationTitle, Date collaborationDate,
-			String collaborationContent, int postId, int artistId) {
+			String collaborationContent, int postId, String postArtistId,  String collaborationArtistId) {
 		super();
 		this.collaborationId = collaborationId;
 		this.collaborationTitle = collaborationTitle;
 		this.collaborationDate = collaborationDate;
 		this.collaborationContent = collaborationContent;
 		this.postId = postId;
-		this.artistId = artistId;
+		this.postArtistId = postArtistId;
+		this.collaborationArtistId = collaborationArtistId;
 	}
 
 	public int getCollaborationId() {
@@ -67,12 +69,20 @@ public class Collaboration { // 협업 신청폼
 		this.postId = postId;
 	}
 
-	public int getArtistId() {
-		return artistId;
+	public String getPostArtistId() {
+		return postArtistId;
 	}
 
-	public void setArtistId(int artistId) {
-		this.artistId = artistId;
+	public void setPostArtistId(String postArtistId) {
+		this.postArtistId = postArtistId;
+	}
+
+	public String getCollaborationArtistId() {
+		return collaborationArtistId;
+	}
+
+	public void setCollaborationArtistId(String collaborationArtistId) {
+		this.collaborationArtistId = collaborationArtistId;
 	}
 	
 }

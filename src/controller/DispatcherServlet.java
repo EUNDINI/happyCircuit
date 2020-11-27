@@ -17,6 +17,10 @@ public class DispatcherServlet extends HttpServlet {
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		String contextPath = request.getContextPath();
 		String servletPath = request.getServletPath();
+		
+		System.out.println("contextPath: " + contextPath);
+		System.out.println("servletPath: " + servletPath);
+		
 		// RequestURI 중 servletPath에 대응되는 controller를 구함
 		Controller controller = rm.findController(servletPath);
 		try {
