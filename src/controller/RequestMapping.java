@@ -2,13 +2,16 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import controller.findArtist.CollaborateController;
+
+import controller.findArtist.CollaborationController;
 import controller.findArtist.CreateCollaborationController;
 import controller.findArtist.CreatePostController;
 import controller.findArtist.DeletePostController;
 import controller.findArtist.ListPostController;
 import controller.findArtist.SearchPostController;
 import controller.findArtist.UpdatePostController;
+import controller.findArtist.UpdatePostFormController;
+import controller.findArtist.ViewCollaborationController;
 import controller.findArtist.ViewPostController;
 import controller.myPage.*;
 import controller.DM.*;
@@ -64,10 +67,13 @@ public class RequestMapping {
 		mappings.put("/findArtist/create", new CreatePostController());
 		mappings.put("/findArtist/view/post", new ViewPostController());
 		mappings.put("/findArtist/delete/post", new DeletePostController());
-		mappings.put("/findArtist/update", new UpdatePostController());
+		mappings.put("/findArtist/update", new UpdatePostFormController());
+		mappings.put("/findArtist/update/post", new UpdatePostController());
 		mappings.put("/findArtist/search/post", new SearchPostController());
-		mappings.put("/findArtist/collaborate", new CollaborateController());
+		mappings.put("/findArtist/collaborate", new CollaborationController());
 		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
+		mappings.put("/findArtist/view/collaboration", new ViewCollaborationController());
+	
 
 		//myPage
 		mappings.put("/mypage", new MyPageController());

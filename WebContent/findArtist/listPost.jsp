@@ -36,32 +36,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<tr>
-                                    <th scope="row">1</th>
-                                    <td>보컬</td>
-                                    <td>객원 보컬 구합니다</td>
-									<td>김은진</td>
-									<td>2020.10.13</td>
-									<td>13</td>
-                                </tr>
-                                
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>세션</td>
-                                    <td>키보드 세션 보컬 구합니다</td>
-									<td>이지우</td>
-									<td>2020.10.15</td>
-									<td>20</td>
-                                </tr>
-                                
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>보컬</td>
-                                    <td>객원 보컬 구합니다</td>
-									<td>문현정</td>
-									<td>2020.10.17</td>
-									<td>27</td>
-                                </tr>
+                            	<c:forEach var="post" items="${postList}">
+                            		<tr>
+                            			<th scope="row">${post.postId}</th>
+                            			<td>${post.postCategoryName}</td>
+                                    	
+                                    	<td>
+	                                    	<a href="<c:url value='/findArtist/view/post'>
+											   <c:param name='postId' value='${post.postId}'/>
+									 		 	</c:url>">
+								  			${post.postTitle}</a>
+							  			</td>
+                                    		
+										<td>${post.nickname}</td>
+										<td>${post.postDate}</td>
+										<td>${post.postView}</td>
+									</tr>
+                            	</c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -89,8 +80,10 @@
                     <!-- end project-list -->
 					
 					<div class="write-find-artist">
-						<form>
-							<input type="button" name="writeApply" value="작성" onclick="location.href='createPost.jsp'" class="btn btn-primary">
+						<form name="listPost" method="POST">
+							<a href="<c:url value='/findArtist/create/post' />">
+					        	<input type="button" name="writePost" value="작성"  class="btn btn-primary">
+					        </a>	
 				        </form>
 					</div>
 					<!-- end write button -->
