@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- onclick에 주소 추가해야 -->
 <!DOCTYPE html>
 <html>
@@ -25,11 +26,15 @@
 		height: auto;
 		border-radius: 100px;
 	}
+	.profile-nickname {
+		padding: 10px;
+		margin-top: 20px;
+	}
 	.profile-introduction {
 		padding: 10px;
 		width: 60%;
 		min-width: 500px;
-		margin-top: 50px;
+		margin-top: 20px;
 		background-color: #EEEEEE;
 	}
 	.like-list {
@@ -92,21 +97,62 @@
 </style>
 </head>
 <body>
-	<a href="" class="DM">DM</a> <!-- 내 DM 목록 -->
+	<c:if test="${isSameArtist}">
+		<a href="<c:url value='/DM/list'>
+				 	<c:param name='artistId' value='${artistId}'/>
+				 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+	</c:if>
 	
 	<div class="align-center profile-image">
-		<img src="../sample/holding_onto_gravity.jpg" class="profile-img">
+		<img src="${artist.image}" class="profile-img">
+	</div>
+	
+	<div class="aling-cneter profile-nickname">
+		<span>${artist.nickname}</span>
 	</div>
 	
 	<div class="align-center profile-introduction">
-		<span>소개입니다. 구역 구분을 위해 색을 넣어둔 거고 나중엔 뺄 겁니다~ 아니면 연한 회색이나</span>
+		<span>${artist.profile}</span>
 	</div>
 	<div class="update">
-		<a href="" class="btn-update">수정</a>
-		<a href="" class="btn-DM">DM보내기</a>
+		<c:if test="${isSameArtist}">
+			<a href="<c:url value='/mypage/update'>
+				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 </c:url>" class="btn-update">수정</a>
+		</c:if>
+		<c:if test="${!isSameArtist}">
+			<a href="<c:url value='/DM/create' />" class="btn-DM">DM보내기</a>
+		</c:if>
+        <c:if test="${updateFailed || deleteFailed}">
+	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
+	    </c:if>   
+	     
+		<c:if test="${isSameArtist}">
+			<a href="<c:url value='/mypage/recommendMusic'>
+				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 </c:url>" class="btn-update">음악 추천</a>
+		</c:if>
 	</div>
 	
 	<div class="align-center like-list">
+		<c:forEach var="music" items="${musicList}" varStatus="status">
+			<c:if test="${status.index % 5 == 0}">
+				<div class="music-container">
+			</c:if>
+			<div class="music">
+				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
+				<div class="music-title">
+					<span onclick="location.href=''" class="hover-cursor">title</span>
+				</div>
+				<div class="music-artist">
+					<span onclick="location.href=''" class="hover-cursor">artist</span>
+				</div>
+			</div>
+			<c:if test="${status.index + 1 % 5 == 0}">
+				<div class="music-container">
+			</c:if>
+		</c:forEach> 
+		<!-- 
 		<% 
 		for (int i = 0; i < 15; i++) {
 			if (i % 5 == 0) {
@@ -131,10 +177,10 @@
 		<%
 			}
 		}
-		%>
+		%>-->
 	</div>
 	<div class="delete">
-		<a href="" class="btn-delete">탈퇴</a>
+		<a href="<c:url value='/artist/delete' />" class="btn-delete">탈퇴</a>
 	</div>
 </body>
 </html>

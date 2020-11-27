@@ -62,17 +62,28 @@
       	}
     }
 </style>
+<script>
+	function userModify() {
+		form.submit();
+	}
+	
+	function userList(targetUri) {
+		form.action = targetUri;
+		form.submit();
+	}
+</script>
 </head>
 <body>
 	<div class="align-center main">
 		<img src="../sample/holding_onto_gravity.jpg"><!-- 현재 이미지 -->
-		<form action="" method="POST">
-			<input type="file" class="form-item">
+		<form action="" method="POST" action="<c:url value='/mypage/update' />">
+			<input type="file" class="form-item" name="image">
 			<br>
-			<input type="text" class="form-item introduction">
+			<input type="text" class="form-item introduction" value="${artist.profile}" name="profile">
 		</form>
 		<div class="wrap-btns">
-			<a href="" class="btn-update">수정</a>
+			<a href="" class="btn-update" onClick="userModify()">수정</a>
+			<a href="" class="btn-update" onClick="userList('<c:url value='/mypage' />')"">취소</a>
 		</div>
 	</div>
 </body>

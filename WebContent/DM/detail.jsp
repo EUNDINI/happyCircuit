@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,15 +113,34 @@
 </style>
 </head>
 <body>
+	<!-- 현재 로그인한 artist와 msg를 보낸 사람이 일치하면 right 아니면 left -->
 	<div class="dm align-center">
-		<div align="right">
-			<div class="time time-right">
-				12:30
-			</div>
-			<div class="message message-right">
-				안녕하세요			
-			</div>
-		</div>
+		<c:forEach var="msg" items="${msgList}" varStatus="status">
+			<c:if test="${artistBooleanList[status.index]}">
+				<div align="right">
+					<div class="time time-right">
+						${msg.getStringSentTime()}
+					</div>
+					<div class="message message-right">
+						${msg.message}
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${!artistBooleanList[status.index]}">
+				<div>
+					<div class="sender-left">
+						<span>${msg.artist.nickname}</span>
+					</div>
+					<div class="message message-left">
+						${msg.message}
+					</div>
+					<div class="time time-left">
+						${msg.getStringSentTime()}
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
+		<!--  
 		<div>
 			<div class="sender-left">
 				<span>artist2</span>
@@ -160,9 +179,10 @@
 				12:30
 			</div>
 		</div>
+		-->
 		<div class="create-message">
 			<form>
-				<input type="text" class="enter-message">
+				<input type="text" class="enter-message" name="message">
 				<input type="submit" class="btn-submit hover-cursor" value="전송">
 			</form>
 		</div>

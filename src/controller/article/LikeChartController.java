@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.LikeChart;
-import model.dao.LikeChartDAO;
 import model.dao.MusicDAO;
 
 public class LikeChartController implements Controller {
@@ -16,9 +15,22 @@ public class LikeChartController implements Controller {
 	//장르별로 컨트롤러를 만들어야 하나?
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String condition = request.getParameter("tabs");
-		List<LikeChart> likeChart = likeChartDAO.getLikeChart(condition); //현재페이지와 페이지의 표시할 글의 수
-		request.setAttribute("likeChart", likeChart);
+		List<LikeChart> likeChartAll = likeChartDAO.getLikeChart("all");
+		List<LikeChart> likeChartRock = likeChartDAO.getLikeChart("rock");
+		List<LikeChart> likeChartRNb = likeChartDAO.getLikeChart("rNb");
+		List<LikeChart> likeChartPop = likeChartDAO.getLikeChart("pop");
+		List<LikeChart> likeChartEdm = likeChartDAO.getLikeChart("edm");
+		List<LikeChart> likeChartHiphop = likeChartDAO.getLikeChart("hiphop");
+		List<LikeChart> likeChartEtc = likeChartDAO.getLikeChart("etc");
+		
+		request.setAttribute("likeChartAll", likeChartAll);
+		System.out.println(likeChartAll.size());
+		request.setAttribute("likeChartRock", likeChartRock);
+		request.setAttribute("likeChartRNb", likeChartRNb);
+		request.setAttribute("likeChartPop", likeChartPop);
+		request.setAttribute("likeChartEdm", likeChartEdm);
+		request.setAttribute("likeChartHiphop", likeChartHiphop);
+		request.setAttribute("likeChartEtc", likeChartEtc);
 		
 		return "/article/home.jsp";
 	}
