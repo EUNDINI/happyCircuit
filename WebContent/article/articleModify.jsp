@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	String artistId = null;
-artistId = (String) session.getAttribute("artistId");
+	String artistId = (String) session.getAttribute("artistId");
 
 //if (artistId == null || artistId.equals("")) {
 //	response.sendRedirect("articleMain.jsp");
@@ -37,15 +36,28 @@ function articleModify() {
 	form.submit();
 }
 
-function checkGenre(){
+function setting() {
+	var artist = '${artistId}';
+	if(artist != ''){
+		document.getElementById("login").style.display = "none";
+		document.getElementById("logout").style.display = "block";
+	}
+	else {
+		document.getElementById("logout").style.display = "none";
+		document.getElementById("login").style.display = "block";
+	}
+	
 	var st = '${music.genre}';
 	$('input:radio[name=genre]:input[value=' + st + ']').attr("checked", true);
+	
 }
+
+isLogin();
 
 </script>
 <title>Article Modify</title>
 </head>
-<body onload="checkGenre()">
+<body onload="setting()">
 	<!-- 이후에 할일 : 확인 누르면 db에 저장-->
 	<div id='menu'>
 		<ul>
@@ -54,14 +66,9 @@ function checkGenre(){
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${not empty artisitId}'>
-				<button
-					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
-			</c:if>
-			<c:if test='${empty artisitId}'>
-				<button
-					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if>
+			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+			<button id='login'
+				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
 

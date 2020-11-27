@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@page import="model.MusicArticle" %>
-	<%@page import="java.util.List " %>
+<%@page import="model.MusicArticle"%>
+<%@page import="java.util.List "%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String artistId = (String)session.getAttribute("artistId");
-	System.out.println(artistId);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +23,20 @@ function searchArticle(){
 	}
 	
 	form.submit();
+}
+
+function isLogin() {
+	var artist = '${artistId}';
+	if(artist != ''){
+		document.getElementById("login").style.display = "none";
+		document.getElementById("logout").style.display = "block";
+		document.getElementById("btnWrite").style.display = "block";
+	}
+	else {
+		document.getElementById("logout").style.display = "none";
+		document.getElementById("login").style.display = "block";
+		document.getElementById("btnWrite").style.display = "none";
+	}
 }
 </script>
 <style>
@@ -73,28 +83,31 @@ function searchArticle(){
 	color: #fff;
 	border: 1px solid #42454c;
 }
+
 .page_nation ul li {
 	float: left;
+}
+
+#btnWrite {
+	color: black;
+	border: none;
+	width: 80px;
+	height: 40px;
 }
 </style>
 <title>Article</title>
 </head>
-<body>
-	<!-- 이후에 할일 : 페이지 처리 / DB연결해서 글리스트 가져오기  -->
+<body onload='isLogin()'>
 	<div id='menu'>
 		<ul>
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a href='#'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${artisitId eq null}'>
-				<button
-					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
-			</c:if>
-			<c:if test='${artisitId ne null}'>
-				<button
-					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if>
+			<button id='logout'
+				onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+			<button id='login'
+				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
 	<div id="board">
@@ -171,8 +184,7 @@ function searchArticle(){
 					</ul>
 				</div>
 
-				<button
-					style="color: black; border: none; width: 80px; height: 40px;"
+				<button id='btnWrite'
 					onclick="location.href='<c:url value='/article/articleWrite/form ' />'">글작성</button>
 			</div>
 		</div>
@@ -182,8 +194,8 @@ function searchArticle(){
 				<select name="condition">
 					<option value="musicName">제목</option>
 					<option value="artistId">글쓴이</option>
-				</select> <input type="text" size="20" name="search"
-					placeholder="검색어를 입력하세요" /> <input type="button" value="검색"  onClick='searchArticle()'/>
+				</select> <input type="text" size="20" name="search" placeholder="검색어를 입력하세요" />
+				<input type="button" value="검색" onClick='searchArticle()' />
 			</form>
 		</div>
 

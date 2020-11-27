@@ -4,11 +4,7 @@
 <%@ page import="model.Music"%>
 <%@ page import="model.MusicArticle"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	MusicDAO musicDAO = new MusicDAO();
-MusicArticle musicArticle = (MusicArticle) request.getAttribute("musicArticle");
-Music music = musicArticle.getMusic();
-%>
+<c:set var="music" value="${musicArticle.music}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,22 +26,38 @@ window.articleRemove = function() {
 	
 	return false;
 }
-window.onload = function() {
-		<%HttpSession se = request.getSession();
-String artistId = (String) se.getAttribute("artistId");
-
-//if (music != null && artistId != null && musicDAO.isArticleWriter(music.getMusicId(), artistId)) {%>
-//			var btn = document.getElementById("btn");
-//			btn.style.display = 'none';
-		<%//}%>
-		return false;
-}
 
 function likeCount(){
 	var result = confirm("좋아요를 누르시겠습니까?");
 	if(result) {
-		location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='<%=request.getParameter("musicId")%>' /><c:param name='like' value='${musicArticle.likeCount}' /> </c:url>';
+		location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='{music.musicId}' /><c:param name='like' value='${musicArticle.likeCount}' /> </c:url>';
 	}		
+}
+
+function isLogin() {
+	var artist = '${artistId}';
+	var writer = '${music.artistId}';
+	
+	if(artist != ''){
+		document.getElementById("login").style.display = "none";
+		document.getElementById("logout").style.display = "block";
+		document.getElementById("btnNthWrite").style.display = "inline-block";
+		document.getElementById("btnLike").style.display = "inline-block";
+	}
+	else {
+		document.getElementById("logout").style.display = "none";
+		document.getElementById("login").style.display = "block";
+		document.getElementById("btnNthWrite").style.display = "none";
+		document.getElementById("btnLike").style.display = "none";
+	}
+	
+	if(artist != writer){
+		document.getElementById("btn").style.display = 'none';
+	}
+	else{
+		document.getElementById("btn").style.display = 'block';
+	}
+	
 }
 </script>
 <style type="text/css">
@@ -157,7 +169,7 @@ function likeCount(){
 </style>
 <title>Article Read</title>
 </head>
-<body>
+<body onload='isLogin()'>
 	<!-- 이후에 할일 : db에서 정보 가져오기 / 수정, 삭제는 작성자만 보게 하기 / 삭제 하기-->
 	<div id='menu'>
 		<ul>
@@ -166,14 +178,9 @@ function likeCount(){
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<c:if test='${empty artisitId}'>
-				<button
-					onclick="location.href='<c:url value='/artist/login/form' />'">Login</button>
-			</c:if>
-			<c:if test='${not empty artisitId}'>
-				<button
-					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if>
+			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+			<button id='login'
+				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
 
@@ -184,7 +191,6 @@ function likeCount(){
 						글보기</font></td>
 			</tr>
 			<tr>
-				<c:set var="music" value="${musicArticle.music}" />
 				<td bgcolor=white align=center>
 					<table id="writeTable" width='80%'>
 						<tr>
@@ -224,9 +230,9 @@ function likeCount(){
 							<td colspan="2" align=right id="readRight"><strong>날짜</strong>&nbsp;
 								${musicArticle.regDate}&nbsp; &nbsp;&nbsp;<strong>조회수</strong>&nbsp;
 								${musicArticle.readCount}&nbsp; &nbsp;&nbsp;<strong>좋아요</strong>&nbsp;${musicArticle.likeCount}&nbsp;&nbsp;&nbsp;
-								<button onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
-								<button
-									onClick="location.href='/article/articleNthWrite.jsp?priorMusicId=${music.musicId}'">2차
+								<button  id='btnLike' onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
+								<button id='btnNthWrite'
+									onClick="location.href='<c:url value='/article/articleNthWrite/form' > <c:param name='priorMusicId' value='${music.musicId}'/></c:url>'">2차
 									창작</button></td>
 						</tr>
 					</table> <br> <span id="btn">
