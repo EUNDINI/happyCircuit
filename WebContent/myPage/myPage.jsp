@@ -117,11 +117,13 @@
 	<div class="update">
 		<c:if test="${isSameArtist}">
 			<a href="<c:url value='/mypage/update'>
-				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 	<c:param name='artistId' value='${artist.artistId}'/>
 				 	 </c:url>" class="btn-update">수정</a>
 		</c:if>
 		<c:if test="${!isSameArtist}">
-			<a href="<c:url value='/DM/create' />" class="btn-DM">DM보내기</a>
+			<a href="<c:url value='/DM/create'>
+						<c:param name='artistId' value='${artist.artistId}'/>
+					</c:url>" class="btn-DM">DM보내기</a>
 		</c:if>
         <c:if test="${updateFailed || deleteFailed}">
 	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
@@ -129,7 +131,7 @@
 	     
 		<c:if test="${isSameArtist}">
 			<a href="<c:url value='/mypage/recommendMusic'>
-				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 	<c:param name='artistId' value='${artist.artistId}'/>
 				 	 </c:url>" class="btn-update">음악 추천</a>
 		</c:if>
 	</div>

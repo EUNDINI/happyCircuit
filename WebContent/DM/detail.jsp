@@ -181,7 +181,9 @@
 		</div>
 		-->
 		<div class="create-message">
-			<form>
+			<form method="POST" action="<c:url value='/DM/message/create'>
+											<c:param name='dmId' value='${dmId}' />
+										</c:url>">
 				<input type="text" class="enter-message" name="message">
 				<input type="submit" class="btn-submit hover-cursor" value="전송">
 			</form>
