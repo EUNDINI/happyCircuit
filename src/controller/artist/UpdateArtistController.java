@@ -19,6 +19,9 @@ public class UpdateArtistController implements Controller {
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 		Artist artist = artistDAO.findArtistById(artistId);
 		
+		System.out.println(request.getParameter("profile"));
+		System.out.println(request.getMethod());
+		
 		//GET request: form ø‰√ª
 		if (request.getMethod().equals("GET")) {
 			request.setAttribute("artist", artist);
@@ -43,11 +46,12 @@ public class UpdateArtistController implements Controller {
 				artist.getPw(),
 				artist.getNickname(),
 				request.getParameter("profile"),
-				request.getParameter("image") );
+//				request.getParameter("image") );
+				null);
 		artistDAO.update(updateArtist);
 
 		request.setAttribute("artistId", artistId);
-		return "/myPage/myPage.jsp";
+		return "redirect:/myPage";
 	}
 
 }

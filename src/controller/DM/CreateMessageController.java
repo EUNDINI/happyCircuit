@@ -2,8 +2,10 @@ package controller.DM;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
+import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.Message;
 import model.dao.ArtistDAO;
@@ -16,15 +18,20 @@ public class CreateMessageController implements Controller {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Artist artist = artistDAO.findArtistById(request.getParameter("artistId"));
+
+		HttpSession session = request.getSession();
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+		int dmId = Integer.parseInt(request.getParameter("dmId"));
+		
+		Artist artist = artistDAO.findArtistById(artistId);
 		Message msg = new Message(
 				0, request.getParameter("message"), 
-				null, artist,
-				Integer.parseInt(request.getParameter("dmId")));
+				null, artist, dmId);
 		
 		try {
 			dmDAO.createMessage(msg);
-			return "/DM/detail.jsp";
+			request.setAttribute("dmId", dmId);
+			return "/DM/room";
 		} catch (Exception e) {
 			return "redirect:/DM/list";
 		}

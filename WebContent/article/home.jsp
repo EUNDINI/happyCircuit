@@ -43,7 +43,7 @@ function isLogin() {
 			<c:if test='${artisitId ne null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if
+			</c:if>
 		</ul>
 	</div>
 	<br>

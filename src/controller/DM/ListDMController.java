@@ -23,7 +23,7 @@ public class ListDMController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		HttpSession session = request.getSession();
-		String artistId = request.getParameter("artistId");
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 		
 //		if (ArtistSessionUtils.getLoginArtistId(session).equals(artistId)) {
 //			request.setAttribute("artistId", artistId);

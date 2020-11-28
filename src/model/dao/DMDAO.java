@@ -19,12 +19,14 @@ public class DMDAO {
 	
 	//DM 테이블에 새로운 DM 생성 및 Membership 생성
 	public int createDMAndMembership(DM dm) throws SQLException {
-		String sql = "INSERT INTO DM VALUES (dmId_seq.nextval)";		
+		String sql = "INSERT INTO DM VALUES (DMId_seq.nextval)";	
+		Object[] param = new Object[] {};				
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정	
 
 		int result = 0;
-		String key[] = {"dmId"};	// PK 컬럼의 이름     
+		String key[] = {"dmId"};
 		try {				
-			result = jdbcUtil.executeUpdate();	// insert 문 실행
+			result = jdbcUtil.executeUpdate(key);	// insert 문 실행
 		   	ResultSet rs = jdbcUtil.getGeneratedKeys();
 		   	if(rs.next()) {
 		   		int generatedKey = rs.getInt(1);   // 생성된 PK 값
@@ -39,8 +41,8 @@ public class DMDAO {
 		}		
 		
 		for (int i = 0; i < 2; i++) {
-			sql = "INSERT INTO Membership VALUES (id.seq_nextval, ?, ?)";
-			Object[] param = new Object[] {dm.getDmId(), dm.getArtistList().get(i).getArtistId()}; 
+			sql = "INSERT INTO Membership (id, dmId, artistId) VALUES (membershipId_seq.nextval, ?, ?)";
+			param = new Object[] {dm.getDmId(), dm.getArtistList().get(i).getArtistId()}; 
 			jdbcUtil.setSqlAndParameters(sql, param);
 			
 			try {				
@@ -55,6 +57,32 @@ public class DMDAO {
 		}
 		
 		return result;		//정상적으로 처리되면 result == 3	
+	}
+	
+	//해당 artist와의 DM방이 있는지 즉, Membership이 있는지
+	public int findMembership(List<Artist> artistList) throws SQLException {
+		String sql = "SELECT m2.artistId, m2.dmId "
+					+ "FROM Membership m1 JOIN Membership m2 ON m1.dmId=m2.dmId "
+					+ "WHERE m1.artistId=? AND m2.artistId!=?";
+		Object[] param = new Object[] {artistList.get(0).getArtistId(), artistList.get(0).getArtistId()};				
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
+	
+		try {				
+			ResultSet rs = jdbcUtil.executeQuery();
+			while (rs.next()) {
+				String artistId = rs.getString("artistId");
+				if (artistId.equals(artistList.get(1).getArtistId())) {
+					int dmId = rs.getInt("dmId");
+					return dmId;
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			jdbcUtil.rollback();
+		} finally {		
+			jdbcUtil.close();	// resource 반환
+		}	
+		return 0;
 	}
 	
 	//어떤 artist가 어떤 DM을 삭제하면(채팅방 나가기 느낌) Membership에서 삭제
@@ -156,7 +184,7 @@ public class DMDAO {
 	
 	//Message 생성
 	public int createMessage(Message msg) throws SQLException {
-		String sql = "INSERT INTO Message VALUES (msgId_seq.nextval, ?, SYSDATE, ?, ?)";	
+		String sql = "INSERT INTO Message VALUES (messageId_seq.nextval, ?, SYSDATE, ?, ?)";	
 		Object[] param = new Object[] {msg.getMessage(),
 						msg.getArtist().getArtistId(), msg.getDmId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
@@ -164,15 +192,15 @@ public class DMDAO {
 		int result = 0;
 		String key[] = {"msgId"};
 		try {				
-			result = jdbcUtil.executeUpdate();	// insert 문 실행
+			result = jdbcUtil.executeUpdate(key);	// insert 문 실행
 		   	ResultSet rs = jdbcUtil.getGeneratedKeys();
 		   	if(rs.next()) {
 		   		int generatedKey = rs.getInt(1);   // 생성된 PK 값
 		   		msg.setMsgId(generatedKey); 	// id필드에 저장  
 		   	}
 		} catch (Exception ex) {
-			jdbcUtil.rollback();
 			ex.printStackTrace();
+			jdbcUtil.rollback();
 		} finally {		
 			jdbcUtil.commit();
 			jdbcUtil.close();	// resource 반환

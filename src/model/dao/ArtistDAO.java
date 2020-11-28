@@ -15,9 +15,9 @@ public class ArtistDAO {
 	}
 	
 	public int create(Artist artist) throws SQLException {
-		String sql = "INSERT INTO ARTIST VALUES (?, ?, ?, ?, ?)";		
+		String sql = "INSERT INTO ARTIST VALUES (?, ?, ?, ?, null)";		
 		Object[] param = new Object[] {artist.getArtistId(), artist.getPw(),
-					artist.getNickname(), artist.getProfile(), artist.getImage()};				
+					artist.getNickname(), artist.getProfile()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						
 		try {				
