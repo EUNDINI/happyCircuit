@@ -66,8 +66,8 @@
 					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
 				</div>
 			</div>
-			<c:if test="${status.index + 1 % 5 == 0}">
-				<div class="music-container">
+			<c:if test="${(status.index + 1) % 5 == 0}">
+				</div>
 			</c:if>
 		</c:forEach> 
 		<!-- 

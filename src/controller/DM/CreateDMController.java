@@ -34,21 +34,17 @@ public class CreateDMController implements Controller {
 		//둘 사이에 이미 DM이 있는지 없는지...
 		//없으면 새로 만들고 있으면 그 dmId 가져오고
 		int dmId = dmDAO.findMembership(artistList);
-		if (dmId != 0) {
-			request.setAttribute("dmId", dmId);
-		}
-		else {
+		if (dmId == 0) {
 			try {
 				DM dm = new DM(0, artistList);
 				dmDAO.createDMAndMembership(dm);
-				
-				request.setAttribute("dmId", dm.getDmId());
+				dmId = dm.getDmId();
 			} catch (Exception e) {
 				return "redirect:/DM/list";
 			}
 		}
 
-		return "/DM/room?dmId=" + String.valueOf(dmId); 
+		return "redirect:/DM/room?dmId=" + String.valueOf(dmId); 
 	}
 
 }

@@ -57,6 +57,9 @@
         transition-duration: 0.2s;
         transition-timing-function: ease-in-out;
     }
+	.hover-cursor {
+		cursor: pointer;
+	}
     @media (orientation: portrait) {
       	.main {
         	width: 95%;
@@ -65,11 +68,6 @@
 </style>
 <script>
 	function artistModify() {
-		form.submit();
-	}
-	
-	function artistList(targetUri) {
-		form.action = targetUri;
 		form.submit();
 	}
 </script>
@@ -81,13 +79,16 @@
 			<span>${artist.nickname}</span>
 		</div>
 		
-		<form name="form" method="POST" action="<c:url value='/mypage/update' />">
+		<form name="form" method="POST" action="<c:url value='/mypage/update' />" enctype="multipart/form-data">
 			<input type="file" class="form-item" name="image">
 			<br>
 			<input type="text" class="form-item introduction" value="${artist.profile}" name="profile">
 			<div class="wrap-btns">
-				<a href="" class="btn-update" onClick="artistModify()">수정</a>
-				<a href="" class="btn-update" onClick="artistList('<c:url value='/mypage' />')"">취소</a>
+				<input type="button" value="수정" onClick="artistModify()" class="btn-update hover-cursor">
+				<!-- <a href="" class="btn-update" onClick="artistModify()">수정</a> -->
+				<a href="<c:url value='/mypage'>
+							<c:param name='artistId' value='${artist.artistId}' />
+						</c:url>" class="btn-update">취소</a>
 			</div>
 		</form>
 	</div>
