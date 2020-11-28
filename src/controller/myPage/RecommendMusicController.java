@@ -22,11 +22,10 @@ public class RecommendMusicController implements Controller {
 		String artistId = request.getParameter("artistId");
 		
 		List<Music> musicList = new ArrayList<Music>();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 10; i++) {
 			List<Music> likeMusicList = recommendDAO.findMusicListByArtistId(artistId);
 			Collections.shuffle(likeMusicList);
 			Music music = likeMusicList.get(0);
-			
 			
 			List<Artist> likeArtistList = recommendDAO.findArtistListByMusicId(music.getMusicId());
 			Collections.shuffle(likeArtistList);

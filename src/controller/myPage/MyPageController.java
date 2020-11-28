@@ -37,9 +37,14 @@ public class MyPageController implements Controller {
     	Artist artist = artistDAO.findArtistById(artistId);	// 사용자 정보 검색	
   
     	List<Music> musicList = new ArrayList<Music>();
+    	
+		String projectPath = "E:\\hw\\6\\databaseproject\\newclone";
+		String filePath = ".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\happy\\sample";
+		String imgPath = projectPath + "\\" + filePath;
 		
     	request.setAttribute("artist", artist);		// 사용자 정보 저장	
     	request.setAttribute("musicList", musicList);
+		request.setAttribute("imgPath", imgPath + "\\");
 		return "/myPage/myPage.jsp";
 	}
 

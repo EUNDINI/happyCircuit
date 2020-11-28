@@ -43,6 +43,7 @@
 	}
 	.DM {
 		padding-right: 10px;
+		margin: auto 30px;
 	}
 	.music-container {
 		display: flex;
@@ -63,27 +64,27 @@
 	}
 	.music-artist {
 		font-size: 0.8em;
-		color: #AAAAAA !important;
+		color: #BBBBBB !important;
 	}
 	.update, .delete {
     	margin-top: 20px;
     	margin-bottom: 50px; 
 	}
 	.btn-update, .btn-delete, .DM, .btn-DM {
-      	background-color: #AAAAAA;
+      	background-color: #BBBBBB;
       	color: white;
       	padding: 10px;
       	border-radius: 15px;
       	border: 0px;
       	width: 50px;
-      	border: 1px solid #AAAAAA;
+      	border: 1px solid #BBBBBB;
     	text-decoration: none;
     	font-size: 0.9em;
     }
     .btn-update:hover, .btn-update:hover, .DM:hover, .btn-DM:hover {
         text-decoration: none;
         background-color: white;
-        color: #AAAAAA;
+        color: #BBBBBB;
         transition-property: background-color, color;
         transition-duration: 0.2s;
         transition-timing-function: ease-in-out;
@@ -98,13 +99,19 @@
 </head>
 <body>
 	<c:if test="${isSameArtist}">
-		<a href="<c:url value='/DM/list'>
-				 	<c:param name='artistId' value='${artistId}'/>
-				 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+		<div style="margin: 30px;">
+			<a href="<c:url value='/DM/list'>
+					 	<c:param name='artistId' value='${artistId}'/>
+					 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+		</div>
 	</c:if>
 	
 	<div class="align-center profile-image">
-		<img src="${artist.image}" class="profile-img">
+		<img src="${imgPath}${artist.image}" class="profile-img">
+		<img src="c.jpg" class="profile-img">
+	</div>
+	<div class="align-center profile-image">
+		<img src="../sample/holding_onto_gravity.jpg" class="profile-img">
 	</div>
 	
 	<div class="aling-cneter profile-nickname">
@@ -151,7 +158,7 @@
 				</div>
 			</div>
 			<c:if test="${status.index + 1 % 5 == 0}">
-				<div class="music-container">
+				</div>
 			</c:if>
 		</c:forEach> 
 		<!-- 

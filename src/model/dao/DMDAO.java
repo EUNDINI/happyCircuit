@@ -88,9 +88,9 @@ public class DMDAO {
 	//어떤 artist가 어떤 DM을 삭제하면(채팅방 나가기 느낌) Membership에서 삭제
 	//membership에 해당 dmid가 하나도 없으면 dm 테이블에서의 dmid도 삭제
 	public int deleteMembership(String artistId, int dmId) throws SQLException {
-		String sql1 = "DELETE FROM Membership WHERE artistId=? AND dmID=?";		
-		Object[] param1 = new Object[] {artistId, dmId};				
-		jdbcUtil.setSqlAndParameters(sql1, param1);	// JDBCUtil 에 insert문과 매개 변수 설정
+		String sql = "DELETE FROM Membership WHERE artistId=? AND dmID=?";		
+		Object[] param = new Object[] {artistId, dmId};				
+		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 		
 		int result = 0;
 		try {				
@@ -103,19 +103,16 @@ public class DMDAO {
 			jdbcUtil.close();	// resource 반환
 		}	
 		
-		String sql2 = "SELECT FROM Membership WHERE dmId=?";
-		Object[] param2 = new Object[] {dmId};					
-		jdbcUtil.setSqlAndParameters(sql2, param2);		
+		sql = "SELECT FROM Membership WHERE dmId=?";
+		param = new Object[] {dmId};					
+		jdbcUtil.setSqlAndParameters(sql, param);		
 
 		try {				
 			result = jdbcUtil.executeUpdate();	
 			if (result == 0) { //membership에 해당 dmid가 하나도 없으면 dm 테이블에서의 dmid도 삭제
-				jdbcUtil.commit();
-				jdbcUtil.close();
-				
-				String sql3 = "DELETE FROM DM WHERE dmId=?";
-				Object[] param3 = new Object[] {dmId};					
-				jdbcUtil.setSqlAndParameters(sql3, param3);		
+				sql = "DELETE FROM DM WHERE dmId=?";
+				param = new Object[] {dmId};					
+				jdbcUtil.setSqlAndParameters(sql, param);		
 				
 				result = jdbcUtil.executeUpdate();	
 			}

@@ -38,8 +38,8 @@ public class ArtistDAO {
 					+ "SET password=?, nickname=?, profile=?, image=? "
 					+ "WHERE artistId=?";
 		Object[] param = new Object[] {artist.getPw(), artist.getNickname(),
-						(!artist.getProfile().isEmpty()) ? artist.getProfile() : null, 
-						(!artist.getImage().isEmpty()) ? artist.getImage() : null, 
+						artist.getProfile(), 
+						artist.getImage(), 
 						artist.getArtistId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil에 update문과 매개 변수 설정
 			
