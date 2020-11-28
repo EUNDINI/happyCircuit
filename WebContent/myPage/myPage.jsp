@@ -107,13 +107,9 @@
 	</c:if>
 	
 	<div class="align-center profile-image">
-		<img src="${imgPath}${artist.image}" class="profile-img">
-		<img src="c.jpg" class="profile-img">
+		<img src="${pageContext.request.contextPath}/sample/${artist.image}" class="profile-img">
 	</div>
-	<div class="align-center profile-image">
-		<img src="../sample/holding_onto_gravity.jpg" class="profile-img">
-	</div>
-	
+
 	<div class="aling-cneter profile-nickname">
 		<span>${artist.nickname}</span>
 	</div>

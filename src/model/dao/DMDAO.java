@@ -210,7 +210,8 @@ public class DMDAO {
 		String sql = "SELECT a.artistId, password, nickname, profile, image, msgId, message, sentTime "
 					+ "FROM Message m JOIN DM d ON m.dmId = d.dmId "
 					+ "JOIN Artist a ON m.artistId = a.artistId "
-					+ "WHERE d.dmId=?";
+					+ "WHERE d.dmId=? "
+					+ "ORDER BY sentTime";
 		Object[] param = new Object[] {dmId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 

@@ -58,30 +58,31 @@ public class UpdateArtistController implements Controller {
 		String savefile = "sample"; 
 		ServletContext scontext = request.getServletContext(); 
 		realFolder = scontext.getRealPath(savefile); 
+		MultipartRequest multi = null;
 		 
 		try{ 
-			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
+			multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
 			Enumeration<?> files = multi.getFileNames(); 
 			String file1 = (String)files.nextElement(); 
 			filename = multi.getFilesystemName(file1); 
 		} catch(Exception e) { 
 			e.printStackTrace(); 
 		} 
-		 
-		String fullpath = projectPath + "\\" + filePath + "\\" + filename; 
-		
-		System.out.println(fullpath);
 		
 		Artist updateArtist = new Artist(
 				artistId,
 				artist.getPw(),
 				artist.getNickname(),
-				request.getParameter("profile"),
+				multi.getParameter("profile"),
 				filename);
-		artistDAO.update(updateArtist);
+		
+		try {
+			artistDAO.update(updateArtist);
+		} catch(Exception e) { 
+			e.printStackTrace(); 
+		} 
 
 		request.setAttribute("artist", updateArtist);
-		request.setAttribute("imgPath", imgPath + "\\");
 		return "redirect:/mypage?artistId=" + artistId;
 	}
 
