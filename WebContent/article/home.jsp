@@ -32,7 +32,7 @@ function isLogin() {
 		<ul>
 			<li class='active'><a href='#'>Home</a></li>
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
-			<li><a href='#'>Find Artist</a></li>
+			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
 			<li><a href="<c:url value='/mypage'>
 						 	<c:param name='artistId' value='${artistId}'/>
 						 </c:url>">My Page</a></li>
@@ -43,7 +43,7 @@ function isLogin() {
 			<c:if test='${artisitId ne null}'>
 				<button
 					onclick="location.href='<c:url value='/artist/logout' />'">Logout</button>
-			</c:if
+			</c:if>
 		</ul>
 	</div>
 	<br>

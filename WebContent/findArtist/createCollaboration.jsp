@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -17,26 +17,28 @@
 <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 	<div class="container">
-		<!-- µð¿¥ÂÊÀ¸·Î action º¸³»°Ô ¼öÁ¤ÇØ¾ß ÇÔ  --> 
+		<!-- ë””ì— ìª½ìœ¼ë¡œ action ë³´ë‚´ê²Œ ìˆ˜ì •í•´ì•¼ í•¨  --> 
 	    <form name="createCollaboration" method="POST" action="<c:url value='/findArtist/create/collaboration' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">Çù¾÷ ½ÅÃ»</font></b><hr>
+	        <b><font size="6" color="black" align="center">í˜‘ì—… ì‹ ì²­</font></b><hr>
 	        
 	        <div class="required-field-block">
-	            <input type="text" name="collaborationTitle" class="form-control" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.">
+	            <input type="text" name="collaborationTitle" class="form-control" placeholder="ì œëª©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”.">
 	            <div class="required-icon">
 	                <div class="text"> <br></div>
 	            </div>
 	        </div>
 	       
 	        <div class="required-field-block">
-	            <textarea  name="collaborationContent" rows="15" class="form-control" placeholder="³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä."></textarea>
+	            <textarea  name="collaborationContent" rows="15" class="form-control" placeholder="ë‚´ìš©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”."></textarea>
 	        </div>
 	        <br>
 	        
 	        <input type="text" name="postId" value="${post.postId}" style="display:none">
 	         
-	        <input type="submit" value="½ÅÃ»" class="btn btn-primary">  
+	        <input type="submit" value="ì‹ ì²­" class="btn btn-primary">  
 	          
 	    </form>
 	</div>
