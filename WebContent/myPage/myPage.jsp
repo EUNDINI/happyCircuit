@@ -43,6 +43,7 @@
 	}
 	.DM {
 		padding-right: 10px;
+		margin: auto 30px;
 	}
 	.music-container {
 		display: flex;
@@ -63,27 +64,27 @@
 	}
 	.music-artist {
 		font-size: 0.8em;
-		color: #AAAAAA !important;
+		color: #BBBBBB !important;
 	}
 	.update, .delete {
     	margin-top: 20px;
     	margin-bottom: 50px; 
 	}
 	.btn-update, .btn-delete, .DM, .btn-DM {
-      	background-color: #AAAAAA;
+      	background-color: #BBBBBB;
       	color: white;
       	padding: 10px;
       	border-radius: 15px;
       	border: 0px;
       	width: 50px;
-      	border: 1px solid #AAAAAA;
+      	border: 1px solid #BBBBBB;
     	text-decoration: none;
     	font-size: 0.9em;
     }
-    .btn-update:hover, .btn-update:hover, .DM:hover, .btn-DM:hover {
+    .btn-update:hover, .btn-delete:hover, .DM:hover, .btn-DM:hover {
         text-decoration: none;
         background-color: white;
-        color: #AAAAAA;
+        color: #BBBBBB;
         transition-property: background-color, color;
         transition-duration: 0.2s;
         transition-timing-function: ease-in-out;
@@ -95,18 +96,28 @@
       	
     }
 </style>
+<script>
+function checkRemove(targetUri) {
+	if (confirm("탈퇴하시겠습니까??") == true){    //확인
+	     document.removefrm.submit();
+	     location.href=targetUri;
+	 }else{   //취소
+	     return false;
+	 }
+}
+</script>
 </head>
 <body>
 	<c:if test="${isSameArtist}">
-		<a href="<c:url value='/DM/list'>
-				 	<c:param name='artistId' value='${artistId}'/>
-				 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+		<div style="margin: 30px;">
+			<a href="<c:url value='/DM/list' />" class="DM">DM</a> <!-- 내 DM 목록 -->
+		</div>
 	</c:if>
 	
 	<div class="align-center profile-image">
-		<img src="${artist.image}" class="profile-img">
+		<img src="${pageContext.request.contextPath}/sample/${artist.image}" class="profile-img">
 	</div>
-	
+
 	<div class="aling-cneter profile-nickname">
 		<span>${artist.nickname}</span>
 	</div>
@@ -117,11 +128,13 @@
 	<div class="update">
 		<c:if test="${isSameArtist}">
 			<a href="<c:url value='/mypage/update'>
-				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 	<c:param name='artistId' value='${artist.artistId}'/>
 				 	 </c:url>" class="btn-update">수정</a>
 		</c:if>
 		<c:if test="${!isSameArtist}">
-			<a href="<c:url value='/DM/create' />" class="btn-DM">DM보내기</a>
+			<a href="<c:url value='/DM/create'>
+						<c:param name='artistId' value='${artist.artistId}'/>
+					</c:url>" class="btn-DM">DM보내기</a>
 		</c:if>
         <c:if test="${updateFailed || deleteFailed}">
 	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
@@ -129,7 +142,7 @@
 	     
 		<c:if test="${isSameArtist}">
 			<a href="<c:url value='/mypage/recommendMusic'>
-				 	 	<c:param name='artistId' value='${artistId}'/>
+				 	 	<c:param name='artistId' value='${artist.artistId}'/>
 				 	 </c:url>" class="btn-update">음악 추천</a>
 		</c:if>
 	</div>
@@ -142,14 +155,14 @@
 			<div class="music">
 				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
 				<div class="music-title">
-					<span onclick="location.href=''" class="hover-cursor">title</span>
+					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>
 				</div>
 				<div class="music-artist">
-					<span onclick="location.href=''" class="hover-cursor">artist</span>
+					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
 				</div>
 			</div>
 			<c:if test="${status.index + 1 % 5 == 0}">
-				<div class="music-container">
+				</div>
 			</c:if>
 		</c:forEach> 
 		<!-- 
@@ -179,8 +192,10 @@
 		}
 		%>-->
 	</div>
-	<div class="delete">
-		<a href="<c:url value='/artist/delete' />" class="btn-delete">탈퇴</a>
-	</div>
+	<c:if test="${isSameArtist}">
+		<div class="delete">
+			<a href="<c:url value='/artist/delete' />" class="btn-delete hover-cursor" onClick="checkRemove('<c:url value='/artist/delete' />')">탈퇴</a>
+		</div>
+	</c:if>
 </body>
 </html>

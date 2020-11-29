@@ -58,6 +58,7 @@
 				<div class="music-container">
 			</c:if>
 			<div class="music">
+				<!-- 이미지 경로 수정 필요 -->
 				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
 				<div class="music-title">
 					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>
@@ -66,8 +67,8 @@
 					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
 				</div>
 			</div>
-			<c:if test="${status.index + 1 % 5 == 0}">
-				<div class="music-container">
+			<c:if test="${(status.index + 1) % 5 == 0}">
+				</div>
 			</c:if>
 		</c:forEach> 
 		<!-- 

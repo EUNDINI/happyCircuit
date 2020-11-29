@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import controller.Controller;
 import model.Music;
 import model.MusicArticle;
@@ -17,7 +20,6 @@ public class UpdateMusicController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(request.getParameter("content"));
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
 		Music music = musicDAO.findMusic(musicId);
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
@@ -33,17 +35,49 @@ public class UpdateMusicController implements Controller {
 			return "/article/articleModify.jsp";
 		}
 
-		System.out.println(musicId);
-		String musicName = request.getParameter("title");
-		String genre = request.getParameter("genre");
-		File file = null; // 받아온 파일
-		String musicPath = null;
+		String uploadPath = request.getServletContext().getRealPath("/") + "\\music";
+		File Folder = new File(uploadPath);
+		
+		if (!Folder.exists()) {
+			try{
+			    Folder.mkdir(); //폴더 생성합니다.
+			    System.out.println("폴더가 생성되었습니다.");
+		        } 
+		        catch(Exception e){
+			    e.getStackTrace();
+			}
+		}
+			
+		int maxSize = 1024 * 1024 * 10 * 10;
 
-		String content = request.getParameter("content");
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8",
+				new DefaultFileRenamePolicy());
+
+		String fileName = multi.getFilesystemName("music"); // 파일명
+		String musicPath = "../music/" + fileName;
+		String musicName = multi.getParameter("title");
+		HttpSession session = request.getSession();
+		String artistId = (String) session.getAttribute("artistId");
+		String genre = multi.getParameter("genre");
+		String content = multi.getParameter("content");
+
+		if (fileName != null) {
+			String bePath = music.getMusicPath();
+			String be = bePath.substring(bePath.lastIndexOf("/"));
+
+			File f = new File(uploadPath + "\\" + be);
+			if (f.exists()) {
+				f.delete();
+				System.out.println("파일 삭제됨");
+			} else {
+				System.out.println("파일 없음");
+			}
+			
+			music.setMusicPath(musicPath);
+		}
 
 		music.setMusicName(musicName);
 		music.setGenre(genre);
-		music.setMusicPath(musicPath);
 		musicDAO.updateMusic(music);
 
 		musicArticle.setMusic(music);

@@ -1,15 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Post post = (Post)request.getAttribute("post");
+	String path = this.getServletContext().getRealPath("post");
+	System.out.println("1: " + path);
+	String uploadPath = this.getServletContext().getRealPath("/");
+	System.out.println("2: " + uploadPath);
+	
+	String a = request.getServletContext().getRealPath("/");
+	System.out.println("3: " + a);
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>±Û³»¿ë</title>
+<meta charset="UTF-8">
+<title>ê¸€ë‚´ìš©</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -17,24 +24,33 @@
 <script src="../resources/js/bootstrap.js"></script>
 <script>
 function userRemove() {
-	return confirm("Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?");		
+	return confirm("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");		
 }
 </script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
 	<div class="container">
-	    <form name="viewPost" method="POST" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="viewPost" method="POST" role="form" style="width:600px; margin: 0 auto; margin-top:40px;" >
             <font size="2">${post.postCategoryName}</font><br>
 			<b><font size="4">${post.postTitle}</font></b>
 			<font size="2" style="float:right;">${post.postDate}</font><br>
 			<font size="3">${post.nickname}</font>
-			<font size="2" style="float:right;">Á¶È¸¼ö ${post.postView}</font>
+			<font size="2" style="float:right;">ì¡°íšŒìˆ˜ ${post.postView}</font>
 			<br>
 			<hr>
 	        
 	        <br>
 
 	        <div class="required-field-block">
+
+	        	<c:set var="postAttachment" value="${post.postAttachment}" />	        	
+	        	<c:if test="${postAttachment ne 'ì²¨ë¶€íŒŒì¼ì—†ìŒ'}"> 
+				   <c:set var="postAttachmentRoute" value="/resources/findArtist/${post.postAttachment}" />
+				   <img src="<c:url value='${postAttachmentRoute}' />" width="600" /> 
+				   <br><br>
+				</c:if>
+								
 	            <textarea  name="postContent" rows="15" class="form-control" >${post.postContent}</textarea>
 	        </div>
 
@@ -42,18 +58,18 @@ function userRemove() {
 	        
 	        <a href="<c:url value='/findArtist/update'>
 	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
-			 	 </c:url>"><input type="button" name="updatePost" value="¼öÁ¤" class="btn btn-primary"></a>
+			 	 </c:url>"><input type="button" name="updatePost" value="ìˆ˜ì •" class="btn btn-primary"></a>
 	        
 			 <a href="<c:url value='/findArtist/delete/post'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>"
 			 	onclick="return userRemove();">
-	        	<input type="button" name="deletePost" value="»èÁ¦" class="btn btn-danger"> </a>
+	        	<input type="button" name="deletePost" value="ì‚­ì œ" class="btn btn-danger"> </a>
  
             <a href="<c:url value='/findArtist/list' />">
-	        	<input type="button" name="goToPostList" value="¸ñ·Ï" class="btn btn-light"> </a> 
+	        	<input type="button" name="goToPostList" value="ëª©ë¡" class="btn btn-light"> </a> 
          
 	         <a href="<c:url value='/findArtist/collaborate'>
 	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
-			 	 </c:url>"><input type="button" name="offerCollaboration" value="Çù¾÷ ½ÅÃ»" class="btn btn-success" style="float:right;" ></a>
+			 	 </c:url>"><input type="button" name="offerCollaboration" value="í˜‘ì—… ì‹ ì²­" class="btn btn-success" style="float:right;" ></a>
 	                 
 	    </form>
 	</div>
