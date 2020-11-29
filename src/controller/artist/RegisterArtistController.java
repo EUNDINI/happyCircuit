@@ -19,7 +19,7 @@ public class RegisterArtistController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Artist artist = new Artist(
 				request.getParameter("artistId"),
-				request.getParameter("pw"),
+				request.getParameter("password"),
 				request.getParameter("nickname"),
 				request.getParameter("profile"),
 				request.getParameter("image") );
