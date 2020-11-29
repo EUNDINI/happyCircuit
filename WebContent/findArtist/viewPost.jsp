@@ -4,20 +4,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Post post = (Post)request.getAttribute("post");
-	String path = this.getServletContext().getRealPath("post");
-	System.out.println("1: " + path);
-	String uploadPath = this.getServletContext().getRealPath("/");
-	System.out.println("2: " + uploadPath);
+	//String path = this.getServletContext().getRealPath("post");
+	//System.out.println("1: " + path);
+	//String uploadPath = this.getServletContext().getRealPath("/");
+	//System.out.println("2: " + uploadPath);
 	
-	String a = request.getServletContext().getRealPath("/");
-	System.out.println("3: " + a);
+	//String a = request.getServletContext().getRealPath("/");
+	//System.out.println("3: " + a);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>글내용</title>
-<link rel="stylesheet" href="../resources/css/bootstrap.css">
+
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
