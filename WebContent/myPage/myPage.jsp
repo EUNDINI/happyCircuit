@@ -81,7 +81,7 @@
     	text-decoration: none;
     	font-size: 0.9em;
     }
-    .btn-update:hover, .btn-update:hover, .DM:hover, .btn-DM:hover {
+    .btn-update:hover, .btn-delete:hover, .DM:hover, .btn-DM:hover {
         text-decoration: none;
         background-color: white;
         color: #BBBBBB;
@@ -96,13 +96,21 @@
       	
     }
 </style>
+<script>
+function checkRemove(targetUri) {
+	if (confirm("탈퇴하시겠습니까??") == true){    //확인
+	     document.removefrm.submit();
+	     location.href=targetUri;
+	 }else{   //취소
+	     return false;
+	 }
+}
+</script>
 </head>
 <body>
 	<c:if test="${isSameArtist}">
 		<div style="margin: 30px;">
-			<a href="<c:url value='/DM/list'>
-					 	<c:param name='artistId' value='${artistId}'/>
-					 </c:url>" class="DM">DM</a> <!-- 내 DM 목록 -->
+			<a href="<c:url value='/DM/list' />" class="DM">DM</a> <!-- 내 DM 목록 -->
 		</div>
 	</c:if>
 	
@@ -147,10 +155,10 @@
 			<div class="music">
 				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
 				<div class="music-title">
-					<span onclick="location.href=''" class="hover-cursor">title</span>
+					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>
 				</div>
 				<div class="music-artist">
-					<span onclick="location.href=''" class="hover-cursor">artist</span>
+					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
 				</div>
 			</div>
 			<c:if test="${status.index + 1 % 5 == 0}">
@@ -184,8 +192,10 @@
 		}
 		%>-->
 	</div>
-	<div class="delete">
-		<a href="<c:url value='/artist/delete' />" class="btn-delete">탈퇴</a>
-	</div>
+	<c:if test="${isSameArtist}">
+		<div class="delete">
+			<a href="<c:url value='/artist/delete' />" class="btn-delete hover-cursor" onClick="checkRemove('<c:url value='/artist/delete' />')">탈퇴</a>
+		</div>
+	</c:if>
 </body>
 </html>

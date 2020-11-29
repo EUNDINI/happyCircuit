@@ -15,9 +15,9 @@ public class ArtistDAO {
 	}
 	
 	public int create(Artist artist) throws SQLException {
-		String sql = "INSERT INTO ARTIST VALUES (?, ?, ?, ?, null)";		
+		String sql = "INSERT INTO ARTIST VALUES (?, ?, ?, ?, ?)";		
 		Object[] param = new Object[] {artist.getArtistId(), artist.getPw(),
-					artist.getNickname(), artist.getProfile()};				
+					artist.getNickname(), artist.getProfile(), artist.getImage() };				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						
 		try {				
@@ -58,7 +58,7 @@ public class ArtistDAO {
 	}
 
 	public int remove(String artistId) throws SQLException {
-		String sql = "DELETE FROM ARTIST WHERE userid=?";		
+		String sql = "DELETE FROM ARTIST WHERE artistId=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	// JDBCUtil에 delete문과 매개 변수 설정
 
 		try {				
