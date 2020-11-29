@@ -110,11 +110,17 @@ public class DMDAO {
 		try {				
 			result = jdbcUtil.executeUpdate();	
 			if (result == 0) { //membership에 해당 dmid가 하나도 없으면 dm 테이블에서의 dmid도 삭제
+				sql = "DELETE FROM Message WHERE dmId=?";
+				param = new Object[] {dmId};					
+				jdbcUtil.setSqlAndParameters(sql, param);		
+				
+				result += jdbcUtil.executeUpdate();	
+				
 				sql = "DELETE FROM DM WHERE dmId=?";
 				param = new Object[] {dmId};					
 				jdbcUtil.setSqlAndParameters(sql, param);		
 				
-				result = jdbcUtil.executeUpdate();	
+				result += jdbcUtil.executeUpdate();	
 			}
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -203,6 +209,25 @@ public class DMDAO {
 			jdbcUtil.close();	// resource 반환
 		}	
 		return result;
+	}
+	
+	//Message 삭제
+	public int deleteAll(String artistId) throws SQLException {
+		String sql = "DELETE FROM Message WHERE artistId=?";		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	// JDBCUtil에 delete문과 매개 변수 설정
+
+		try {				
+			int result = jdbcUtil.executeUpdate();	// delete 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}		
+		return 0;
 	}
 	 
 	//해당 DM방의 Message 리스트

@@ -58,6 +58,7 @@
 				<div class="music-container">
 			</c:if>
 			<div class="music">
+				<!-- 이미지 경로 수정 필요 -->
 				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
 				<div class="music-title">
 					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>

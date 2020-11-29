@@ -150,6 +150,7 @@
 		</div>
 	</div>
 	<div align="center">
+		<a href="<c:url value='/DM/list' />" class="btn-delete">목록</a>
 		<a href="<c:url value='/DM/delete'>
 				 	<c:param name='dmId' value='${dmId}' />
 				 </c:url>" class="btn-delete">방 삭제</a>

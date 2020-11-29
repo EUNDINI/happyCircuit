@@ -11,8 +11,6 @@ import model.Music;
 public class RecommendMusicDAO {
 	
 	private JDBCUtil jdbcUtil = null;
-	private ArtistDAO artistDAO = new ArtistDAO();
-	private MusicDAO musicDAO = new MusicDAO();
 	
 	public RecommendMusicDAO() {
 		jdbcUtil = new JDBCUtil();	// JDBCUtil 객체 생성
@@ -35,6 +33,25 @@ public class RecommendMusicDAO {
 			jdbcUtil.close();	// resource 반환
 		}		
 		return 0;		
+	}
+	
+	//LikeMusic 테이블에서 삭제
+	public int remove(String artistId) throws SQLException {
+		String sql = "DELETE FROM LikeMusic WHERE artistId=?";		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	// JDBCUtil에 delete문과 매개 변수 설정
+
+		try {				
+			int result = jdbcUtil.executeUpdate();	// delete 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}		
+		return 0;
 	}
 	
 //	해당 music에 좋아요를 누른 artist 목록

@@ -46,9 +46,9 @@ public class UpdateArtistController implements Controller {
 		
 		//POST request (회원정보가 parameter로 전송됨)
 		
-		String projectPath = "E:\\hw\\6\\databaseproject\\newclone";
-		String filePath = ".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\happy\\sample";
-		String imgPath = projectPath + "\\" + filePath;
+//		String projectPath = "E:\\hw\\6\\databaseproject\\newclone";
+//		String filePath = ".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\happy\\sample";
+//		String imgPath = projectPath + "\\" + filePath;
 		
 		request.setCharacterEncoding("UTF-8");
 		String realFolder = ""; 
