@@ -4,6 +4,10 @@
 <%@ page import="model.Music"%>
 <%@ page import="model.MusicArticle"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = this.getServletContext().getRealPath("article");
+System.out.println(path);
+%>
 <c:set var="music" value="${musicArticle.music}" />
 <!DOCTYPE html>
 <html>
@@ -21,7 +25,7 @@ window.articleRemove = function() {
 	var result = confirm("정말 삭제하시겠습니까?");
 	
 	if(result){
-		location.href='<c:url value='/article/articleDelete'><c:param name='musicId' value='<%=request.getParameter("musicId")%>'/> </c:url>';
+		location.href='<c:url value='/article/articleDelete'><c:param name='musicId' value='${music.musicId}'/> </c:url>';
 	}
 	
 	return false;
@@ -30,7 +34,7 @@ window.articleRemove = function() {
 function likeCount(){
 	var result = confirm("좋아요를 누르시겠습니까?");
 	if(result) {
-		location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='{music.musicId}' /><c:param name='like' value='${musicArticle.likeCount}' /> </c:url>';
+		location.href='<c:url value='/article/articleRead'><c:param name='musicId' value='${music.musicId}' /><c:param name='like' value='${musicArticle.likeCount}' /> </c:url>';
 	}		
 }
 
@@ -163,6 +167,7 @@ function isLogin() {
 	color: #fff;
 	border: 1px solid #42454c;
 }
+
 .page_nation ul li {
 	float: left;
 }
@@ -178,7 +183,8 @@ function isLogin() {
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
 			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
-			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+			<button id='logout'
+				onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
@@ -202,11 +208,11 @@ function isLogin() {
 						<tr>
 							<td colspan="2" style="word-break: break-word;">
 								<p>
-									<!-- 아마 나중에 jsp로 구현될 듯?  -->
-									<!-- 파일처리 -->
 									<audio controls="controls" autoplay loop id="audio"
 										style="height: 30px; width: 500px;">
-										<source src="${musicPath}" type="audio/mp3" />
+										<source src="${music.musicPath}" type="audio/mp3">
+										<source src="${music.musicPath}" type="audio/ogg">
+										<source src="${music.musicPath}" type="audio/wav">
 									</audio>
 								</p>
 
@@ -230,7 +236,7 @@ function isLogin() {
 							<td colspan="2" align=right id="readRight"><strong>날짜</strong>&nbsp;
 								${musicArticle.regDate}&nbsp; &nbsp;&nbsp;<strong>조회수</strong>&nbsp;
 								${musicArticle.readCount}&nbsp; &nbsp;&nbsp;<strong>좋아요</strong>&nbsp;${musicArticle.likeCount}&nbsp;&nbsp;&nbsp;
-								<button  id='btnLike' onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
+								<button id='btnLike' onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
 								<button id='btnNthWrite'
 									onClick="location.href='<c:url value='/article/articleNthWrite/form' > <c:param name='priorMusicId' value='${music.musicId}'/></c:url>'">2차
 									창작</button></td>
@@ -246,7 +252,7 @@ function isLogin() {
 
 		<br>
 	</div>
-	
+
 	<c:if test="${not empty nthCreationList}">
 		<div id='nthCreationList'>
 			<table>
@@ -272,35 +278,36 @@ function isLogin() {
 				</tbody>
 			</table>
 		</div>
-		
-		<div class="page_wrap">
-				<div class="page_nation">
-			<ul>
-				<c:if test="${ curPageNum > 5 }">
-					<li><a
-						href="<c:url value='/article/articleRead' />?page=${ blockStartNum - 1 }&musicId=${music.musicId}">◀</a></li>
-				</c:if>
 
-				<c:forEach var="i" begin="${ blockStartNum }"
-					end="${ blockLastNum }">
-					<c:choose>
-						<c:when test="${ i > lastPageNum }">
-							<li>${ i }</li>
-						</c:when>
-						<c:when test="${ i == curPageNum }">
-							<li class="selected">${ i }</li>
-						</c:when>
-						<c:otherwise>
-							<li><a
-								href="<c:url value='/article/articleRead' />?page=${ i }"&musicId=${music.musicId}>${ i }</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${ lastPageNum > blockLastNum }">
-					<li><a
-						href="<c:url value='/article/articleRead' />page=${ blockLastNum + 1 }&musicId=${music.musicId}">▶</a></li>
-				</c:if>
-			</ul>
+		<div class="page_wrap">
+			<div class="page_nation">
+				<ul>
+					<c:if test="${ curPageNum > 5 }">
+						<li><a
+							href="<c:url value='/article/articleRead' />?page=${ blockStartNum - 1 }&musicId=${music.musicId}">◀</a></li>
+					</c:if>
+
+					<c:forEach var="i" begin="${ blockStartNum }"
+						end="${ blockLastNum }">
+						<c:choose>
+							<c:when test="${ i > lastPageNum }">
+								<li>${ i }</li>
+							</c:when>
+							<c:when test="${ i == curPageNum }">
+								<li class="selected">${ i }</li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="<c:url value='/article/articleRead' />?page=${ i }"
+									&musicId=${music.musicId}>${ i }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${ lastPageNum > blockLastNum }">
+						<li><a
+							href="<c:url value='/article/articleRead' />page=${ blockLastNum + 1 }&musicId=${music.musicId}">▶</a></li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 	</c:if>
