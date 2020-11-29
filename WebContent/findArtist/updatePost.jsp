@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -8,8 +8,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>臂静扁</title>
+<meta charset="UTF-8">
+<title>旮�鞊瓣赴</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -17,28 +17,30 @@
 <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 	<div class="container">
 	    <form name="updatePost" method="POST" action="<c:url value='/findArtist/update/post' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">臂静扁</font></b><hr>
+	        <b><font size="6" color="black" align="center">旮�鞊瓣赴</font></b><hr>
 	        
 	        <div class="row">
 	        	<div class="col-sm-4">
 		        	<select name="postCategoryId" class="form-control" style="width:600px;height:32px;">
 		        		<c:choose>
 							<c:when test="${post.postCategoryId eq 0}">
-								<option value="0" selected>墨抛绊府 急琶</option>
-						  		<option value="1">按盔 焊拿 备牢</option>
-						  		<option value="2">按盔 技记 备牢</option>
+								<option value="0" selected>旃错厡瓿犽Μ 靹犿儩</option>
+						  		<option value="1">臧濎洂 氤挫滑 甑澑</option>
+						  		<option value="2">臧濎洂 靹胳厴 甑澑</option>
 							</c:when>
 							<c:when test="${post.postCategoryId eq 1}">
-								<option value="0">墨抛绊府 急琶</option>
-						  		<option value="1" selected>按盔 焊拿 备牢</option>
-						  		<option value="2">按盔 技记 备牢</option>
+								<option value="0">旃错厡瓿犽Μ 靹犿儩</option>
+						  		<option value="1" selected>臧濎洂 氤挫滑 甑澑</option>
+						  		<option value="2">臧濎洂 靹胳厴 甑澑</option>
 							</c:when>
 							<c:when test="${post.postCategoryId eq 2}"> 
-								<option value="0">墨抛绊府 急琶</option>
-						  		<option value="1">按盔 焊拿 备牢</option>
-						  		<option value="2" selected>按盔 技记 备牢</option>
+								<option value="0">旃错厡瓿犽Μ 靹犿儩</option>
+						  		<option value="1">臧濎洂 氤挫滑 甑澑</option>
+						  		<option value="2" selected>臧濎洂 靹胳厴 甑澑</option>
 							</c:when>
 						</c:choose>
 					</select>
@@ -66,7 +68,7 @@
 	        
 	        <input type="text" name="postId" value="${post.postId}" style="display:none">
 	        
-	        <input type="submit" value="荐沥" class="btn btn-primary">    
+	        <input type="submit" value="靾橃爼" class="btn btn-primary">    
 	    </form>
 	</div>
 </body>

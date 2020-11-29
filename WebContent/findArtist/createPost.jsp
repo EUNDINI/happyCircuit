@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>±Û¾²±â</title>
+<meta charset="UTF-8">
+<title>ê¸€ì“°ê¸°</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -13,16 +13,18 @@
 <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
-	<div class="container">
+<% request.setCharacterEncoding("UTF-8"); %>
+
+<div class="container">
 	    <form name="applyForm" method="POST" action="<c:url value='/findArtist/create' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">±Û¾²±â</font></b><hr>
+	        <b><font size="6" color="black" align="center">ê¸€ì“°ê¸°</font></b><hr>
 	        
 	        <div class="row">
 	        	<div class="col-sm-4">
 					<select name="postCategoryId" class="form-control" style="width:600px;height:32px;">
-				      <option value="0" selected>Ä«Å×°í¸® ¼±ÅÃ</option>
-					  <option value="1">°´¿ø º¸ÄÃ ±¸ÀÎ</option>
-					  <option value="2">°´¿ø ¼¼¼Ç ±¸ÀÎ</option>
+				      <option value="0" selected>ì¹´í…Œê³ ë¦¬ ì„ íƒ</option>
+					  <option value="1">ê°ì› ë³´ì»¬ êµ¬ì¸</option>
+					  <option value="2">ê°ì› ì„¸ì…˜ êµ¬ì¸</option>
 					</select>
 				</div>
 			</div>
@@ -30,14 +32,14 @@
 	        <br>
 	        
 	        <div class="required-field-block">
-	            <input type="text" name="postTitle" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä." class="form-control">
+	            <input type="text" name="postTitle" placeholder="ì œëª©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”." class="form-control">
 	            <div class="required-icon">
 	                <div class="text"> <br></div>
 	            </div>
 	        </div>
 	 
 	        <div class="required-field-block">
-	            <textarea  name="postContent" rows="15" class="form-control" placeholder="³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä."></textarea>
+	            <textarea  name="postContent" rows="15" class="form-control" placeholder="ë‚´ìš©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”."></textarea>
 	        </div>
 	        
 	        <br>
@@ -46,7 +48,7 @@
 	        
 	        <br>
 	        
-	        <input type="submit" value="µî·Ï" class="btn btn-primary">    
+	        <input type="submit" value="ë“±ë¡" class="btn btn-primary">    
 	    </form>
 	</div>
 </body>

@@ -17,7 +17,7 @@ public class PostDAO {
 	
 	// Post(구인 게시글) 생성
 	public int create(Post post) throws SQLException {
-		String sql = "INSERT INTO POST VALUES (postId_seq.nextval, ?, to_date(SYSDATE, 'yyyy-mm-dd'), 0, ?, ?, ?, ?)";		
+		String sql = "INSERT INTO POST VALUES (postId_seq.nextval, ?, to_date(SYSDATE, 'yy-mm-dd'), 0, ?, ?, ?, ?)";		
 		Object[] param = new Object[] { post.getPostTitle(), 
 						post.getPostContent(),
 						post.getPostAttachment(), 
@@ -125,17 +125,18 @@ public class PostDAO {
 	}
 	
 	// Post의 제목으로 검색한 것을 데이터베이스에서 찾아 List<Post>에 저장하여 반환
-	public List<Post> searchPostTitle(String PostTitle) throws SQLException {
-        String sql = "SELECT p.postId, p.postTitle, p.postDate, p.postView, p.postContent, p.postAttachment, pc.postCategoryId, a.artistId "
-        			+ "FROM Post p, PostCategory pc, Artist a "
-        			+ "WHERE p.postCategoryId = pc.postCategoryId "
-        			+ "AND p.artistId = a.artistId "
-        			+ "AND p.postTitle=? ";              
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {PostTitle});	// JDBCUtil에 query문과 매개 변수 설정
+	public List<Post> searchPostTitle(String postTitle) throws SQLException {
+        String sql = "SELECT p.postId, p.postTitle, p.postDate, p.postView, p.postContent, p.postAttachment, pc.postCategoryId, pc.postCategoryName, a.artistId, a.nickname "
+    				+ "FROM Post p, PostCategory pc, Artist a "
+    				+ "WHERE p.postCategoryId = pc.postCategoryId "
+    				+ "AND p.artistId = a.artistId "
+        			+ "AND p.postTitle LIKE ? ";              
+        
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {'%' + postTitle + '%'});	// JDBCUtil에 query문과 매개 변수 설정
 		List<Post> postList = new ArrayList<Post>();
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
-			if (rs.next()) {						//  정보 발견
+			while (rs.next()) {						//  정보 발견
 				Post post = new Post(		// Post 객체를 생성하여 커뮤니티 정보를 저장
 						rs.getInt("postId"),
 						rs.getString("postTitle"),

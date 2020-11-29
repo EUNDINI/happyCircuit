@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -17,9 +17,11 @@
 <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 	<div class="container">
 	    <form name="applyForm" method="POST" action="listPost.jsp" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">Çù¾÷ ½ÅÃ»</font></b><hr>
+	        <b><font size="6" color="black" align="center">í˜‘ì—… ì‹ ì²­</font></b><hr>
 	        
 	        <div class="required-field-block">
 	            <input type="text" name="collaborationTitle" class="form-control" value="${collaboration.collaborationTitle}">
@@ -34,7 +36,7 @@
 	        <br> 
 	        
 	        <a href="<c:url value='/findArtist/list' />">
-	        	<input type="button" name="goToPostList" value="¸ñ·Ï" class="btn btn-light"> </a> 
+	        	<input type="button" name="goToPostList" value="ëª©ë¡" class="btn btn-light"> </a> 
 	          
 	    </form>
 	</div>

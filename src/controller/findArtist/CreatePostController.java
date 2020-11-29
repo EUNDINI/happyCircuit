@@ -1,10 +1,18 @@
 package controller.findArtist;
 
+import java.io.File;
+import java.util.Enumeration;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import controller.Controller;
+import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.Post;
 import model.dao.ArtistDAO;
@@ -18,18 +26,24 @@ public class CreatePostController implements Controller {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// ·Î±×ÀÎ ¿©ºÎ È®ÀÎ Ãß°¡
-		
-		// ¼¼¼ÇÀ» »ç¿ëÇÏ¿© »ç¿ëÀÚÀÇ id ¹× nickname ¾ò±â(ÃßÈÄ Ãß°¡ ¿¹Á¤)
+		// ë¡œê·¸ì¸ ì—¬ë¶€
 		HttpSession session = request.getSession();
-		String artistId = (String)session.getAttribute("artistId");
+		System.out.println("(CreatePostController) session: " + session);
+		if (!ArtistSessionUtils.hasLogined(session)) { // ë¡œê·¸ì¸ ì•ˆë˜ì–´ìˆëŠ” ìˆëŠ” ê²½ìš°
+			System.out.println("(CreatePostController) session: " + session);
+			return "redirect:/findArtist/list";	
+        }
+		
+		// ì„¸ì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ìì˜ id ë° nickname ì–»ê¸°
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+
 		Artist artist = artistDAO.findArtistById(artistId);
 		System.out.println("(CreatePostController) post(artistId): " + artistId);
 		
-		// postCategoryId¸¦ »ç¿ëÇØ¼­ postCategoryNameÀ» ¹Ş¾Æ¿À±â
+		// postCategoryIdë¥¼ ì‚¬ìš©í•´ì„œ postCategoryNameì„ ë°›ì•„ì˜¤ê¸°
 		int postCategoryId = Integer.parseInt((String) request.getParameter("postCategoryId"));
-		String postCategoryName = postDAO.findPostCategoryName(postCategoryId);
 		System.out.println("(CreatePostController) postCategoryId: " + postCategoryId);
+		String postCategoryName = postDAO.findPostCategoryName(postCategoryId);
 		System.out.println("(CreatePostController) postCategoryName: " + postCategoryName);
 		
 		String postTitle = request.getParameter("postTitle");
@@ -37,18 +51,107 @@ public class CreatePostController implements Controller {
 		System.out.println("(CreatePostController) postTitle: " + postTitle);
 		System.out.println("(CreatePostController) postContent: " + postContent);
 		
-		// postAttachment resources·Î Ãß°¡ ÇÊ¿ä, nickname Àß µ¹¾Æ°¡´ÂÁö ·Î±×ÀÎ Ãß°¡ ÈÄ È®ÀÎ ÇÊ¿ä
-		String postAttachment = "Ã·ºÎÆÄÀÏ"; 
-		String nickname = "artist1"; // ÇöÀç´Â ·Î±×ÀÎ Ãß°¡ ¾ÈÇØ¼­ ÀÓÀÇ ÁöÁ¤ÇÏÁö¸¸ ³ªÁß¿¡´Â ¾Æ·¡Ã³·³ ÄÚµå Â¥Áà¾ßÇÔ
-//		String nickname = artist.getNickname(); 
+		// postAttachment resourcesë¡œ ì¶”ê°€ í•„ìš”, nickname ì˜ ëŒì•„ê°€ëŠ”ì§€ ë¡œê·¸ì¸ ì¶”ê°€ í›„ í™•ì¸ í•„ìš”
+//		String postAttachment = "ì²¨ë¶€íŒŒì¼"; 
+			
+		String postAttachmentRoute = request.getParameter("postAttachment");
+		String postAttachment;
+		if (postAttachmentRoute.length() == 0) {
+			postAttachment = "ì²¨ë¶€íŒŒì¼ì—†ìŒ";
+		} 
+		else {
+			postAttachment = postAttachmentRoute.substring(postAttachmentRoute.lastIndexOf("\\") + 1);
+		}
+		System.out.println("(CreatePostController) postAttachmentRoute í¬ê¸°: " + postAttachmentRoute.length() );
+		System.out.println("(CreatePostController) postAttachmentRoute: ì‹œì‘" + postAttachmentRoute + "ë");
+		System.out.println("(CreatePostController) postAttachment: ì‹œì‘" + postAttachment + "ë");
+//		String nickname = "artist1"; // í˜„ì¬ëŠ” ë¡œê·¸ì¸ ì¶”ê°€ ì•ˆí•´ì„œ ì„ì˜ ì§€ì •í•˜ì§€ë§Œ ë‚˜ì¤‘ì—ëŠ” ì•„ë˜ì²˜ëŸ¼ ì½”ë“œ ì§œì¤˜ì•¼í•¨
+		String nickname = artist.getNickname(); 
 		System.out.println("(CreatePostController) postAttachment: " + postAttachment);
 		System.out.println("(CreatePostController) nickname: " + nickname);
+		
+		
+		
+//		String projectPath = "D:\\2020\\2í•™ê¸°\\ë°ì´í„°ë² ì´ìŠ¤í”„ë¡œê·¸ë˜ë°(ì»´í“¨í„°í•™ê³¼)\\í”„ë¡œì íŠ¸\\PROJECT";
+//		String filePath = ".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\happy\\resources\\findArtist";
+//		String imgPath = projectPath + "\\" + filePath;
+//		System.out.println("(CreatePostController) imgPath:" + projectPath + "\\" + filePath);
+//		
+//		request.setCharacterEncoding("UTF-8");
+//		String realFolder = ""; 
+//		String filename = ""; 
+//		int maxSize = 1024*1024*5; 
+//		String encType = "UTF-8"; 
+//		String savefile = "\\resources\\findArtist"; 
+//		ServletContext scontext = request.getServletContext(); 
+//		System.out.println("(CreatePostController) scontext:" + scontext);
+//		realFolder = scontext.getRealPath(savefile); 
+//		System.out.println("(CreatePostController) realFolder:" + realFolder);
+//		MultipartRequest multi = null;
+//		 
+//		try{ 
+//			multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
+//			Enumeration<?> files = multi.getFileNames(); 
+//			String file1 = (String)files.nextElement(); 
+//			filename = multi.getFilesystemName(file1); 
+//			System.out.println("(CreatePostController) filename: " + filename);
+//		} catch(Exception e) { 
+//			e.printStackTrace(); 
+//		} 
+		
+//		String uploadPath = request.getServletContext().getRealPath("/") + "\\resources\\findArtist";
+//		File Folder = new File(uploadPath);
+//		System.out.println(uploadPath);
+//		if (!Folder.exists()) {
+//			try{
+//			    Folder.mkdir(); //í´ë” ìƒì„±
+//			    System.out.println("í´ë”ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+//		        } 
+//		        catch(Exception e){
+//			    e.getStackTrace();
+//			}
+//		}
+//	
+//		int maxSize =1024 *1024 *10 * 10;
+//	   
+//	    MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());	    
+//	    
+//	    String fileName = multi.getFilesystemName("postAttachment"); //íŒŒì¼ëª…
+////		String postAttachmentPath = "../postAttachment/" + fileName;
+////	    String postAttachmentPath = uploadPath + "/" + fileName;
+//	    String postAttachmentPath = fileName;
+//	    System.out.println("postAttachmentPath: " + postAttachmentPath);
+//		
+//		// ì„¸ì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ìì˜ id ë° nickname ì–»ê¸°
+//		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+//		Artist artist = artistDAO.findArtistById(artistId);
+//		System.out.println("(CreatePostController) post(artistId): " + artistId);
+//		
+//		// postCategoryIdë¥¼ ì‚¬ìš©í•´ì„œ postCategoryNameì„ ë°›ì•„ì˜¤ê¸°
+//		int postCategoryId = Integer.parseInt((String) multi.getParameter("postCategoryId"));
+//		System.out.println("(CreatePostController) postCategoryId: " + postCategoryId);
+//		String postCategoryName = postDAO.findPostCategoryName(postCategoryId);
+//		System.out.println("(CreatePostController) postCategoryName: " + postCategoryName);
+//		
+//		String nickname = artist.getNickname(); 
+//		
+//		String postTitle = multi.getParameter("postTitle");
+//		String postContent = multi.getParameter("postContent");
+//		System.out.println("(CreatePostController) postTitle: " + postTitle);
+//		System.out.println("(CreatePostController) postContent: " + postContent);
 		
 		Post post = new Post(0, postTitle,
 				null, 0,
 				postContent, postAttachment, 
 				postCategoryId, postCategoryName,
-				"artist1", "artist1"); // ·Î±×ÀÎ ºÎºĞ ±¸ÇöµÇ¸é ÀÌºÎºĞ ¼öÁ¤ ÇØ¾ßÇÔ
+				artistId, nickname); // ë¡œê·¸ì¸ ë¶€ë¶„ êµ¬í˜„ë˜ë©´ ì´ë¶€ë¶„ ìˆ˜ì • í•´ì•¼í•¨
+
+		
+//		Post post = new Post(0, postTitle,
+//				null, 0,
+//				postContent, postAttachmentPath, 
+//				postCategoryId, postCategoryName,
+//				artistId, nickname); // ë¡œê·¸ì¸ ë¶€ë¶„ êµ¬í˜„ë˜ë©´ ì´ë¶€ë¶„ ìˆ˜ì • í•´ì•¼í•¨
 		
 		System.out.println("(CreatePostController) post: " + post);
 		System.out.println("(CreatePostController) post(getPostTitle): " + post.getPostTitle());
@@ -56,11 +159,12 @@ public class CreatePostController implements Controller {
 		System.out.println("(CreatePostController) post(getPostCategoryId): " + post.getPostCategoryId());
 		
 		int postId = postDAO.create(post);
+		System.out.println("(CreatePostController) postId: " + postId);
 		request.setAttribute("postId", postId);
 		request.setAttribute("post", postDAO.findPost(postId));
 
-//		return "/findArtist/view/post?postId=" + postId;
 		return "redirect:/findArtist/view/post?postId=" + postId;
+//		return "/findArtist/view/post?postId=" + postId;
 		
 	}
 
