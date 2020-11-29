@@ -53,15 +53,15 @@ function error(){
 						<input type="text" name="artistId" id="artistId" class="inpt"
 							required="required" placeholder="Your ID"> <label
 							for="artistId">Your ID</label> <input type="password"
-							name="password" id="password" class="inpt" required="required"
-							placeholder="Your password"> <label for="password">Your
+							name="pw" id="pw" class="inpt" required="required"
+							placeholder="Your password"> <label for="pw">Your
 							Password</label> <input type="text" name="nickname" id="nickname"
 							class="inpt" required="required" placeholder="Your NickName">
 						<label for="nickname">Your NickName</label> <input type="text"
-							name="profile" id="profile" class="inpt" required="required"
+							name="profile" id="profile" class="inpt" 
 							placeholder="Your Profile"> <label for="profile">Your
 							Profile</label> <input type="file" name="image" id="image" class="inpt"
-							required="required" placeholder="Your Image"> <label
+							placeholder="Your Image"> <label
 							for="image">Your Image</label>
 
 						<div class="submit-wrap">

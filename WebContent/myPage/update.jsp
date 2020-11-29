@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +57,9 @@
         transition-duration: 0.2s;
         transition-timing-function: ease-in-out;
     }
+	.hover-cursor {
+		cursor: pointer;
+	}
     @media (orientation: portrait) {
       	.main {
         	width: 95%;
@@ -63,28 +67,34 @@
     }
 </style>
 <script>
-	function userModify() {
-		form.submit();
-	}
-	
-	function userList(targetUri) {
-		form.action = targetUri;
+	function artistModify() {
 		form.submit();
 	}
 </script>
 </head>
 <body>
 	<div class="align-center main">
-		<img src="../sample/holding_onto_gravity.jpg"><!-- 현재 이미지 -->
-		<form action="" method="POST">
+		
+		<!-- 현재 이미지 -->
+		<div class="align-center profile-image">
+			<img src="${pageContext.request.contextPath}/sample/${artist.image}" class="profile-img">
+		</div>
+		
+		<div class="aling-cneter profile-nickname">
+			<span>${artist.nickname}</span>
+		</div>
+		
+		<form name="form" method="POST" action="<c:url value='/mypage/update' />" enctype="multipart/form-data">
 			<input type="file" class="form-item" name="image">
 			<br>
-			<input type="text" class="form-item introduction" value="${artist.profile}" name="profile">
+			<input type="text" name="profile" class="form-item introduction" value="${artist.profile}">
+			<div class="wrap-btns">
+				<input type="submit" value="수정" class="btn-update hover-cursor">
+				<a href="<c:url value='/mypage'>
+							<c:param name='artistId' value='${artist.artistId}' />
+						</c:url>" class="btn-update">취소</a>
+			</div>
 		</form>
-		<div class="wrap-btns">
-			<a href="" class="btn-update" onClick="userModify()">수정</a>
-			<a href="" class="btn-update" onClick="userList('<c:url value='/mypage' />')"">취소</a>
-		</div>
 	</div>
 </body>
 </html>

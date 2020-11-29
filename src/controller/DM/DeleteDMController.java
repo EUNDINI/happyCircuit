@@ -17,7 +17,7 @@ public class DeleteDMController implements Controller {
 
 		HttpSession session = request.getSession();	
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
-		int dmId = Integer.parseInt(request.getParameter("artistId"));
+		int dmId = Integer.parseInt(request.getParameter("dmId"));
 		
 		if (ArtistSessionUtils.getLoginArtistId(session).equals(artistId)) { //로그인한 artist가 해당 dm에 있으면
 			dmDAO.deleteMembership(artistId, dmId);

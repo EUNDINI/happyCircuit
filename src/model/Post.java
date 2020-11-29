@@ -12,15 +12,18 @@ public class Post {
 	private Date postDate; // 신청폼을 작성한 날짜
 	private int postView; // 신청폼 조회수
 	private String postContent; // 신청폼 내용
-	private int postAttachment; // 신청폼에 첨부할 수 있는 파일
+	private String postAttachment; // 신청폼에 첨부할 수 있는 파일
 	
-	private int artistId; // post를 작성한 아티스트. FK
-	private int postCategoryId; // post의 카테고리, FK
+	private int postCategoryId; // post의 카테고리 PK, FK	
+	private String postCategoryName; // post의 카테고리이름, FK
+	
+	private String artistId; // post를 작성한 아티스트의 PK, FK
+	private String nickname; // post를 작성한 아티스트의 닉네임, FK
 	
 	public Post() {}
 
-	public Post(int postId, String postTitle, Date postDate, int postView, String postContent, int postAttachment,
-			int artistId, int postCategoryId) {
+	public Post(int postId, String postTitle, Date postDate, int postView, String postContent, String postAttachment,
+			int postCategoryId, String postCategoryName, String artistId, String nickname) {
 		super();
 		this.postId = postId;
 		this.postTitle = postTitle;
@@ -28,8 +31,10 @@ public class Post {
 		this.postView = postView;
 		this.postContent = postContent;
 		this.postAttachment = postAttachment;
-		this.artistId = artistId;
 		this.postCategoryId = postCategoryId;
+		this.postCategoryName = postCategoryName;
+		this.artistId = artistId;
+		this.nickname = nickname;
 	}
 
 	public int getPostId() {
@@ -72,20 +77,12 @@ public class Post {
 		this.postContent = postContent;
 	}
 
-	public int getPostAttachment() {
+	public String getPostAttachment() {
 		return postAttachment;
 	}
 
-	public void setPostAttachment(int postAttachment) {
+	public void setPostAttachment(String postAttachment) {
 		this.postAttachment = postAttachment;
-	}
-
-	public int getArtistId() {
-		return artistId;
-	}
-
-	public void setArtistId(int artistId) {
-		this.artistId = artistId;
 	}
 
 	public int getPostCategoryId() {
@@ -94,6 +91,30 @@ public class Post {
 
 	public void setPostCategoryId(int postCategoryId) {
 		this.postCategoryId = postCategoryId;
+	}
+
+	public String getPostCategoryName() {
+		return postCategoryName;
+	}
+
+	public void setPostCategoryName(String postCategoryName) {
+		this.postCategoryName = postCategoryName;
+	}
+
+	public String getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(String artistId) {
+		this.artistId = artistId;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

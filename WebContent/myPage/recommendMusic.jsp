@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +53,24 @@
 	<div class="recommend-music-title">추천하는 음악</div>
 	
 	<div class="align-center music-list">
+		<c:forEach var="music" items="${musicList}" varStatus="status">
+			<c:if test="${status.index % 5 == 0}">
+				<div class="music-container">
+			</c:if>
+			<div class="music">
+				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
+				<div class="music-title">
+					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>
+				</div>
+				<div class="music-artist">
+					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
+				</div>
+			</div>
+			<c:if test="${(status.index + 1) % 5 == 0}">
+				</div>
+			</c:if>
+		</c:forEach> 
+		<!-- 
 		<% 
 		for (int i = 0; i < 15; i++) {
 			if (i % 5 == 0) {
@@ -76,7 +95,7 @@
 		<%
 			}
 		}
-		%>
+		%>-->
 	</div>
 </body>
 </html>
