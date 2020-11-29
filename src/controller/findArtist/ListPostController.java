@@ -22,7 +22,7 @@ public class ListPostController implements Controller {
 		// 구인 게시글 목록은 로그인 안해도 볼 수 있게 함
 		System.out.println("(CreatePostController): IN");
 
-		// 나중에 페이징도 추가할 수도 있음
+		// 나중에 페이징 추가
 		
 		// List<Post>를 request에 저장하여 전달
 		List<Post> postList = postDAO.findPostList();

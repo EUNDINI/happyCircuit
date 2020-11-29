@@ -1,4 +1,3 @@
-<!--  지금은 DB가 없어서 table로 작성하고, 나중에 DB 만들면 그 때 forEach 구문으로 테이블 생성 및 페이징 해야할 듯 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -96,6 +95,7 @@
             					<input type="text" name="postTitle" class="form-control" placeholder="Search" >
 				            	<div class="input-group-btn">
 				                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				                	 <br>
 				            	</div>
 				        	</div>
 				        </form>

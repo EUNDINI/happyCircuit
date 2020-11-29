@@ -2,11 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	Post post = (Post)request.getAttribute("post");
-%>
 <!DOCTYPE html>
 <html>
+<script>
+function collaborationCreate() {
+	if (createCollaborationForm.collaborationTitle.value == "") {
+		alert("제목을 입력해주세요.");
+		form.collaborationTitle.focus();
+		return false;
+	} 
+	if (createCollaborationForm.collaborationContent.value == "") {
+		alert("내용을 입력해주세요.");
+		form.collaborationContent.focus();
+		return false;
+	}	
+	createCollaborationForm.submit();
+}
+</script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -20,12 +32,11 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 
 	<div class="container">
-		<!-- 디엠쪽으로 action 보내게 수정해야 함  --> 
-	    <form name="createCollaboration" method="POST" action="<c:url value='/findArtist/create/collaboration' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="createCollaborationForm" method="POST" action="<c:url value='/findArtist/create/collaboration' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">협업 신청</font></b><hr>
 	        
 	        <div class="required-field-block">
-	            <input type="text" name="collaborationTitle" class="form-control" placeholder="제목을 입력해주세요.">
+	            <input type="text" name="collaborationTitle" class="form-control" placeholder="제목을 입력해주세요." value="">
 	            <div class="required-icon">
 	                <div class="text"> <br></div>
 	            </div>
@@ -38,8 +49,8 @@
 	        
 	        <input type="text" name="postId" value="${post.postId}" style="display:none">
 	         
-	        <input type="submit" value="신청" class="btn btn-primary">  
-	          
+	        <input type="button" value="신청" onClick="collaborationCreate()" class="btn btn-primary">  
+	        <br>
 	    </form>
 	</div>
 </body>
