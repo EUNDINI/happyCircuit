@@ -73,8 +73,7 @@ isLogin();
 	</div>
 
 	<div id="boardWrite">
-		<!-- enctype="multipart/form-data" -->
-		<form name="form" method="post"
+		<form name="form" method="post" enctype="multipart/form-data"
 			action="<c:url value='/article/articleModify'><c:param name='musicId' value='${music.musicId}' /> </c:url>">
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>
