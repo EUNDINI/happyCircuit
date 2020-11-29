@@ -23,7 +23,7 @@ public class CreatePostController implements Controller {
 		// 세션을 사용하여 사용자의 id 및 nickname 얻기(추후 추가 예정)
 		HttpSession session = request.getSession();
 		String artistId = (String)session.getAttribute("artistId");
-		Artist artist = artistDAO.findArtist(artistId);
+		Artist artist = artistDAO.findArtistById(artistId);
 		System.out.println("(CreatePostController) post(artistId): " + artistId);
 		
 		// postCategoryId를 사용해서 postCategoryName을 받아오기
