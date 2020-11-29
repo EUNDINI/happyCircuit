@@ -38,6 +38,8 @@ public class ViewDMController implements Controller {
 		
 		request.setAttribute("artistBooleanList", artistBooleanList);
 		request.setAttribute("msgList", msgList);
+		request.setAttribute("artistId", artistId);
+		request.setAttribute("dmId", dmId);
 		return "/DM/detail.jsp";
 	}
 

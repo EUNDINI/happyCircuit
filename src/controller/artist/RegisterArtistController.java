@@ -1,9 +1,14 @@
 package controller.artist;
 
 import java.sql.SQLException;
+import java.util.Enumeration;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import controller.Controller;
 import model.Artist;
@@ -17,18 +22,37 @@ public class RegisterArtistController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		request.setCharacterEncoding("UTF-8");
+		String realFolder = ""; 
+		String filename = ""; 
+		int maxSize = 1024*1024*5; 
+		String encType = "UTF-8"; 
+		String savefile = "sample"; 
+		ServletContext scontext = request.getServletContext(); 
+		realFolder = scontext.getRealPath(savefile); 
+		MultipartRequest multi = null;
+		 
+		try{ 
+			multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
+			Enumeration<?> files = multi.getFileNames(); 
+			String file1 = (String)files.nextElement(); 
+			filename = multi.getFilesystemName(file1); 
+		} catch(Exception e) { 
+			e.printStackTrace(); 
+		} 
+		
 		Artist artist = new Artist(
-				request.getParameter("artistId"),
-				request.getParameter("pw"),
-				request.getParameter("nickname"),
-				request.getParameter("profile"),
-				request.getParameter("image") );
+				multi.getParameter("artistId"),
+				multi.getParameter("pw"),
+				multi.getParameter("nickname"),
+				multi.getParameter("profile"),
+				filename );
 		try {
-			ArtistManager manager = ArtistManager.getInstance();
-			manager.create(artist);
-			return "redirect:/home"; // ¼º°ø ½Ã »ç¿ëÀÚ ¸®½ºÆ® È­¸éÀ¸·Î redirect
+			artistDAO.create(artist);
+			return "redirect:/home"; // ì„±ê³µ ì‹œ ì‚¬ìš©ì ë¦¬ìŠ¤íŠ¸ í™”ë©´ìœ¼ë¡œ redirect
 			
-		} catch (SQLException e) { // ¿¹¿Ü ¹ß»ı ½Ã È¸¿ø°¡ÀÔ formÀ¸·Î forwarding
+		} catch (SQLException e) { // ì˜ˆì™¸ ë°œìƒ ì‹œ íšŒì›ê°€ì… formìœ¼ë¡œ forwarding
 			request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
 			request.setAttribute("artist", artist);

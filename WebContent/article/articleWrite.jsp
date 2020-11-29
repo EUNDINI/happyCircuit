@@ -34,7 +34,7 @@ function articleWrite() {
 		<ul>
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 		</ul>
@@ -42,7 +42,7 @@ function articleWrite() {
 
 	<div id="boardWrite">
 	<!-- enctype="multipart/form-data" -->
-		<form name="form"  method="post"
+		<form name="form"  method="post" enctype="multipart/form-data"
 			action="<c:url value='/article/articleWrite' />">
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>

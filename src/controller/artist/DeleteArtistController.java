@@ -1,16 +1,23 @@
 package controller.artist;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import model.Artist;
+import model.DM;
 import model.dao.ArtistDAO;
+import model.dao.DMDAO;
+import model.dao.RecommendMusicDAO;
 
 public class DeleteArtistController implements Controller {
 
 	private ArtistDAO artistDAO = new ArtistDAO();
+	private DMDAO dmDAO = new DMDAO();
+	private RecommendMusicDAO recommendMusicDAO = new RecommendMusicDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,7 +31,14 @@ public class DeleteArtistController implements Controller {
 			(!ArtistSessionUtils.isLoginArtist("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
 			ArtistSessionUtils.isLoginArtist(artistId, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
 				
+//			List<DM> dmList = dmDAO.findDMListByArtistId(artistId);
+//			for (DM dm : dmList) {
+//				dmDAO.deleteMembership(artistId, dm.getDmId());
+//			}
+//			dmDAO.deleteMessage(artistId);
+			recommendMusicDAO.remove(artistId);
 			artistDAO.remove(artistId);				// 사용자 정보 삭제
+			
 			if (ArtistSessionUtils.isLoginArtist("admin", session))	// 로그인한 사용자가 관리자 	
 				return "redirect:/home";		// 사용자 리스트로 이동
 			else 									// 로그인한 사용자는 이미 삭제됨

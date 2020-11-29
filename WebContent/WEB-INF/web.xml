@@ -35,14 +35,17 @@
 		<url-pattern>*.js</url-pattern>
 		<url-pattern>*.jpg</url-pattern>
 		<url-pattern>*.PNG</url-pattern>
+		<url-pattern>*.mp3</url-pattern>
+		<url-pattern>*.ogg</url-pattern>
+		<url-pattern>*.wav</url-pattern>
 
 	</servlet-mapping>
 
 	<servlet-mapping>
-
 		<servlet-name>default</servlet-name>
-
 		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>

@@ -26,20 +26,21 @@ public class CreatePostController implements Controller {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// ·Î±×ÀÎ ¿©ºÎ
+		// ë¡œê·¸ì¸ ì—¬ë¶€
 		HttpSession session = request.getSession();
 		System.out.println("(CreatePostController) session: " + session);
-		if (!ArtistSessionUtils.hasLogined(session)) { // ·Î±×ÀÎ ¾ÈµÇ¾îÀÖ´Â ÀÖ´Â °æ¿ì
+		if (!ArtistSessionUtils.hasLogined(session)) { // ë¡œê·¸ì¸ ì•ˆë˜ì–´ìˆëŠ” ìˆëŠ” ê²½ìš°
 			System.out.println("(CreatePostController) session: " + session);
 			return "redirect:/findArtist/list";	
         }
 		
-		// ¼¼¼ÇÀ» »ç¿ëÇÏ¿© »ç¿ëÀÚÀÇ id ¹× nickname ¾ò±â
+		// ì„¸ì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ìì˜ id ë° nickname ì–»ê¸°
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+
 		Artist artist = artistDAO.findArtistById(artistId);
 		System.out.println("(CreatePostController) post(artistId): " + artistId);
 		
-		// postCategoryId¸¦ »ç¿ëÇØ¼­ postCategoryNameÀ» ¹Ş¾Æ¿À±â
+		// postCategoryIdë¥¼ ì‚¬ìš©í•´ì„œ postCategoryNameì„ ë°›ì•„ì˜¤ê¸°
 		int postCategoryId = Integer.parseInt((String) request.getParameter("postCategoryId"));
 		System.out.println("(CreatePostController) postCategoryId: " + postCategoryId);
 		String postCategoryName = postDAO.findPostCategoryName(postCategoryId);
@@ -50,28 +51,28 @@ public class CreatePostController implements Controller {
 		System.out.println("(CreatePostController) postTitle: " + postTitle);
 		System.out.println("(CreatePostController) postContent: " + postContent);
 		
-		// postAttachment resources·Î Ãß°¡ ÇÊ¿ä, nickname Àß µ¹¾Æ°¡´ÂÁö ·Î±×ÀÎ Ãß°¡ ÈÄ È®ÀÎ ÇÊ¿ä
-//		String postAttachment = "Ã·ºÎÆÄÀÏ"; 
+		// postAttachment resourcesë¡œ ì¶”ê°€ í•„ìš”, nickname ì˜ ëŒì•„ê°€ëŠ”ì§€ ë¡œê·¸ì¸ ì¶”ê°€ í›„ í™•ì¸ í•„ìš”
+//		String postAttachment = "ì²¨ë¶€íŒŒì¼"; 
 			
 		String postAttachmentRoute = request.getParameter("postAttachment");
 		String postAttachment;
 		if (postAttachmentRoute.length() == 0) {
-			postAttachment = "Ã·ºÎÆÄÀÏ¾øÀ½";
+			postAttachment = "ì²¨ë¶€íŒŒì¼ì—†ìŒ";
 		} 
 		else {
 			postAttachment = postAttachmentRoute.substring(postAttachmentRoute.lastIndexOf("\\") + 1);
 		}
-		System.out.println("(CreatePostController) postAttachmentRoute Å©±â: " + postAttachmentRoute.length() );
-		System.out.println("(CreatePostController) postAttachmentRoute: ½ÃÀÛ" + postAttachmentRoute + "³¡");
-		System.out.println("(CreatePostController) postAttachment: ½ÃÀÛ" + postAttachment + "³¡");
-//		String nickname = "artist1"; // ÇöÀç´Â ·Î±×ÀÎ Ãß°¡ ¾ÈÇØ¼­ ÀÓÀÇ ÁöÁ¤ÇÏÁö¸¸ ³ªÁß¿¡´Â ¾Æ·¡Ã³·³ ÄÚµå Â¥Áà¾ßÇÔ
+		System.out.println("(CreatePostController) postAttachmentRoute í¬ê¸°: " + postAttachmentRoute.length() );
+		System.out.println("(CreatePostController) postAttachmentRoute: ì‹œì‘" + postAttachmentRoute + "ë");
+		System.out.println("(CreatePostController) postAttachment: ì‹œì‘" + postAttachment + "ë");
+//		String nickname = "artist1"; // í˜„ì¬ëŠ” ë¡œê·¸ì¸ ì¶”ê°€ ì•ˆí•´ì„œ ì„ì˜ ì§€ì •í•˜ì§€ë§Œ ë‚˜ì¤‘ì—ëŠ” ì•„ë˜ì²˜ëŸ¼ ì½”ë“œ ì§œì¤˜ì•¼í•¨
 		String nickname = artist.getNickname(); 
 		System.out.println("(CreatePostController) postAttachment: " + postAttachment);
 		System.out.println("(CreatePostController) nickname: " + nickname);
 		
 		
 		
-//		String projectPath = "D:\\2020\\2ÇĞ±â\\µ¥ÀÌÅÍº£ÀÌ½ºÇÁ·Î±×·¡¹Ö(ÄÄÇ»ÅÍÇĞ°ú)\\ÇÁ·ÎÁ§Æ®\\PROJECT";
+//		String projectPath = "D:\\2020\\2í•™ê¸°\\ë°ì´í„°ë² ì´ìŠ¤í”„ë¡œê·¸ë˜ë°(ì»´í“¨í„°í•™ê³¼)\\í”„ë¡œì íŠ¸\\PROJECT";
 //		String filePath = ".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\happy\\resources\\findArtist";
 //		String imgPath = projectPath + "\\" + filePath;
 //		System.out.println("(CreatePostController) imgPath:" + projectPath + "\\" + filePath);
@@ -103,8 +104,8 @@ public class CreatePostController implements Controller {
 //		System.out.println(uploadPath);
 //		if (!Folder.exists()) {
 //			try{
-//			    Folder.mkdir(); //Æú´õ »ı¼º
-//			    System.out.println("Æú´õ°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+//			    Folder.mkdir(); //í´ë” ìƒì„±
+//			    System.out.println("í´ë”ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 //		        } 
 //		        catch(Exception e){
 //			    e.getStackTrace();
@@ -115,18 +116,18 @@ public class CreatePostController implements Controller {
 //	   
 //	    MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());	    
 //	    
-//	    String fileName = multi.getFilesystemName("postAttachment"); //ÆÄÀÏ¸í
+//	    String fileName = multi.getFilesystemName("postAttachment"); //íŒŒì¼ëª…
 ////		String postAttachmentPath = "../postAttachment/" + fileName;
 ////	    String postAttachmentPath = uploadPath + "/" + fileName;
 //	    String postAttachmentPath = fileName;
 //	    System.out.println("postAttachmentPath: " + postAttachmentPath);
 //		
-//		// ¼¼¼ÇÀ» »ç¿ëÇÏ¿© »ç¿ëÀÚÀÇ id ¹× nickname ¾ò±â
+//		// ì„¸ì…˜ì„ ì‚¬ìš©í•˜ì—¬ ì‚¬ìš©ìì˜ id ë° nickname ì–»ê¸°
 //		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 //		Artist artist = artistDAO.findArtistById(artistId);
 //		System.out.println("(CreatePostController) post(artistId): " + artistId);
 //		
-//		// postCategoryId¸¦ »ç¿ëÇØ¼­ postCategoryNameÀ» ¹Ş¾Æ¿À±â
+//		// postCategoryIdë¥¼ ì‚¬ìš©í•´ì„œ postCategoryNameì„ ë°›ì•„ì˜¤ê¸°
 //		int postCategoryId = Integer.parseInt((String) multi.getParameter("postCategoryId"));
 //		System.out.println("(CreatePostController) postCategoryId: " + postCategoryId);
 //		String postCategoryName = postDAO.findPostCategoryName(postCategoryId);
@@ -143,14 +144,14 @@ public class CreatePostController implements Controller {
 				null, 0,
 				postContent, postAttachment, 
 				postCategoryId, postCategoryName,
-				artistId, nickname); // ·Î±×ÀÎ ºÎºĞ ±¸ÇöµÇ¸é ÀÌºÎºĞ ¼öÁ¤ ÇØ¾ßÇÔ
+				artistId, nickname); // ë¡œê·¸ì¸ ë¶€ë¶„ êµ¬í˜„ë˜ë©´ ì´ë¶€ë¶„ ìˆ˜ì • í•´ì•¼í•¨
 
 		
 //		Post post = new Post(0, postTitle,
 //				null, 0,
 //				postContent, postAttachmentPath, 
 //				postCategoryId, postCategoryName,
-//				artistId, nickname); // ·Î±×ÀÎ ºÎºĞ ±¸ÇöµÇ¸é ÀÌºÎºĞ ¼öÁ¤ ÇØ¾ßÇÔ
+//				artistId, nickname); // ë¡œê·¸ì¸ ë¶€ë¶„ êµ¬í˜„ë˜ë©´ ì´ë¶€ë¶„ ìˆ˜ì • í•´ì•¼í•¨
 		
 		System.out.println("(CreatePostController) post: " + post);
 		System.out.println("(CreatePostController) post(getPostTitle): " + post.getPostTitle());

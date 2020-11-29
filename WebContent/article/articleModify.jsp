@@ -64,7 +64,7 @@ isLogin();
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li><a href='#'>Find Artist</a></li>
 			<li><a href='#'>My Page</a></li>
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
@@ -73,8 +73,7 @@ isLogin();
 	</div>
 
 	<div id="boardWrite">
-		<!-- enctype="multipart/form-data" -->
-		<form name="form" method="post"
+		<form name="form" method="post" enctype="multipart/form-data"
 			action="<c:url value='/article/articleModify'><c:param name='musicId' value='${music.musicId}' /> </c:url>">
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>

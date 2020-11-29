@@ -140,55 +140,20 @@
 				</div>
 			</c:if>
 		</c:forEach>
-		<!--  
-		<div>
-			<div class="sender-left">
-				<span>artist2</span>
-			</div>
-			<div class="message message-left">
-				예 안녕하세요
-			</div>
-			<div class="time time-left">
-				12:30
-			</div>
-		</div>
-		<div align="right">
-			<div class="time time-right">
-				12:30
-			</div>
-			<div class="message message-right">
-				안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다		
-			</div>
-		</div>
-		<div align="right">
-			<div class="time time-right">
-				12:30
-			</div>
-			<div class="message message-right">
-				안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다안녕하세요테스트좀하겠습니다
-			</div>
-		</div>
-		<div>
-			<div class="sender-left">
-				<span>artist2</span>
-			</div>
-			<div class="message message-left">
-				예 안녕하세요
-			</div>
-			<div class="time time-left">
-				12:30
-			</div>
-		</div>
-		-->
 		<div class="create-message">
-			<form>
+			<form method="POST" action="<c:url value='/DM/message/create'>
+											<c:param name='dmId' value='${dmId}' />
+										</c:url>">
 				<input type="text" class="enter-message" name="message">
 				<input type="submit" class="btn-submit hover-cursor" value="전송">
 			</form>
 		</div>
 	</div>
 	<div align="center">
-		<a href="" class="btn-delete">방 삭제</a>
+		<a href="<c:url value='/DM/list' />" class="btn-delete">목록</a>
+		<a href="<c:url value='/DM/delete'>
+				 	<c:param name='dmId' value='${dmId}' />
+				 </c:url>" class="btn-delete">방 삭제</a>
 	</div>
 </body>
 </html>
