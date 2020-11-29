@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글내용</title>
-
+<!-- <link rel="stylesheet" href="../resources/css/bootstrap.css"> -->
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -67,10 +67,10 @@ function userRemove() {
             <a href="<c:url value='/findArtist/list' />">
 	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
          
-	         <a href="<c:url value='/findArtist/collaborate'>
+	         <a href="<c:url value='/findArtist/create/collaboration'>
 	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
 			 	 </c:url>"><input type="button" name="offerCollaboration" value="협업 신청" class="btn btn-success" style="float:right;" ></a>
-	                 
+	         <br>       
 	    </form>
 	</div>
 </body>

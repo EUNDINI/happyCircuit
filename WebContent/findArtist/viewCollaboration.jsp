@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	Collaboration collaboration = (Collaboration)request.getAttribute("collaboration");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +34,7 @@
 	        
 	        <a href="<c:url value='/findArtist/list' />">
 	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
-	          
+	        <br>
 	    </form>
 	</div>
 </body>

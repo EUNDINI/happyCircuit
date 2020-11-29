@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	Post post = (Post)request.getAttribute("post");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +12,32 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<script>
+function postUpdate() {
+	if (updatePostForm.postCategoryId.value == "0") {
+		alert("카테고리를 선택해주세요.");
+		updatePostForm.postCategoryId.focus();
+		return false;
+	} 
+	if (updatePostForm.postTitle.value == "") {
+		alert("제목을 입력해주세요.");
+		updatePostForm.postTitle.focus();
+		return false;
+	}	
+	if (updatePostForm.postContent.value == "") {
+		alert("내용을 입력해주세요.");
+		updatePostForm.postContent.focus();
+		return false;
+	}
+	updatePostForm.submit();
+}
+</script>
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 	<div class="container">
-	    <form name="updatePost" method="POST" action="<c:url value='/findArtist/update/post' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="updatePostForm" method="POST" action="<c:url value='/findArtist/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
 	        
 	        <div class="row">
@@ -68,7 +85,8 @@
 	        
 	        <input type="text" name="postId" value="${post.postId}" style="display:none">
 	        
-	        <input type="submit" value="수정" class="btn btn-primary">    
+	        <input type="button" value="수정" onClick="postUpdate()" class="btn btn-primary">
+	         <br>    
 	    </form>
 	</div>
 </body>

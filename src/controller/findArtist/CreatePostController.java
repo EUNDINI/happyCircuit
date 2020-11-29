@@ -51,7 +51,7 @@ public class CreatePostController implements Controller {
 		System.out.println("(CreatePostController) postTitle: " + postTitle);
 		System.out.println("(CreatePostController) postContent: " + postContent);
 		
-		// postAttachment resources로 추가 필요, nickname 잘 돌아가는지 로그인 추가 후 확인 필요
+		// postAttachment resources로 추가 필요
 //		String postAttachment = "첨부파일"; 
 			
 		String postAttachmentRoute = request.getParameter("postAttachment");
@@ -164,7 +164,6 @@ public class CreatePostController implements Controller {
 		request.setAttribute("post", postDAO.findPost(postId));
 
 		return "redirect:/findArtist/view/post?postId=" + postId;
-//		return "/findArtist/view/post?postId=" + postId;
 		
 	}
 

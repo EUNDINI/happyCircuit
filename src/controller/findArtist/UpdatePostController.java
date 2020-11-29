@@ -33,7 +33,16 @@ public class UpdatePostController implements Controller {
 		if (!ArtistSessionUtils.isLoginArtist(artistId, session)) { // 로그인 된 사람과 post를 작성한 사람이 다르면
 			return "redirect:/findArtist/list";	
 		}
-		
+
+		// GET method: 초기값 전송 및 form 화면 출력
+		if (request.getMethod().equals("GET")) {
+			System.out.println("(UpdatePostController) oldPostId: " + oldPostId);
+			Post post = postDAO.findPost(oldPostId);
+			request.setAttribute("post", post);	
+			return "/findArtist/updatePost.jsp";
+		}
+
+		// POST method: 업데이트 된 데이터를 받아와 DB 갱신
 		int updatePostCategoryId = Integer.parseInt(request.getParameter("postCategoryId"));
 		String updatePostCategoryName = postDAO.findPostCategoryName(updatePostCategoryId);
 		String updatePostTitle = request.getParameter("postTitle");
@@ -59,7 +68,6 @@ public class UpdatePostController implements Controller {
 				oldPost.getArtistId(), nickname);  // "artist1" 부분에 artistDAO.findNickname 추가해서 수정해야
 		postDAO.update(post);
 		
-//		return "/findArtist/view/post?postId=" + oldPostId;
 		return "redirect:/findArtist/view/post?postId=" + oldPostId;
 	}
 

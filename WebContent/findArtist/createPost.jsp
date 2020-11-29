@@ -11,12 +11,32 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<script>
+function postCreate() {
+	if (createPostForm.postCategoryId.value == "0") {
+		alert("카테고리를 선택해주세요.");
+		createPostForm.postCategoryId.focus();
+		return false;
+	} 
+	if (createPostForm.postTitle.value == "") {
+		alert("제목을 입력해주세요.");
+		createPostForm.postTitle.focus();
+		return false;
+	}	
+	if (createPostForm.postContent.value == "") {
+		alert("내용을 입력해주세요.");
+		createPostForm.postContent.focus();
+		return false;
+	}
+	createPostForm.submit();
+}
+</script>
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <div class="container">
-	    <form name="applyForm" method="POST" action="<c:url value='/findArtist/create' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="createPostForm" method="POST" action="<c:url value='/findArtist/create' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
 	        
 	        <div class="row">
@@ -48,7 +68,8 @@
 	        
 	        <br>
 	        
-	        <input type="submit" value="등록" class="btn btn-primary">    
+	        <input type="button" value="등록" onClick="postCreate()" class="btn btn-primary">  
+	         <br>  
 	    </form>
 	</div>
 </body>

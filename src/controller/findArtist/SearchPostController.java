@@ -23,11 +23,15 @@ public class SearchPostController implements Controller {
 			return "redirect:/findArtist/list";	
         }
 	
-		List<Post> postList = postDAO.searchPostTitle(request.getParameter("postTitle"));
-		System.out.println("(ListPostController) postList의 길이: " + postList.size());
-		request.setAttribute("postList", postList);
-
-		return "/findArtist/listPost.jsp";
+		try {
+			List<Post> postList = postDAO.searchPostTitle(request.getParameter("postTitle"));
+			System.out.println("(ListPostController) postList의 길이: " + postList.size());
+			request.setAttribute("postList", postList);
+			
+			return "/findArtist/listPost.jsp";
+		} catch (Exception e) {
+			return "redirect:/findArtist/list";
+		}
 
 	}
 
