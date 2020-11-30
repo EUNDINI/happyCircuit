@@ -59,14 +59,11 @@ public class UpdateArtistController implements Controller {
 		String realFolder = ""; 
 		String filename = ""; 
 		int maxSize = 1024*1024*5; 
-		String encType = "UTF-8"; 
-		String savefile = "sample"; 
-		ServletContext scontext = request.getServletContext(); 
-		realFolder = scontext.getRealPath(savefile); 
+		realFolder = request.getServletContext().getRealPath("sample"); 
 		MultipartRequest multi = null;
 		 
 		try{ 
-			multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
+			multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy()); 
 			Enumeration<?> files = multi.getFileNames(); 
 			String file1 = (String)files.nextElement(); 
 			filename = multi.getFilesystemName(file1); 
@@ -80,7 +77,6 @@ public class UpdateArtistController implements Controller {
 				artist.getNickname(),
 				multi.getParameter("profile"),
 				filename);
-		
 		try {
 			artistDAO.update(updateArtist);
 		} catch(Exception e) { 
