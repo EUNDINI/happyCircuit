@@ -14,9 +14,23 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/listPost.css' />">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../resources/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
+
+	<div id='menu'>
+		<ul>
+			<li><a href='<c:url value='/home' />'>Home</a></li>
+			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
+			<li class='active'><a href="#">Find Artist</a></li>
+			<li><a href="<c:url value='/mypage'>
+				<c:param name='artistId' value='${artistId}'/>
+				</c:url>">My Page</a></li>
+		</ul>
+	</div>
+	<br> <br>
 
 <div class="container">
     <div class="row">
