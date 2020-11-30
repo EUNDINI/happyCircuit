@@ -1,44 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	Post post = (Post)request.getAttribute("post");
-%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>╠ш╬╡╠Б</title>
+<meta charset="UTF-8">
+<title>Й╦─Л⌠╟Й╦╟</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<script>
+function postUpdate() {
+	if (updatePostForm.postCategoryId.value == "0") {
+		alert("Л╧╢М┘▄ЙЁ═К╕╛К╔╪ Л└═М┐²М∙╢Лё╪Л└╦Л ■.");
+		updatePostForm.postCategoryId.focus();
+		return false;
+	} 
+	if (updatePostForm.postTitle.value == "") {
+		alert("Л═°К╙╘Л²└ Л·┘К═╔М∙╢Лё╪Л└╦Л ■.");
+		updatePostForm.postTitle.focus();
+		return false;
+	}	
+	if (updatePostForm.postContent.value == "") {
+		alert("К┌╢Л ╘Л²└ Л·┘К═╔М∙╢Лё╪Л└╦Л ■.");
+		updatePostForm.postContent.focus();
+		return false;
+	}
+	updatePostForm.submit();
+}
+</script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 	<div class="container">
-	    <form name="updatePost" method="POST" action="<c:url value='/findArtist/update/post' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">╠ш╬╡╠Б</font></b><hr>
+	    <form name="updatePostForm" method="POST" action="<c:url value='/findArtist/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	        <b><font size="6" color="black" align="center">Й╦─Л⌠╟Й╦╟</font></b><hr>
 	        
 	        <div class="row">
 	        	<div class="col-sm-4">
 		        	<select name="postCategoryId" class="form-control" style="width:600px;height:32px;">
 		        		<c:choose>
 							<c:when test="${post.postCategoryId eq 0}">
-								<option value="0" selected>д╚ев╟М╦╝ ╪╠ец</option>
-						  		<option value="1">╟╢©Ь ╨╦дц ╠╦юн</option>
-						  		<option value="2">╟╢©Ь ╪╪╪г ╠╦юн</option>
+								<option value="0" selected>Л╧╢М┘▄ЙЁ═К╕╛ Л└═М┐²</option>
+						  		<option value="1">Й╟²Л⌡░ КЁ╢Л╩╛ Й╣╛Л²╦</option>
+						  		<option value="2">Й╟²Л⌡░ Л└╦Л┘≤ Й╣╛Л²╦</option>
 							</c:when>
 							<c:when test="${post.postCategoryId eq 1}">
-								<option value="0">д╚ев╟М╦╝ ╪╠ец</option>
-						  		<option value="1" selected>╟╢©Ь ╨╦дц ╠╦юн</option>
-						  		<option value="2">╟╢©Ь ╪╪╪г ╠╦юн</option>
+								<option value="0">Л╧╢М┘▄ЙЁ═К╕╛ Л└═М┐²</option>
+						  		<option value="1" selected>Й╟²Л⌡░ КЁ╢Л╩╛ Й╣╛Л²╦</option>
+						  		<option value="2">Й╟²Л⌡░ Л└╦Л┘≤ Й╣╛Л²╦</option>
 							</c:when>
 							<c:when test="${post.postCategoryId eq 2}"> 
-								<option value="0">д╚ев╟М╦╝ ╪╠ец</option>
-						  		<option value="1">╟╢©Ь ╨╦дц ╠╦юн</option>
-						  		<option value="2" selected>╟╢©Ь ╪╪╪г ╠╦юн</option>
+								<option value="0">Л╧╢М┘▄ЙЁ═К╕╛ Л└═М┐²</option>
+						  		<option value="1">Й╟²Л⌡░ КЁ╢Л╩╛ Й╣╛Л²╦</option>
+						  		<option value="2" selected>Й╟²Л⌡░ Л└╦Л┘≤ Й╣╛Л²╦</option>
 							</c:when>
 						</c:choose>
 					</select>
@@ -66,7 +85,8 @@
 	        
 	        <input type="text" name="postId" value="${post.postId}" style="display:none">
 	        
-	        <input type="submit" value="╪Жа╓" class="btn btn-primary">    
+	        <input type="button" value="Л┬≤Л═∙" onClick="postUpdate()" class="btn btn-primary">
+	         <br>    
 	    </form>
 	</div>
 </body>

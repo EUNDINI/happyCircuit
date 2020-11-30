@@ -1,18 +1,23 @@
-<!--  ¡ˆ±›¿∫ DB∞° æ¯æÓº≠ table∑Œ ¿€º∫«œ∞Ì, ≥™¡ﬂø° DB ∏∏µÈ∏È ±◊ ∂ß forEach ±∏πÆ¿∏∑Œ ≈◊¿Ã∫Ì ª˝º∫ π◊ ∆‰¿Ã¬° «ÿæﬂ«“ µÌ -->
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>±∏¿Œ ∞‘Ω√∆«</title>
+<meta charset="UTF-8">
+<title>Íµ¨Ïù∏ Í≤åÏãúÌåê</title>
+<!-- 
 	<link rel="stylesheet" href="../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/css/listPost.css">
+ -->
+	<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/css/listPost.css' />">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../resources/js/bootstrap.js"></script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -23,16 +28,16 @@
                             <thead>
                             <tr>
 								<td colspan="3">
-									<b><font size="6">±∏¿Œ ∞‘Ω√∆«</font></b>
+									<b><font size="6">Íµ¨Ïù∏ Í≤åÏãúÌåê</font></b>
 								</td>
 							</tr>
                                 <tr>
-                                    <th scope="col">π¯»£</th>
-                                    <th scope="col">∫–∑˘</th>
-                                    <th scope="col">¡¶∏Ò</th>
-                                    <th scope="col">¿€º∫¿⁄</th>
-                                    <th scope="col">¿€º∫¿œ</th>
-                                    <th scope="col">¡∂»∏</th>
+                                    <th scope="col">Î≤àÌò∏</th>
+                                    <th scope="col">Î∂ÑÎ•ò</th>
+                                    <th scope="col">Ï†úÎ™©</th>
+                                    <th scope="col">ÏûëÏÑ±Ïûê</th>
+                                    <th scope="col">ÏûëÏÑ±Ïùº</th>
+                                    <th scope="col">Ï°∞Ìöå</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,18 +87,19 @@
 					<div class="write-find-artist">
 						<form name="listPost" method="POST">
 							<a href="<c:url value='/findArtist/create/post' />">
-					        	<input type="button" name="writePost" value="¿€º∫"  class="btn btn-primary">
+								<input type="button" name="writePost" value="ÏûëÏÑ±"  class="btn btn-primary">			        	
 					        </a>	
 				        </form>
 					</div>
 					<!-- end write button -->
 
 					<div class="col-sm-3">
-        				<form class="navbar-form" role="search">
+        				<form class="searchPost" method="POST" action="<c:url value='/findArtist/search/post' />" role="search">
        						 <div class="input-group">
-            					<input type="text" class="form-control" placeholder="Search" name="q">
+            					<input type="text" name="postTitle" class="form-control" placeholder="Search" >
 				            	<div class="input-group-btn">
 				                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				                	 <br>
 				            	</div>
 				        	</div>
 				        </form>
