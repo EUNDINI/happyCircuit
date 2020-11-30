@@ -1,4 +1,4 @@
-package controller.findArtist;
+package controller.collaboration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +22,14 @@ public class ViewCollaborationController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 		
 		int collaborationId = Integer.parseInt(request.getParameter("collaborationId"));
 		Collaboration collaboration = collaborationDAO.findCollaboration(collaborationId);
 		request.setAttribute("collaboration", collaboration);
 		
-		return "/findArtist/viewCollaboration.jsp";
+		return "/collaboration/viewCollaboration.jsp";
 	}
 
 }

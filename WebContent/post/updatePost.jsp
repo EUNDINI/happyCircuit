@@ -9,8 +9,6 @@
 <title>글쓰기</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
@@ -37,25 +35,10 @@ function postUpdate() {
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
-<div id='menu'>
-		<ul>
-			<li><a href='<c:url value='/home' />'>Home</a></li>
-			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
-			<li class='active'><a href="<c:url value='/findArtist/list' />">Find
-					Artist</a></li>
-			<li><a
-				href="<c:url value='/mypage'>
-						 	<c:param name='artistId' value='${artistId}'/>
-						 </c:url>">My
-					Page</a></li>
-		</ul>
-	</div>
-	<br>
-	<br>
 
 	<div class="container">
-	    <form name="updatePostForm" method="POST" action="<c:url value='/findArtist/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black">글쓰기</font></b><hr>
+	    <form name="updatePostForm" method="POST" action="<c:url value='/post/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
 	        
 	        <div class="row">
 	        	<div class="col-sm-4">
@@ -93,10 +76,6 @@ function postUpdate() {
 	        <div class="required-field-block">
 	            <textarea  name="postContent" rows="15" class="form-control">${post.postContent}</textarea>
 	        </div>
-	        
-	        <br>
-	        
-	        <input type="file" name="postAttachment" />
 	        
 	        <br>
 	        

@@ -1,4 +1,4 @@
-package controller.findArtist;
+package controller.collaboration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class CreateCollaborationController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 		
 		// GET method: 초기값 전송 및 form 화면 출력
@@ -46,7 +46,7 @@ public class CreateCollaborationController implements Controller {
 				return "redirect:/findArtist/view/post?postId=" + postId;
 			}
 			
-			return "/findArtist/createCollaboration.jsp";
+			return "/collaboration/createCollaboration.jsp";
 		}
 		
 		// POST method: 작성된 데이터를 받아와 DB 갱신
@@ -100,9 +100,9 @@ public class CreateCollaborationController implements Controller {
 			int collaborationId = collaborationDAO.create(collaboration);
 			request.setAttribute("collaborationId", collaborationId);
 			
-			return "redirect:/findArtist/view/collaboration?collaborationId=" + collaborationId;
+			return "redirect:/collaboration/view?collaborationId=" + collaborationId;
 		} catch (Exception e) {
-			return "/findArtist/createCollaboration.jsp";
+			return "/collaboration/createCollaboration.jsp";
 		}
 		
 	}
