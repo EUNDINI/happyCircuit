@@ -33,6 +33,9 @@
 		<servlet-name>default</servlet-name>
 
 		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.mp3</url-pattern>
+		<url-pattern>*.ogg</url-pattern>
+		<url-pattern>*.wav</url-pattern>
 
 	</servlet-mapping>
 

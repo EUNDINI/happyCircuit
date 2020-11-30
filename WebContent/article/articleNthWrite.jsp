@@ -45,12 +45,10 @@ function articleList(targetUri) {
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 		</ul>
 	</div>
-
 	<div id="boardWrite">
-	<!-- enctype="multipart/form-data"  -->
-		<form name="form" method="post"
+		<form name="form" method="post" enctype="multipart/form-data"
 			action="<c:url value='/article/articleNthWrite'  />">
-			<input type='hidden' name='priorMusicId' value="${priorMusicId}" />
+			<input type='hidden' name='priorMusicId' value="<%= request.getParameter("priorMusicId") %>" />
 			<table style="padding-top: 10px" align=center width=80% border='0'>
 				<tr>
 					<td height=20 align=center bgcolor=#cccccc><font color=white>
@@ -61,7 +59,7 @@ function articleList(targetUri) {
 						<table id="writeTable" width='80%'>
 							<tr>
 								<th width="200px">작성자</th>
-								<td>${artistId</td>
+								<td>${artistId}</td>
 							</tr>
 
 							<tr>
