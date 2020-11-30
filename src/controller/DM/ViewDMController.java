@@ -27,7 +27,7 @@ public class ViewDMController implements Controller {
     	
 		int dmId = Integer.parseInt(request.getParameter("dmId"));
 		List<Message> msgList = dmDAO.findMessageList(dmId);
-		
+		 
 		HttpSession session = request.getSession();
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 

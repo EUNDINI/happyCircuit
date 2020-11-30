@@ -35,7 +35,7 @@ public class DeleteArtistController implements Controller {
 			   || 												// 또는 
 			(!ArtistSessionUtils.isLoginArtist("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
 			ArtistSessionUtils.isLoginArtist(artistId, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
-				
+				 
 //			List<DM> dmList = dmDAO.findDMListByArtistId(artistId);
 //			for (DM dm : dmList) {
 //				dmDAO.deleteMembership(artistId, dm.getDmId());

@@ -38,7 +38,7 @@ public class ListDMController implements Controller {
 			for (Artist artist : dm.getArtistList()) {
 				if (!artist.getArtistId().equals(artistId))
 					artistList.add(artist);
-			}
+			} 
 		}
 		
 		List<Message> lastMsgList = new ArrayList<Message>();

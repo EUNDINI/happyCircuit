@@ -234,7 +234,7 @@ public class DMDAO {
 				Artist artist = null;
 				if (rs.getString("artistId") == null) {
 					artist = new Artist("(알수없음)", null, "(알수없음)", null, null);
-				}
+				} 
 				else {
 					artist = new Artist(
 							rs.getString("artistId"), rs.getString("password"),

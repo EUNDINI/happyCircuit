@@ -164,7 +164,7 @@ function checkRemove(targetUri) {
 			<c:if test="${status.index + 1 % 5 == 0}">
 				</div>
 			</c:if>
-		</c:forEach> 
+		</c:forEach>  
 		<!-- 
 		<% 
 		for (int i = 0; i < 15; i++) {
