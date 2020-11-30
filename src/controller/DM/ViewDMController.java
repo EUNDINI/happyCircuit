@@ -20,9 +20,14 @@ public class ViewDMController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// 로그인 여부 확인
+    	if (!ArtistSessionUtils.hasLogined(request.getSession())) {
+            return "redirect:/artist/login/form";		// login form 요청으로 redirect
+        }
+    	
 		int dmId = Integer.parseInt(request.getParameter("dmId"));
 		List<Message> msgList = dmDAO.findMessageList(dmId);
-		
+		 
 		HttpSession session = request.getSession();
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 

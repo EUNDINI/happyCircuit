@@ -54,7 +54,7 @@ public class ArtistDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();	// resource ¹ÝÈ¯
 		}		
-		return 0;
+		return 0; 
 	}
 
 	public int remove(String artistId) throws SQLException {

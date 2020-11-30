@@ -22,15 +22,13 @@ public class ListDMController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// 로그인 여부 확인
+    	if (!ArtistSessionUtils.hasLogined(request.getSession())) {
+            return "redirect:/artist/login/form";		// login form 요청으로 redirect
+        }
+    	
 		HttpSession session = request.getSession();
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
-		
-//		if (ArtistSessionUtils.getLoginArtistId(session).equals(artistId)) {
-//			request.setAttribute("artistId", artistId);
-//			request.setAttribute("updateFailed", true);
-//			request.setAttribute("exception", 
-//					new IllegalStateException("타인의 정보는 수정할 수 없습니다."));    
-//		}
 		
 		List<DM> dmList = dmDAO.findDMListByArtistId(artistId);
 		
@@ -40,7 +38,7 @@ public class ListDMController implements Controller {
 			for (Artist artist : dm.getArtistList()) {
 				if (!artist.getArtistId().equals(artistId))
 					artistList.add(artist);
-			}
+			} 
 		}
 		
 		List<Message> lastMsgList = new ArrayList<Message>();

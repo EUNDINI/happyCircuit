@@ -22,6 +22,11 @@ public class DeleteArtistController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// 로그인 여부 확인
+    	if (!ArtistSessionUtils.hasLogined(request.getSession())) {
+            return "redirect:/artist/login/form";		// login form 요청으로 redirect
+        }
+    	
 		HttpSession session = request.getSession();	
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 	
@@ -30,7 +35,7 @@ public class DeleteArtistController implements Controller {
 			   || 												// 또는 
 			(!ArtistSessionUtils.isLoginArtist("admin", session) &&  // 로그인한 사용자가 관리자가 아니고 
 			ArtistSessionUtils.isLoginArtist(artistId, session))) { // 로그인한 사용자가 삭제 대상인 경우 (자기 자신을 삭제)
-				
+				 
 //			List<DM> dmList = dmDAO.findDMListByArtistId(artistId);
 //			for (DM dm : dmList) {
 //				dmDAO.deleteMembership(artistId, dm.getDmId());
