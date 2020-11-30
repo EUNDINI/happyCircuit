@@ -32,12 +32,6 @@ public class CreatePostController implements Controller {
 		System.out.println("(CreatePostController) session: " + session);
 		if (!ArtistSessionUtils.hasLogined(session)) { // 로그인 안되어있는 있는 경우
 			System.out.println("(CreatePostController) session: " + session);
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('게시글 작성은 로그인이 필요합니다.'); history.go(-2);</script>");
-			out.flush();
-
 			return "redirect:/post/list";	
         }
 		
