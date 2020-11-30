@@ -6,8 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>구인 게시판</title>
+<!-- 
 	<link rel="stylesheet" href="../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/css/listPost.css">
+ -->
+	<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/css/listPost.css' />">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../resources/js/bootstrap.js"></script>
 </head>
