@@ -135,7 +135,7 @@ public class DMDAO {
 	//DM에 속한 artist 목록
 	public List<Artist> findArtistListFromMembership(int dmId) throws SQLException {
 		String sql = "SELECT a.artistId, password, nickname, profile, image "
-					+ "FROM Membership m JOIN Artist a ON m.artistId = a.artistId "
+					+ "FROM Membership m LEFT OUTER JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE dmId=?";
 		Object[] param = new Object[] {dmId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
@@ -144,10 +144,16 @@ public class DMDAO {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<Artist> artistList = new ArrayList<Artist>();
 			while (rs.next()) {
-				Artist artist = new Artist(
-						rs.getString("artistId"), rs.getString("password"),
-						rs.getString("nickname"), rs.getString("profile"),
-						rs.getString("image"));
+				Artist artist = null;
+				if (rs.getString("artistId") == null) {
+					artist = new Artist("(알수없음)", null, "(알수없음)", null, null);
+				}
+				else {
+					artist = new Artist(
+							rs.getString("artistId"), rs.getString("password"),
+							rs.getString("nickname"), rs.getString("profile"),
+							rs.getString("image"));
+				}
 				artistList.add(artist);
 			}
 			return artistList;
@@ -210,31 +216,12 @@ public class DMDAO {
 		}	
 		return result;
 	}
-	
-	//Message 삭제
-	public int deleteAll(String artistId) throws SQLException {
-		String sql = "DELETE FROM Message WHERE artistId=?";		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	// JDBCUtil에 delete문과 매개 변수 설정
-
-		try {				
-			int result = jdbcUtil.executeUpdate();	// delete 문 실행
-			return result;
-		} catch (Exception ex) {
-			jdbcUtil.rollback();
-			ex.printStackTrace();
-		}
-		finally {
-			jdbcUtil.commit();
-			jdbcUtil.close();	// resource 반환
-		}		
-		return 0;
-	}
 	 
 	//해당 DM방의 Message 리스트
 	public List<Message> findMessageList(int dmId) throws SQLException {
 		String sql = "SELECT a.artistId, password, nickname, profile, image, msgId, message, sentTime "
 					+ "FROM Message m JOIN DM d ON m.dmId = d.dmId "
-					+ "JOIN Artist a ON m.artistId = a.artistId "
+					+ "LEFT OUTER JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE d.dmId=? "
 					+ "ORDER BY sentTime";
 		Object[] param = new Object[] {dmId};				
@@ -244,11 +231,16 @@ public class DMDAO {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<Message> msgList = new ArrayList<Message>();	
 			while (rs.next()) {
-				Artist artist = new Artist(rs.getString("artistId"),
-								rs.getString("password"), 
-								rs.getString("nickname"),
-								rs.getString("profile"), 
-								rs.getString("image"));
+				Artist artist = null;
+				if (rs.getString("artistId") == null) {
+					artist = new Artist("(알수없음)", null, "(알수없음)", null, null);
+				}
+				else {
+					artist = new Artist(
+							rs.getString("artistId"), rs.getString("password"),
+							rs.getString("nickname"), rs.getString("profile"),
+							rs.getString("image"));
+				}
 				Message msg = new Message(rs.getInt("msgId"),
 							rs.getString("message"), 
 							new Date(rs.getDate("sentTime").getTime()),
@@ -271,7 +263,7 @@ public class DMDAO {
 					+ "FROM (SELECT msgId, message, sentTime, artistId "
 					+ "FROM Message "
 					+ "WHERE dmId=? "
-					+ "ORDER BY sentTime desc) m JOIN Artist a ON m.artistId = a.artistId "
+					+ "ORDER BY sentTime desc) m LEFT OUTER JOIN Artist a ON m.artistId = a.artistId "
 					+ "WHERE ROWNUM <= 1";
 		Object[] param = new Object[] {dmId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
@@ -279,11 +271,16 @@ public class DMDAO {
 		try {			
 			ResultSet rs = jdbcUtil.executeQuery();
 			if(rs.next()) {
-				Artist artist = new Artist(rs.getString("artistId"),
-								rs.getString("password"), 
-								rs.getString("nickname"),
-								rs.getString("profile"), 
-								rs.getString("image"));
+				Artist artist = null;
+				if (rs.getString("artistId") == null) {
+					artist = new Artist("(알수없음)", null, "(알수없음)", null, null);
+				}
+				else {
+					artist = new Artist(
+							rs.getString("artistId"), rs.getString("password"),
+							rs.getString("nickname"), rs.getString("profile"),
+							rs.getString("image"));
+				}
 				Message msg = new Message(rs.getInt("msgId"),
 							rs.getString("message"), 
 							new Date(rs.getDate("sentTime").getTime()),
