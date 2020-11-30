@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <title>추천하는 음악</title>
 <style>
 	* {
@@ -50,6 +52,16 @@
 </style>
 </head>
 <body>
+<div id='menu'>
+		<ul>
+			<li><a href='<c:url value='/home' />'>Home</a></li>
+			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
+			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li class='active'><a href="#">My Page</a></li>
+		</ul>
+	</div>
+	<br> <br>
+	
 	<div class="recommend-music-title">추천하는 음악</div>
 	
 	<div class="align-center music-list">

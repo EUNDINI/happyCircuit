@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <style>
 	* {
 		text-align: center;
@@ -108,6 +110,16 @@ function checkRemove(targetUri) {
 </script>
 </head>
 <body>
+	<div id='menu'>
+		<ul>
+			<li><a href='<c:url value='/home' />'>Home</a></li>
+			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
+			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li class='active'><a href="#">My Page</a></li>
+		</ul>
+	</div>
+	<br> <br>
+	
 	<c:if test="${isSameArtist}">
 		<div style="margin: 30px;">
 			<a href="<c:url value='/DM/list' />" class="DM">DM</a> <!-- 내 DM 목록 -->
