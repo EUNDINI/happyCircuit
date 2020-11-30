@@ -26,10 +26,6 @@ public class UpdateMusicController implements Controller {
 
 		// 검색해서 수정 폼 채우기!
 		if (request.getMethod().equals("GET")) {
-			// 작성자와 로그인 아이디 검사 추가
-			// if(!musicDAO.isArticleWriter(musicId, artistId))
-			// return "/article/home.jsp";
-
 			request.setAttribute("musicArticle", musicArticle);
 
 			return "/article/articleModify.jsp";

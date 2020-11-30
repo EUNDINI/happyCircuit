@@ -103,13 +103,16 @@ function isLogin() {
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a href='#'>Article</a></li>
 			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
-			<li><a href='#'>My Page</a></li>
+			<li><a href="<c:url value='/mypage'>
+						 	<c:param name='artistId' value='${artistId}'/>
+						 </c:url>">My Page</a></li>
 			<button id='logout'
 				onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
+	<br><br>
 	<div id="board">
 		<table>
 			<tr>
