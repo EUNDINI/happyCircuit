@@ -32,19 +32,17 @@ function isLogin() {
 		<ul>
 			<li class='active'><a href='#'>Home</a></li>
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
-			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
 			<li><a href="<c:url value='/mypage'>
 						 	<c:param name='artistId' value='${artistId}'/>
 						 </c:url>">My Page</a></li>
-
-
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 
 		</ul>
 	</div>
-	<br>
+	<br> <br>
 	<div id='home' align="center">
 		<input id="tab1" type="radio" name="tabs" checked value="all">
 		<label for="tab1">전체 인기차트</label> <input id="tab2" type="radio"

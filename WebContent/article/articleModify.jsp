@@ -64,14 +64,17 @@ isLogin();
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href='#'>Find Artist</a></li>
-			<li><a href='#'>My Page</a></li>
+			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
+			<li><a href="<c:url value='/mypage'>
+						 	<c:param name='artistId' value='${artistId}'/>
+						 </c:url>">My Page</a></li>
+
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
-
+<br><br>
 	<div id="boardWrite">
 		<form name="form" method="post" enctype="multipart/form-data"
 			action="<c:url value='/article/articleModify'><c:param name='musicId' value='${music.musicId}' /> </c:url>">

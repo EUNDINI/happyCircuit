@@ -34,12 +34,14 @@ function articleWrite() {
 		<ul>
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href='#'>Find Artist</a></li>
-			<li><a href='#'>My Page</a></li>
+			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
+			<li><a href="<c:url value='/mypage'>
+						 	<c:param name='artistId' value='${artistId}'/>
+						 </c:url>">My Page</a></li>
 			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 		</ul>
 	</div>
-
+<br><br>
 	<div id="boardWrite">
 	<!-- enctype="multipart/form-data" -->
 		<form name="form"  method="post" enctype="multipart/form-data"

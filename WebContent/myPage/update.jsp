@@ -6,6 +6,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>My Page</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <style type="text/css">
 	.align-center {
 		margin: 0px auto;
@@ -73,6 +75,16 @@
 </script>
 </head>
 <body>
+<div id='menu'>
+		<ul>
+			<li><a href='<c:url value='/home' />'>Home</a></li>
+			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
+			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
+			<li class='active'><a href="#">My Page</a></li>
+		</ul>
+	</div>
+	<br> <br>
+	
 	<div class="align-center main">
 		
 		<!-- 현재 이미지 -->
