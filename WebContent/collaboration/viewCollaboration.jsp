@@ -12,12 +12,15 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<script>
+	alert("협업 신청 DM을 성공적으로 보냈습니다.");
+</script>
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 	<div class="container">
-	    <form name="applyForm" method="POST" action="listPost.jsp" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="applyForm" method="POST" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">협업 신청</font></b><hr>
 	        
 	        <div class="required-field-block">
@@ -32,7 +35,7 @@
 	        </div>
 	        <br> 
 	        
-	        <a href="<c:url value='/findArtist/list' />">
+	        <a href="<c:url value='/post/list' />">
 	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
 	        <br>
 	    </form>

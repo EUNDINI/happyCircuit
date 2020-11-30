@@ -3,15 +3,13 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import controller.findArtist.CreateCollaborationController;
-import controller.findArtist.CreatePostController;
-import controller.findArtist.DeletePostController;
-import controller.findArtist.ListPostController;
-import controller.findArtist.SearchPostController;
-import controller.findArtist.UpdatePostController;
-import controller.findArtist.ViewCollaborationController;
-import controller.findArtist.ViewPostController;
 import controller.myPage.*;
+import controller.post.CreatePostController;
+import controller.post.DeletePostController;
+import controller.post.ListPostController;
+import controller.post.SearchPostController;
+import controller.post.UpdatePostController;
+import controller.post.ViewPostController;
 import controller.DM.*;
 import controller.article.CreateMusicController;
 import controller.article.CreateNthMusicController;
@@ -26,6 +24,8 @@ import controller.artist.LoginController;
 import controller.artist.LogoutController;
 import controller.artist.RegisterArtistController;
 import controller.artist.UpdateArtistController;
+import controller.collaboration.CreateCollaborationController;
+import controller.collaboration.ViewCollaborationController;
 
 public class RequestMapping {
 	// 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
@@ -59,16 +59,16 @@ public class RequestMapping {
 		
 		mappings.put("/article/articleSearch", new SearchMusicController());
 
-		// findArtist 관련 RequestMapping
-		mappings.put("/findArtist/list", new ListPostController());
-		mappings.put("/findArtist/create/post", new ForwardController("/findArtist/createPost.jsp"));
-		mappings.put("/findArtist/create", new CreatePostController());
-		mappings.put("/findArtist/view/post", new ViewPostController());
-		mappings.put("/findArtist/delete/post", new DeletePostController());
-		mappings.put("/findArtist/update", new UpdatePostController());
-		mappings.put("/findArtist/search/post", new SearchPostController());
-		mappings.put("/findArtist/create/collaboration", new CreateCollaborationController());
-		mappings.put("/findArtist/view/collaboration", new ViewCollaborationController());
+		// findArtist 관련 RequestMapping		
+		mappings.put("/post/list", new ListPostController());
+		mappings.put("/post/create/form", new ForwardController("/post/createPost.jsp"));
+		mappings.put("/post/create/post", new CreatePostController());
+		mappings.put("/post/view", new ViewPostController());
+		mappings.put("/post/delete", new DeletePostController());
+		mappings.put("/post/update", new UpdatePostController());
+		mappings.put("/post/search", new SearchPostController());
+		mappings.put("/collaboration/create", new CreateCollaborationController());
+		mappings.put("/collaboration/view", new ViewCollaborationController());
 	
 
 		//myPage

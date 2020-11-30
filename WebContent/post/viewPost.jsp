@@ -4,13 +4,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Post post = (Post)request.getAttribute("post");
-	//String path = this.getServletContext().getRealPath("post");
-	//System.out.println("1: " + path);
-	//String uploadPath = this.getServletContext().getRealPath("/");
-	//System.out.println("2: " + uploadPath);
-	
-	//String a = request.getServletContext().getRealPath("/");
-	//System.out.println("3: " + a);
 %>
 <!DOCTYPE html>
 <html>
@@ -44,10 +37,9 @@ function userRemove() {
 
 	        <div class="required-field-block">
 
-	        	<c:set var="postAttachment" value="${post.postAttachment}" />	        	
+				<c:set var="postAttachment" value="${post.postAttachment}" />	        
 	        	<c:if test="${postAttachment ne '첨부파일없음'}"> 
-				   <c:set var="postAttachmentRoute" value="/resources/findArtist/${post.postAttachment}" />
-				   <img src="<c:url value='${postAttachmentRoute}' />" width="600" /> 
+				   <img src="<c:url value='${postAttachment}' />" width="600" /> 
 				   <br><br>
 				</c:if>
 								
@@ -56,20 +48,19 @@ function userRemove() {
 
 	        <br>
 	        
-	        <a href="<c:url value='/findArtist/update'>
+	        <a href="<c:url value='/post/update'>
 	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
 			 	 </c:url>"><input type="button" name="updatePost" value="수정" class="btn btn-primary"></a>
 	        
-			 <a href="<c:url value='/findArtist/delete/post'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>"
+			 <a href="<c:url value='/post/delete'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>"
 			 	onclick="return userRemove();">
 	        	<input type="button" name="deletePost" value="삭제" class="btn btn-danger"> </a>
  
-            <a href="<c:url value='/findArtist/list' />">
+            <a href="<c:url value='/post/list' />">
 	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
          
-	         <a href="<c:url value='/findArtist/create/collaboration'>
-	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
-			 	 </c:url>"><input type="button" name="offerCollaboration" value="협업 신청" class="btn btn-success" style="float:right;" ></a>
+	         <a href="<c:url value='/collaboration/create'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>">
+	        	<input type="button" name="offerCollaboration" value="협업 신청" class="btn btn-success" style="float:right;"> </a>
 	         <br>       
 	    </form>
 	</div>

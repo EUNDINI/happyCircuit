@@ -36,7 +36,9 @@ function postCreate() {
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <div class="container">
-	    <form name="createPostForm" method="POST" action="<c:url value='/findArtist/create' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="createPostForm" method="POST" action="<c:url value='/post/create/post' />"
+	    	enctype="multipart/form-data"
+	     role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
 	        
 	        <div class="row">

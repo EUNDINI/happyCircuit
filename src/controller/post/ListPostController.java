@@ -1,4 +1,4 @@
-package controller.findArtist;
+package controller.post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,9 @@ public class ListPostController implements Controller {
 		List<Post> postList = postDAO.findPostList();
 		System.out.println("(ListPostController) postList¿« ±Ê¿Ã: " + postList.size());
 		request.setAttribute("postList", postList);
+		request.setAttribute("search", false);
 
-		return "/findArtist/listPost.jsp";
+		return "/post/listPost.jsp";
 	}
 
 }

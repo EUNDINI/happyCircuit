@@ -37,7 +37,7 @@ function postUpdate() {
 <% request.setCharacterEncoding("UTF-8"); %>
 
 	<div class="container">
-	    <form name="updatePostForm" method="POST" action="<c:url value='/findArtist/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	    <form name="updatePostForm" method="POST" action="<c:url value='/post/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
 	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
 	        
 	        <div class="row">
@@ -76,10 +76,6 @@ function postUpdate() {
 	        <div class="required-field-block">
 	            <textarea  name="postContent" rows="15" class="form-control">${post.postContent}</textarea>
 	        </div>
-	        
-	        <br>
-	        
-	        <input type="file" name="postAttachment" />
 	        
 	        <br>
 	        
