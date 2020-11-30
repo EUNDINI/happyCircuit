@@ -70,7 +70,6 @@ public class RequestMapping {
 		mappings.put("/collaboration/create", new CreateCollaborationController());
 		mappings.put("/collaboration/view", new ViewCollaborationController());
 	
-
 		//myPage
 		mappings.put("/mypage", new MyPageController());
 		mappings.put("/mypage/update", new UpdateArtistController());;
