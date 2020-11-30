@@ -20,6 +20,7 @@ public class MyPageController implements Controller {
 	private ArtistDAO artistDAO = new ArtistDAO();
 	private RecommendMusicDAO recommendMusicDAO = new RecommendMusicDAO();
 
+	@SuppressWarnings("null")
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부 확인
@@ -40,8 +41,15 @@ public class MyPageController implements Controller {
   
     	List<Music> musicList = recommendMusicDAO.findMusicListByArtistId(artistId);
     	
+    	List<Artist> artistList = new ArrayList<Artist>();
+    	for (Music music : musicList) {
+    		Artist musicArtist = artistDAO.findArtistById(music.getArtistId());
+    		artistList.add(musicArtist);
+    	}
+    	
     	request.setAttribute("artist", artist);		// 사용자 정보 저장	
     	request.setAttribute("musicList", musicList);
+    	request.setAttribute("artistList", artistList);
 		return "/myPage/myPage.jsp";
 	}
 

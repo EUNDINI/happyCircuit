@@ -33,7 +33,7 @@
 		margin: 12px;
 	}
 	.music-img {
-		max-width: 100%;
+		max-width: 190px;
 		height: auto;
 	}
 	.music-title {
@@ -71,7 +71,11 @@
 			</c:if>
 			<div class="music">
 				<!-- 이미지 경로 수정 필요 -->
-				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
+				<img src="../sample/holding_onto_gravity.jpg" 
+					class="music-img hover-effect hover-cursor" 
+					onclick="location.href='<c:url value='/article/articleRead'>
+											    <c:param name='musicId' value='${music.musicId}'/>
+											</c:url>'">
 				<div class="music-title">
 					<span onclick="location.href='<c:url value='/article/articleRead'>
 												     <c:param name='musicId' value='${music.musicId}'/>
@@ -80,7 +84,7 @@
 				<div class="music-artist">
 					<span onclick="location.href='<c:url value='/article/articleRead'>
 												     <c:param name='musicId' value='${music.musicId}'/>
-												  </c:url>'" class="hover-cursor">${music.artistId}</span>
+												  </c:url>'" class="hover-cursor">${artistList[status.index].nickname}</span>
 				</div>
 			</div>
 			<c:if test="${(status.index + 1) % 5 == 0}">
