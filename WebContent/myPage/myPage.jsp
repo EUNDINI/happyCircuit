@@ -167,42 +167,20 @@ function checkRemove(targetUri) {
 			<div class="music">
 				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
 				<div class="music-title">
-					<span onclick="location.href=''" class="hover-cursor">${music.musicName}</span>
+					<span onclick="location.href='<c:url value='/article/articleRead'>
+												     <c:param name='musicId' value='${music.musicId}'/>
+												  </c:url>'" class="hover-cursor">${music.musicName}</span>
 				</div>
 				<div class="music-artist">
-					<span onclick="location.href=''" class="hover-cursor">${music.artistId}</span>
+					<span onclick="location.href='<c:url value='/article/articleRead'>
+												     <c:param name='musicId' value='${music.musicId}'/>
+												  </c:url>'" class="hover-cursor">${music.artistId}</span>
 				</div>
 			</div>
 			<c:if test="${status.index + 1 % 5 == 0}">
 				</div>
 			</c:if>
-		</c:forEach>  
-		<!-- 
-		<% 
-		for (int i = 0; i < 15; i++) {
-			if (i % 5 == 0) {
-		%>
-				<div class="music-container">
-			<%
-			}
-			%>
-			<div class="music">
-				<img src="../sample/holding_onto_gravity.jpg" class="music-img hover-effect" onclick="location.href=''">
-				<div class="music-title">
-					<span onclick="location.href=''" class="hover-cursor">title</span>
-				</div>
-				<div class="music-artist">
-					<span onclick="location.href=''" class="hover-cursor">artist</span>
-				</div>
-			</div>
-		<%
-			if ((i + 1) % 5 == 0) {
-		%>
-				</div>
-		<%
-			}
-		}
-		%>-->
+		</c:forEach>
 	</div>
 	<c:if test="${isSameArtist}">
 		<div class="delete">

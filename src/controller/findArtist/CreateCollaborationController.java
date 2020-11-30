@@ -1,5 +1,8 @@
 package controller.findArtist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,9 +11,12 @@ import controller.Controller;
 import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.Collaboration;
+import model.DM;
+import model.Message;
 import model.Post;
 import model.dao.ArtistDAO;
 import model.dao.CollaborationDAO;
+import model.dao.DMDAO;
 import model.dao.PostDAO;
 
 public class CreateCollaborationController implements Controller {
@@ -18,6 +24,7 @@ public class CreateCollaborationController implements Controller {
 	PostDAO postDAO = new PostDAO();
 	ArtistDAO artistDAO = new ArtistDAO();
 	CollaborationDAO collaborationDAO = new CollaborationDAO();
+	private DMDAO dmDAO = new DMDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -47,6 +54,34 @@ public class CreateCollaborationController implements Controller {
 		HttpSession session = request.getSession();
 		String collaborationArtistId = ArtistSessionUtils.getLoginArtistId(session);
 		System.out.println("(CreateCollaborationController) collaborationArtistId: " + collaborationArtistId);
+
+		List<Artist> artistList = new ArrayList<Artist>();
+		artistList.add(artistDAO.findArtistById(collaborationArtistId)); //현재 로그인된 artist
+		
+		String artistId = request.getParameter("artistId");
+		artistList.add(artistDAO.findArtistById(artistId)); //상대 artist
+		
+		int dmId = dmDAO.findMembership(artistList);
+		if (dmId == 0) {
+			try {
+				DM dm = new DM(0, artistList);
+				dmDAO.createDMAndMembership(dm);
+				dmId = dm.getDmId();
+			} catch (Exception e) {
+				
+			}
+		}
+
+		Artist artist = artistDAO.findArtistById(artistId);
+		Message msg = new Message(
+				0, request.getParameter("collaborationContent"), 
+				null, artist, dmId);
+		
+		try {
+			dmDAO.createMessage(msg);
+		} catch (Exception e) {
+			
+		}
 		
 		try {
 			int postId = Integer.parseInt(request.getParameter("postId"));
