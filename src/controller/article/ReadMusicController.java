@@ -6,12 +6,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
+import controller.artist.ArtistSessionUtils;
 import model.ArticlePaging;
 import model.Music;
 import model.MusicArticle;
 import model.dao.MusicDAO;
+import model.dao.RecommendMusicDAO;
 import oracle.net.aso.n;
 
 public class ReadMusicController implements Controller {
@@ -21,8 +24,11 @@ public class ReadMusicController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int musicId = Integer.parseInt(request.getParameter("musicId"));
 
+		HttpSession session = request.getSession();
+		String artistId = ArtistSessionUtils.getLoginArtistId(session);
+		int musicId = Integer.parseInt(request.getParameter("musicId"));
+		
 		if (request.getParameter("like") != null) {
 			musicDAO.increaseLikeCount(musicId);
 			musicDAO.decreaseReadCount(musicId);
