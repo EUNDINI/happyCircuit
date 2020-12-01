@@ -4,10 +4,6 @@
 <%@ page import="model.Music"%>
 <%@ page import="model.MusicArticle"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String path = this.getServletContext().getRealPath("article");
-System.out.println(path);
-%>
 <c:set var="music" value="${musicArticle.music}" />
 <!DOCTYPE html>
 <html>
@@ -181,17 +177,15 @@ function isLogin() {
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a
 				href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
-			<li><a href="<c:url value='/mypage'>
-						 	<c:param name='artistId' value='${artistId}'/>
-						 </c:url>">My Page</a></li>
+			<li><a href='#'>Find Artist</a></li>
+			<li><a href='#'>My Page</a></li>
 			<button id='logout'
 				onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 		</ul>
 	</div>
-<br><br>
+
 	<div id="boardRead">
 		<table>
 			<tr>
@@ -266,7 +260,9 @@ function isLogin() {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="nthMusicList" items="${nthCreationList}">
+					<c:set var="start" value="${ 5 * (page - 1)}"/>
+					<c:set var="end" value="${start + 4 }" />
+					<c:forEach var="nthMusicList" items="${nthCreationList}" begin="${start}" end="${end}">
 						<tr>
 							<c:set var="nthMusic" value="${nthMusicList.music}" />
 							<td>${nthMusic.nth}</td>
@@ -300,7 +296,7 @@ function isLogin() {
 							</c:when>
 							<c:otherwise>
 								<li><a
-									href="<c:url value='/article/articleRead' />?page=${ i }"
+									href="<c:url value='/article/articleRead' />?page=${ i }&musicId=${music.musicId}"
 									&musicId=${music.musicId}>${ i }</a></li>
 							</c:otherwise>
 						</c:choose>

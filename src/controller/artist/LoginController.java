@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
+import model.Artist;
 import model.service.ArtistManager;
 
 public class LoginController implements Controller {
@@ -16,7 +17,7 @@ public class LoginController implements Controller {
 		try {
 			ArtistManager manager = ArtistManager.getInstance();
 			manager.login(artistId, passwd);
-
+			
 			HttpSession session = request.getSession();
 			session.setAttribute(ArtistSessionUtils.ARTIST_SESSION_KEY, artistId);
 

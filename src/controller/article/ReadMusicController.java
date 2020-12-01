@@ -1,5 +1,7 @@
 package controller.article;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import model.ArticlePaging;
 import model.Music;
 import model.MusicArticle;
 import model.dao.MusicDAO;
+import oracle.net.aso.n;
 
 public class ReadMusicController implements Controller {
 	private MusicDAO musicDAO = new MusicDAO();
@@ -25,17 +28,29 @@ public class ReadMusicController implements Controller {
 
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
 		int original = musicArticle.getMusic().getOriginalMusicId();
+		List<MusicArticle> nthCreationList = musicDAO.NthCreationMusicList(musicId);
+		
+		int i = 0;
+		while (i < nthCreationList.size()) {
+			List<MusicArticle> list = musicDAO.NthCreationMusicList(nthCreationList.get(i).getMusicId());
 
+			for (MusicArticle a : list) {
+				nthCreationList.add(a);
+			}
+			
+			i++;
+		}
+		
+		NthComparator comp = new NthComparator();
+		Collections.sort(nthCreationList, comp);
+		
 		int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 		ArticlePaging paging = new ArticlePaging();
 		paging.makeBlock(currentPage);
-		paging.makeLastPageNum(musicId);
-
-		List<MusicArticle> nthCreationList = musicDAO.NthCreationMusicList(musicId, currentPage, 15);
-
+		paging.makeLastPageNum(i);
+		
 		request.setAttribute("musicArticle", musicArticle);
 		request.setAttribute("nthCreationList", nthCreationList);
-
 		request.setAttribute("blockStartNum", paging.getBlockStartNum());
 		request.setAttribute("blockLastNum", paging.getBlockLastNum());
 		request.setAttribute("lastPageNum", paging.getLastPageNum());
@@ -52,5 +67,22 @@ public class ReadMusicController implements Controller {
 		}
 
 		return "/article/articleRead.jsp";
+	}
+	
+	class NthComparator implements Comparator<MusicArticle> {
+
+		@Override
+		public int compare(MusicArticle mA1, MusicArticle mA2) {
+			int mId1 = mA1.getMusicId();
+			int mId2 = mA2.getMusicId();
+			
+			if(mId1 > mId2)
+				return -1;
+			else if(mId1 < mId2)
+				return 1;
+			else
+				return 0;
+		}
+		
 	}
 }
