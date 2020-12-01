@@ -47,6 +47,7 @@ public class ListDMController implements Controller {
 			lastMsgList.add(msg);
 		}
 
+		request.setAttribute("artistId", artistId);
 		request.setAttribute("dmList", dmList);
 		request.setAttribute("artistList", artistList);
 		request.setAttribute("lastMsgList", lastMsgList);

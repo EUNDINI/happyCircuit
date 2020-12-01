@@ -18,7 +18,7 @@ public class RecommendMusicDAO {
 	
 //	LikeMusic 테이블에 새로운 like 생성
 	public int create(String artistId, int musicId) throws SQLException {
-		String sql = "INSERT INTO LikeMusic VALUES (likeId_seq.nextval, ?, ?)";		
+		String sql = "INSERT INTO LikeMusic (likeId, artistId, musicId) VALUES (likeId_seq.nextval, ?, ?)";		
 		Object[] param = new Object[] {artistId, musicId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 

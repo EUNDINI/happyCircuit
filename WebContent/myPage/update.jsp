@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -87,7 +87,7 @@
 	
 	<div class="align-center main">
 		
-		<!-- ÇöÀç ÀÌ¹ÌÁö -->
+		<!-- í˜„ìž¬ ì´ë¯¸ì§€ -->
 		<div class="align-center profile-image">
 			<img src="${pageContext.request.contextPath}/sample/${artist.image}" class="profile-img">
 		</div>
@@ -101,10 +101,10 @@
 			<br>
 			<input type="text" name="profile" class="form-item introduction" value="${artist.profile}">
 			<div class="wrap-btns">
-				<input type="submit" value="¼öÁ¤" class="btn-update hover-cursor">
+				<input type="submit" value="ìˆ˜ì •" class="btn-update hover-cursor">
 				<a href="<c:url value='/mypage'>
 							<c:param name='artistId' value='${artist.artistId}' />
-						</c:url>" class="btn-update">Ãë¼Ò</a>
+						</c:url>" class="btn-update">ì·¨ì†Œ</a>
 			</div>
 		</form>
 	</div>
