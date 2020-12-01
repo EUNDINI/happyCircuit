@@ -16,6 +16,7 @@ import oracle.net.aso.n;
 
 public class ReadMusicController implements Controller {
 	private MusicDAO musicDAO = new MusicDAO();
+	private List<MusicArticle> nthCreationList;
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -28,13 +29,16 @@ public class ReadMusicController implements Controller {
 
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
 		int original = musicArticle.getMusic().getOriginalMusicId();
-		List<MusicArticle> nthCreationList = musicDAO.NthCreationMusicList(musicId);
+		nthCreationList = musicDAO.NthCreationMusicList(musicId);
 		
 		int i = 0;
 		while (i < nthCreationList.size()) {
 			List<MusicArticle> list = musicDAO.NthCreationMusicList(nthCreationList.get(i).getMusicId());
 
 			for (MusicArticle a : list) {
+				if(isExist(a.getMusicId()))
+					continue;
+				
 				nthCreationList.add(a);
 			}
 			
@@ -67,6 +71,15 @@ public class ReadMusicController implements Controller {
 		}
 
 		return "/article/articleRead.jsp";
+	}
+	
+	public Boolean isExist(int m) {
+		for (MusicArticle a : nthCreationList) {
+			if(a.getMusicId() == m)
+				return true;
+		}
+		
+		return false;
 	}
 	
 	class NthComparator implements Comparator<MusicArticle> {
