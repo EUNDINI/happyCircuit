@@ -45,6 +45,30 @@
 	.hover-cursor {
 		cursor: pointer;
 	}
+	.update {
+    	margin-top: 20px;
+    	margin-bottom: 50px; 
+    	align: center;
+	}
+	.btn-update {
+      	background-color: #BBBBBB;
+      	color: white;
+      	padding: 10px;
+      	border-radius: 15px;
+      	border: 0px;
+      	width: 50px;
+      	border: 1px solid #BBBBBB;
+    	text-decoration: none;
+    	font-size: 0.9em;
+    }
+    .btn-update:hover {
+        text-decoration: none;
+        background-color: white;
+        color: #BBBBBB;
+        transition-property: background-color, color;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+    }
     @media (orientation: portrait) {
       	.DM-list {
         	width: 95%;
@@ -60,7 +84,7 @@
 					<td onclick="location.href=`<c:url value='/DM/room'>
 											   		<c:param name='dmId' value='${dm.dmId}'/>
 											 	</c:url>`" class="hover-cursor">
-						<img src="${artistList[status.index].image}" class="artist-img">
+						<img src="${pageContext.request.contextPath}/sample/${artistList[status.index].image}" class="artist-img">
 						<div class="flex-container">
 							<div class="flex-item"><span>${artistList[status.index].nickname}</span></div>
 							<div class="flex-item"><span>${lastMsgList[status.index].message}</span></div>
@@ -80,6 +104,11 @@
 			</tr>
 			-->
 		</table>
+		<div class="align-center">
+			<a href="<c:url value='/mypage'>
+					 	<c:param name='artistId' value='${artistId}'/>
+					 </c:url>" class="btn-update">My Page</a>
+		</div>
 	</div>
 </body>
 </html>

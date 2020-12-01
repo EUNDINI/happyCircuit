@@ -16,6 +16,7 @@ import oracle.net.aso.n;
 
 public class ReadMusicController implements Controller {
 	private MusicDAO musicDAO = new MusicDAO();
+	private RecommendMusicDAO recommendMusicDAO = new RecommendMusicDAO();
 	private List<MusicArticle> nthCreationList;
 
 	@Override
@@ -25,6 +26,7 @@ public class ReadMusicController implements Controller {
 		if (request.getParameter("like") != null) {
 			musicDAO.increaseLikeCount(musicId);
 			musicDAO.decreaseReadCount(musicId);
+			recommendMusicDAO.create(artistId, musicId);
 		}
 
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);

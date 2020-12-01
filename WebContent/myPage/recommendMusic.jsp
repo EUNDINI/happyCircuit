@@ -70,8 +70,7 @@
 				<div class="music-container">
 			</c:if>
 			<div class="music">
-				<!-- 이미지 경로 수정 필요 -->
-				<img src="../sample/holding_onto_gravity.jpg" 
+				<img src="${pageContext.request.contextPath}/sample/${artistList[status.index].image}"
 					class="music-img hover-effect hover-cursor" 
 					onclick="location.href='<c:url value='/article/articleRead'>
 											    <c:param name='musicId' value='${music.musicId}'/>
@@ -82,8 +81,8 @@
 												  </c:url>'" class="hover-cursor">${music.musicName}</span>
 				</div>
 				<div class="music-artist">
-					<span onclick="location.href='<c:url value='/article/articleRead'>
-												     <c:param name='musicId' value='${music.musicId}'/>
+					<span onclick="location.href='<c:url value='/mypage'>
+												     <c:param name='artistId' value='${artistList[status.index].artistId}'/>
 												  </c:url>'" class="hover-cursor">${artistList[status.index].nickname}</span>
 				</div>
 			</div>

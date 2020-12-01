@@ -24,7 +24,7 @@ public class RecommendMusicController implements Controller {
 		String artistId = request.getParameter("artistId");
 		
 		List<Music> musicList = new ArrayList<Music>();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 10; i++) {
 			List<Music> likeMusicList = recommendDAO.findMusicListByArtistId(artistId); //artist가 좋아요를 누른 음악 list
 			Collections.shuffle(likeMusicList);		//랜덤하게 섞음
 			Music music = likeMusicList.get(0);		//음악 하나 선택

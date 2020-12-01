@@ -176,12 +176,12 @@ function checkRemove(targetUri) {
 												  </c:url>'" class="hover-cursor">${music.musicName}</span>
 				</div>
 				<div class="music-artist">
-					<span onclick="location.href='<c:url value='/article/articleRead'>
-												     <c:param name='musicId' value='${music.musicId}'/>
+					<span onclick="location.href='<c:url value='/mypage'>
+												     <c:param name='artistId' value='${artistList[status.index].artistId}'/>
 												  </c:url>'" class="hover-cursor">${artistList[status.index].nickname}</span>
 				</div>
 			</div>
-			<c:if test="${status.index + 1 % 5 == 0}">
+			<c:if test="${(status.index + 1) % 5 == 0}">
 				</div>
 			</c:if>
 		</c:forEach>
