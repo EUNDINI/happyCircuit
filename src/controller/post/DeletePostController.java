@@ -1,5 +1,6 @@
-package controller.findArtist;
+package controller.post;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class DeletePostController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 		
 		// 로그인 된 사람과 post를 작성한 사람이 같은지 검사하는 부분 추가
@@ -32,7 +33,11 @@ public class DeletePostController implements Controller {
 		String artistId = post.getArtistId();
 		HttpSession session = request.getSession();
 		if (!ArtistSessionUtils.isLoginArtist(artistId, session)) { // 로그인 된 사람과 post를 작성한 사람이 다르면
-			return "redirect:/findArtist/list";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('자신이 작성한 게시글만 삭제가 가능합니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:/post/list";
 		}
 		
 		// Post의 자식들인 Collabortion을 삭제하는 작업 먼저 수행
@@ -44,7 +49,7 @@ public class DeletePostController implements Controller {
 		// Post 삭제
 		postDAO.remove(postId);
 		
-		return "redirect:/findArtist/list";
+		return "redirect:/post/list";
 	}
 
 }

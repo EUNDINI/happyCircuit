@@ -1,4 +1,7 @@
-package controller.findArtist;
+package controller.collaboration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,9 +11,12 @@ import controller.Controller;
 import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.Collaboration;
+import model.DM;
+import model.Message;
 import model.Post;
 import model.dao.ArtistDAO;
 import model.dao.CollaborationDAO;
+import model.dao.DMDAO;
 import model.dao.PostDAO;
 
 public class CreateCollaborationController implements Controller {
@@ -18,12 +24,13 @@ public class CreateCollaborationController implements Controller {
 	PostDAO postDAO = new PostDAO();
 	ArtistDAO artistDAO = new ArtistDAO();
 	CollaborationDAO collaborationDAO = new CollaborationDAO();
+	private DMDAO dmDAO = new DMDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 		
 		// GET method: 초기값 전송 및 form 화면 출력
@@ -39,7 +46,7 @@ public class CreateCollaborationController implements Controller {
 				return "redirect:/findArtist/view/post?postId=" + postId;
 			}
 			
-			return "/findArtist/createCollaboration.jsp";
+			return "/collaboration/createCollaboration.jsp";
 		}
 		
 		// POST method: 작성된 데이터를 받아와 DB 갱신
@@ -47,6 +54,34 @@ public class CreateCollaborationController implements Controller {
 		HttpSession session = request.getSession();
 		String collaborationArtistId = ArtistSessionUtils.getLoginArtistId(session);
 		System.out.println("(CreateCollaborationController) collaborationArtistId: " + collaborationArtistId);
+
+		List<Artist> artistList = new ArrayList<Artist>();
+		artistList.add(artistDAO.findArtistById(collaborationArtistId)); //현재 로그인된 artist
+		
+		String artistId = request.getParameter("artistId");
+		artistList.add(artistDAO.findArtistById(artistId)); //상대 artist
+		
+		int dmId = dmDAO.findMembership(artistList);
+		if (dmId == 0) {
+			try {
+				DM dm = new DM(0, artistList);
+				dmDAO.createDMAndMembership(dm);
+				dmId = dm.getDmId();
+			} catch (Exception e) {
+				
+			}
+		}
+
+		Artist artist = artistDAO.findArtistById(artistId);
+		Message msg = new Message(
+				0, request.getParameter("collaborationContent"), 
+				null, artist, dmId);
+		
+		try {
+			dmDAO.createMessage(msg);
+		} catch (Exception e) {
+			
+		}
 		
 		try {
 			int postId = Integer.parseInt(request.getParameter("postId"));
@@ -65,9 +100,9 @@ public class CreateCollaborationController implements Controller {
 			int collaborationId = collaborationDAO.create(collaboration);
 			request.setAttribute("collaborationId", collaborationId);
 			
-			return "redirect:/findArtist/view/collaboration?collaborationId=" + collaborationId;
+			return "redirect:/collaboration/view?collaborationId=" + collaborationId;
 		} catch (Exception e) {
-			return "/findArtist/createCollaboration.jsp";
+			return "/collaboration/createCollaboration.jsp";
 		}
 		
 	}

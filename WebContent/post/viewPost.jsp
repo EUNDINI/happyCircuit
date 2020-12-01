@@ -4,13 +4,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Post post = (Post)request.getAttribute("post");
-	//String path = this.getServletContext().getRealPath("post");
-	//System.out.println("1: " + path);
-	//String uploadPath = this.getServletContext().getRealPath("/");
-	//System.out.println("2: " + uploadPath);
-	
-	//String a = request.getServletContext().getRealPath("/");
-	//System.out.println("3: " + a);
 %>
 <!DOCTYPE html>
 <html>
@@ -18,12 +11,12 @@
 <meta charset="UTF-8">
 <title>글내용</title>
 <!-- <link rel="stylesheet" href="../resources/css/bootstrap.css"> -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="../resources/js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <script>
 function userRemove() {
 	return confirm("정말 삭제하시겠습니까?");		
@@ -31,23 +24,20 @@ function userRemove() {
 </script>
 </head>
 <body>
-
 <% request.setCharacterEncoding("UTF-8"); %>
-<div id='menu'>
+
+	<div id='menu'>
 		<ul>
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
-			<li class='active'><a href="<c:url value='/findArtist/list' />">Find
-					Artist</a></li>
-			<li><a
-				href="<c:url value='/mypage'>
-						 	<c:param name='artistId' value='${artistId}'/>
-						 </c:url>">My
-					Page</a></li>
+			<li class='active'><a href="#">Find Artist</a></li>
+			<li><a href="<c:url value='/mypage'>
+				<c:param name='artistId' value='${artistId}'/>
+				</c:url>">My Page</a></li>
 		</ul>
 	</div>
-	<br>
-	<br>
+	<br> <br>
+	
 	<div class="container">
 	    <form name="viewPost" method="POST" role="form" style="width:600px; margin: 0 auto; margin-top:40px;" >
             <font size="2">${post.postCategoryName}</font><br>
@@ -62,10 +52,9 @@ function userRemove() {
 
 	        <div class="required-field-block">
 
-	        	<c:set var="postAttachment" value="${post.postAttachment}" />	        	
+				<c:set var="postAttachment" value="${post.postAttachment}" />	        
 	        	<c:if test="${postAttachment ne '첨부파일없음'}"> 
-				   <c:set var="postAttachmentRoute" value="/resources/findArtist/${post.postAttachment}" />
-				   <img src="<c:url value='${postAttachmentRoute}' />" width="600" /> 
+				   <img src="<c:url value='${postAttachment}' />" width="600" /> 
 				   <br><br>
 				</c:if>
 								
@@ -74,20 +63,19 @@ function userRemove() {
 
 	        <br>
 	        
-	        <a href="<c:url value='/findArtist/update'>
+	        <a href="<c:url value='/post/update'>
 	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
 			 	 </c:url>"><input type="button" name="updatePost" value="수정" class="btn btn-primary"></a>
 	        
-			 <a href="<c:url value='/findArtist/delete/post'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>"
+			 <a href="<c:url value='/post/delete'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>"
 			 	onclick="return userRemove();">
 	        	<input type="button" name="deletePost" value="삭제" class="btn btn-danger"> </a>
  
-            <a href="<c:url value='/findArtist/list' />">
+            <a href="<c:url value='/post/list' />">
 	        	<input type="button" name="goToPostList" value="목록" class="btn btn-light"> </a> 
          
-	         <a href="<c:url value='/findArtist/create/collaboration'>
-	     		   <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/>
-			 	 </c:url>"><input type="button" name="offerCollaboration" value="협업 신청" class="btn btn-success" style="float:right;" ></a>
+	         <a href="<c:url value='/collaboration/create'> <c:param name='postId' value='<%=Integer.toString(post.getPostId())%>'/></c:url>">
+	        	<input type="button" name="offerCollaboration" value="협업 신청" class="btn btn-success" style="float:right;"> </a>
 	         <br>       
 	    </form>
 	</div>

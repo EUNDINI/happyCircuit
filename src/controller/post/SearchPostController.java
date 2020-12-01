@@ -1,5 +1,6 @@
-package controller.findArtist;
+package controller.post;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +21,18 @@ public class SearchPostController implements Controller {
 		System.out.println("(SearchPostController) IN");
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 	
 		try {
 			List<Post> postList = postDAO.searchPostTitle(request.getParameter("postTitle"));
 			System.out.println("(ListPostController) postList의 길이: " + postList.size());
 			request.setAttribute("postList", postList);
+			request.setAttribute("search", true);
 			
-			return "/findArtist/listPost.jsp";
+			return "/post/listPost.jsp";
 		} catch (Exception e) {
-			return "redirect:/findArtist/list";
+			return "redirect:/post/list";
 		}
 
 	}
