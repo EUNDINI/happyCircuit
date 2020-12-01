@@ -25,7 +25,7 @@ public class RecommendMusicController implements Controller {
 		
 		List<Music> musicList = new ArrayList<Music>();
 		List<Music> likeMusicList = recommendDAO.findMusicListByArtistId(artistId); //artist가 좋아요를 누른 음악 list
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) { 
 			Collections.shuffle(likeMusicList);		//랜덤하게 섞음
 			Music music = likeMusicList.get(0);		//음악 하나 선택
 			
