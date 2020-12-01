@@ -1,5 +1,6 @@
-package controller.findArtist;
+package controller.post;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class ViewPostController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
-			return "redirect:/findArtist/list";	
+			return "redirect:/post/list";	
         }
 		
 		int postId = Integer.parseInt(request.getParameter("postId"));
@@ -29,7 +30,7 @@ public class ViewPostController implements Controller {
 		
 		postDAO.updateView(post);
 		
-		return "/findArtist/viewPost.jsp";
+		return "/post/viewPost.jsp";
 	}
 
 }

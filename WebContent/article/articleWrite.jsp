@@ -34,7 +34,7 @@ function articleWrite() {
 		<ul>
 			<li><a href='<c:url value='/home' />'>Home</a></li>
 			<li class='active'><a href='<c:url value='/article/articleMain' />'>Article</a></li>
-			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
 			<li><a href="<c:url value='/mypage'>
 						 	<c:param name='artistId' value='${artistId}'/>
 						 </c:url>">My Page</a></li>
