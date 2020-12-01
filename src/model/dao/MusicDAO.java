@@ -399,13 +399,11 @@ public class MusicDAO {
 		return 0;
 	}
 
-	public List<MusicArticle> NthCreationMusicList(int musicId, int currentPage, int countPerPage) throws Exception {
-		int start = countPerPage * (currentPage - 1) + 1;
-		String sql = "SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (select * from musicArticle where musicarticle.musicId in "
-				+ "(SELECT music.musicid from music where (originalmusicid = ? or priormusicid = ?)) order by regdate desc) A WHERE ROWNUM <= ? ) WHERE RNUM >= ?";
-		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId, musicId, start + countPerPage - 1, start });
-
+	public List<MusicArticle> NthCreationMusicList(int musicId) throws Exception {
+		String sql = "select * from musicArticle where musicarticle.musicId in "
+				+ "(SELECT music.musicid from music where originalmusicid = ? or priormusicid = ?) order by regdate desc";
 		try {
+			jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId, musicId});
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>();
 			while (rs.next()) {
@@ -413,13 +411,13 @@ public class MusicDAO {
 						rs.getDate("regDate"), rs.getInt("readCount"), rs.getInt("likeCount"));
 				musicArticleList.add(musicArticle);
 			}
-
+			
 			for (int i = 0; i < musicArticleList.size(); i++) {
 				MusicArticle musicArticle = musicArticleList.get(i);
 				Music music = findMusic(musicArticle.getMusicId());
 				musicArticle.setMusic(music);
 			}
-
+			
 			return musicArticleList;
 
 		} catch (Exception ex) {
@@ -429,6 +427,7 @@ public class MusicDAO {
 		}
 		return null;
 	}
+	
 
 	public int increaseReadCount(int musicArticleId) {
 		String sql = "UPDATE MusicArticle SET readCount=readCount+1 WHERE musicId=?";

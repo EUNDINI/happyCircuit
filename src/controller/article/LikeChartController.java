@@ -24,7 +24,6 @@ public class LikeChartController implements Controller {
 		List<LikeChart> likeChartEtc = likeChartDAO.getLikeChart("etc");
 		
 		request.setAttribute("likeChartAll", likeChartAll);
-		System.out.println(likeChartAll.size());
 		request.setAttribute("likeChartRock", likeChartRock);
 		request.setAttribute("likeChartRNb", likeChartRNb);
 		request.setAttribute("likeChartPop", likeChartPop);

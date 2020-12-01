@@ -25,6 +25,16 @@ function isLogin() {
 	}
 }
 </script>
+<style>
+.like {
+	border: 1px solid #ccc;
+	border-radius : 4px;
+	padding-top : 3px;
+	padding-bottom : 3px;
+	padding-left : 20px;
+	padding-right : 20px;
+}
+</style>
 <title>HOME</title>
 </head>
 <body onload='isLogin()'>
@@ -32,17 +42,21 @@ function isLogin() {
 		<ul>
 			<li class='active'><a href='#'>Home</a></li>
 			<li><a href="<c:url value='/article/articleMain' />">Article</a></li>
-			<li><a href="<c:url value='/post/list' />">Find Artist</a></li>
-			<li><a href="<c:url value='/mypage'>
+			<li><a href="<c:url value='/findArtist/list' />">Find Artist</a></li>
+			<li><a
+				href="<c:url value='/mypage'>
 						 	<c:param name='artistId' value='${artistId}'/>
-						 </c:url>">My Page</a></li>
-			<button id='logout' onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
+						 </c:url>">My
+					Page</a></li>
+			<button id='logout'
+				onclick="location.href='<c:url value='/artist/logout' />' ">Logout</button>
 			<button id='login'
 				onClick="location.href='<c:url value='/artist/login/form' />' ">Login</button>
 
 		</ul>
 	</div>
-	<br> <br>
+	<br>
+	<br>
 	<div id='home' align="center">
 		<input id="tab1" type="radio" name="tabs" checked value="all">
 		<label for="tab1">전체 인기차트</label> <input id="tab2" type="radio"
@@ -64,12 +78,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${all.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${all.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${all.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${all.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${all.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${all.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${all.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -82,12 +97,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rock.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${rock.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${rock.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${rock.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${rock.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${rock.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${rock.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -100,12 +116,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rNb.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${rNb.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${rNb.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${rNb.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${rNb.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${rNb.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${rNb.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -118,12 +135,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${pop.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${pop.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${pop.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${pop.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${pop.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${pop.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${pop.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -136,12 +154,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${edm.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${edm.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${edm.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${edm.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${edm.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${edm.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${edm.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -154,12 +173,13 @@ function isLogin() {
 						<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${hiphop.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${hiphop.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${hiphop.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${hiphop.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${hiphop.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${hiphop.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${hiphop.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>
@@ -169,15 +189,16 @@ function isLogin() {
 			<div class="chart">
 				<ol>
 					<c:forEach var="etc" items="${likeChartEtc}">
-						<a
+					<a
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${etc.musicId}'/>
-						   </c:url>"><li>Music
-								: <strong>${etc.musicName}</strong>
-						</li>&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Aritst : <strong>${etc.artistId}</strong></li>
+						   </c:url>"><li>
+								<strong>[ ${etc.artistId} ]</strong>
+						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>${etc.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<li>Like : <strong>${etc.likeCount}</strong></li> </a>
+							<li><strong  class='like'>${etc.likeCount}</strong></li> </a>
+						</a>
 					</c:forEach>
 				</ol>
 			</div>

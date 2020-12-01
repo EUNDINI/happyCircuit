@@ -72,15 +72,15 @@ public class ArticlePaging {
 	    }
 	    
 	    // nthlist
-	    public void makeLastPageNum(int musicId) {
-	    	 MusicDAO dao = new  MusicDAO();
-	        total = dao.countNthCreationMusicArticle(musicId);
+	    public void makeLastPageNum(int total) {
+	    	MusicDAO dao = new  MusicDAO();
+	        this.total = total;
 
-	        if( total % pageCount == 0 ) {
-	            lastPageNum = (int)Math.floor(total/pageCount);
+	        if( total % 5 == 0 ) {
+	            lastPageNum = (int)Math.floor(total/5);
 	        }
 	        else {
-	            lastPageNum = (int)Math.floor(total/pageCount) + 1;
+	            lastPageNum = (int)Math.floor(total/5) + 1;
 	        }
 	    }
 	}

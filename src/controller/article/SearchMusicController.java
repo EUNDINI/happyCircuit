@@ -32,9 +32,6 @@ public class SearchMusicController implements Controller {
 		request.setAttribute("search", search);
 		request.setAttribute("total", paging.getTotal());
 		
-		
-		System.out.println("Search " + musicArticleList.size());
-		
 		return "/article/articleMain.jsp";
 	}
 
