@@ -97,30 +97,30 @@ public class PostDAO {
     			+ "WHERE p.postCategoryId = pc.postCategoryId "
     			+ "AND p.artistId = a.artistId " 
 				+ "AND p.postId=? ";          
-	jdbcUtil.setSqlAndParameters(sql, new Object[] {postId});	// JDBCUtil에 query문과 매개 변수 설정
-	try {
-		ResultSet rs = jdbcUtil.executeQuery();		// query 실행
-		Post post = null;
-		if (rs.next()) {						//  정보 발견
-			post = new Post(		// Post 객체를 생성하여 커뮤니티 정보를 저장
-					rs.getInt("postId"),
-					rs.getString("postTitle"),
-					rs.getDate("postDate"),
-					rs.getInt("postView"),
-					rs.getString("postContent"),
-					rs.getString("postAttachment"),
-					rs.getInt("postCategoryId"),
-					rs.getString("postCategoryName"),
-					rs.getString("artistId"),
-					rs.getString("nickname"));
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {postId});	// JDBCUtil에 query문과 매개 변수 설정
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
+			Post post = null;
+			if (rs.next()) {						//  정보 발견
+				post = new Post(		// Post 객체를 생성하여 커뮤니티 정보를 저장
+						rs.getInt("postId"),
+						rs.getString("postTitle"),
+						rs.getDate("postDate"),
+						rs.getInt("postView"),
+						rs.getString("postContent"),
+						rs.getString("postAttachment"),
+						rs.getInt("postCategoryId"),
+						rs.getString("postCategoryName"),
+						rs.getString("artistId"),
+						rs.getString("nickname"));
+			}
+			return post;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
 		}
-		return post;
-	} catch (Exception ex) {
-		ex.printStackTrace();
-	} finally {
-		jdbcUtil.close();		// resource 반환
-	}
-	return null;
+		return null;
 		
 	}
 	
@@ -183,8 +183,6 @@ public class PostDAO {
 						rs.getString("artistId"),
 						rs.getString("nickname"));
 				postList.add(post);
-				System.out.println("추가됐습니다!!!!!");
-				System.out.println("(PostDAO) postList의 길이: " + postList.size());
 			}		
 			return postList;					
 			
