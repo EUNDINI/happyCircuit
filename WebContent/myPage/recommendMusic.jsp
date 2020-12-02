@@ -78,12 +78,15 @@
 				<div class="music-title">
 					<span onclick="location.href='<c:url value='/article/articleRead'>
 												     <c:param name='musicId' value='${music.musicId}'/>
-												  </c:url>'" class="hover-cursor">${music.musicName}</span>
+												  </c:url>'" class="hover-cursor">
+							${music.musicName}</span>
 				</div>
 				<div class="music-artist">
 					<span onclick="location.href='<c:url value='/mypage'>
-												     <c:param name='artistId' value='${artistList[status.index].artistId}'/>
-												  </c:url>'" class="hover-cursor">${artistList[status.index].nickname}</span>
+												     <c:param name='artistId' 
+												     		  value='${artistList[status.index].artistId}'/>
+												  </c:url>'" class="hover-cursor">
+							${artistList[status.index].nickname}</span>
 				</div>
 			</div>
 			<c:if test="${(status.index + 1) % 5 == 0}">

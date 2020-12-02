@@ -53,7 +53,8 @@ public class CreateCollaborationController implements Controller {
 		String collaborationArtistId = ArtistSessionUtils.getLoginArtistId(session);
 
 		List<Artist> artistList = new ArrayList<Artist>();
-		artistList.add(artistDAO.findArtistById(collaborationArtistId)); //현재 로그인된 artist
+		Artist collaborationsArtist = artistDAO.findArtistById(collaborationArtistId);
+		artistList.add(collaborationsArtist); //현재 로그인된 artist
 		
 		String artistId = request.getParameter("artistId");
 		artistList.add(artistDAO.findArtistById(artistId)); //상대 artist
@@ -69,10 +70,9 @@ public class CreateCollaborationController implements Controller {
 			}
 		}
 
-		Artist artist = artistDAO.findArtistById(artistId);
 		Message msg = new Message(
 				0, request.getParameter("collaborationContent"), 
-				null, artist, dmId);
+				null, collaborationsArtist, dmId);
 		
 		try {
 			dmDAO.createMessage(msg);
