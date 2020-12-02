@@ -32,10 +32,6 @@ public class UpdatePostController implements Controller {
 		Post oldPost = postDAO.findPost(oldPostId);
 		String artistId = oldPost.getArtistId();
 		if (!ArtistSessionUtils.isLoginArtist(artistId, session)) { // 로그인 된 사람과 post를 작성한 사람이 다르면
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('자신이 작성한 게시글만 수정이 가능합니다.'); history.go(-1);</script>");
-			out.flush();
 			return "redirect:/post/list";	
 		}
 
