@@ -35,9 +35,7 @@ public class CreateCollaborationController implements Controller {
 		
 		// GET method: 초기값 전송 및 form 화면 출력
 		if (request.getMethod().equals("GET")) {
-			System.out.println("(CreateCollaborationController) IN ");
 			int postId = Integer.parseInt(request.getParameter("postId"));
-			System.out.println("(CreateCollaborationController) postId: " + postId);
 			
 			try {
 				Post post = postDAO.findPost(postId);
@@ -53,7 +51,6 @@ public class CreateCollaborationController implements Controller {
 		// httpsession을 받아와서 collaborationArtistId(협업신청한 사람의 id) 받아옴
 		HttpSession session = request.getSession();
 		String collaborationArtistId = ArtistSessionUtils.getLoginArtistId(session);
-		System.out.println("(CreateCollaborationController) collaborationArtistId: " + collaborationArtistId);
 
 		List<Artist> artistList = new ArrayList<Artist>();
 		artistList.add(artistDAO.findArtistById(collaborationArtistId)); //현재 로그인된 artist
@@ -68,7 +65,7 @@ public class CreateCollaborationController implements Controller {
 				dmDAO.createDMAndMembership(dm);
 				dmId = dm.getDmId();
 			} catch (Exception e) {
-				
+				return "/collaboration/createCollaboration.jsp";
 			}
 		}
 
@@ -80,7 +77,7 @@ public class CreateCollaborationController implements Controller {
 		try {
 			dmDAO.createMessage(msg);
 		} catch (Exception e) {
-			
+			return "/collaboration/createCollaboration.jsp";
 		}
 		
 		try {
@@ -95,7 +92,6 @@ public class CreateCollaborationController implements Controller {
 					0, collaborationTitle,
 					null, collaborationContent,
 					postId, postArtistId, collaborationArtistId);
-			System.out.println("(CreateCollaborationController) collaboration 객체 생성 완료 ");
 			
 			int collaborationId = collaborationDAO.create(collaboration);
 			request.setAttribute("collaborationId", collaborationId);

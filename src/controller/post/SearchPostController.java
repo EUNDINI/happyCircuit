@@ -18,7 +18,6 @@ public class SearchPostController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("(SearchPostController) IN");
 		// 로그인 여부
 		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
 			return "redirect:/post/list";	
@@ -26,7 +25,6 @@ public class SearchPostController implements Controller {
 	
 		try {
 			List<Post> postList = postDAO.searchPostTitle(request.getParameter("postTitle"));
-			System.out.println("(ListPostController) postList의 길이: " + postList.size());
 			request.setAttribute("postList", postList);
 			request.setAttribute("search", true);
 			

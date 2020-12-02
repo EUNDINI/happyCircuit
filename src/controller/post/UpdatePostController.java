@@ -41,7 +41,6 @@ public class UpdatePostController implements Controller {
 
 		// GET method: 초기값 전송 및 form 화면 출력
 		if (request.getMethod().equals("GET")) {
-			System.out.println("(UpdatePostController) oldPostId: " + oldPostId);
 			Post post = postDAO.findPost(oldPostId);
 			request.setAttribute("post", post);	
 			return "/post/updatePost.jsp";
@@ -55,7 +54,6 @@ public class UpdatePostController implements Controller {
 		String postAttachment = oldPost.getPostAttachment();
 		String nickname = artistDAO.findArtistById(artistId).getNickname();
 
-		System.out.println("(UpdatePostController) IN 4");
 		Post post = new Post(
 				oldPostId, updatePostTitle,
 				oldPost.getPostDate(), oldPost.getPostView(),

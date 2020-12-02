@@ -109,8 +109,6 @@ private JDBCUtil jdbcUtil = null;
 						rs.getString("artistId"),
 						rs.getString("pId"));
 				CollaborationList.add(collaboration);
-				System.out.println("추가됐습니다!!!!!");
-				System.out.println("(CollaborationDAO) CollaborationList의 길이: " + CollaborationList.size());
 			}		
 			return CollaborationList;					
 			
