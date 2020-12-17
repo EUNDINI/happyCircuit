@@ -25,6 +25,10 @@ import controller.artist.LogoutController;
 import controller.artist.RegisterArtistController;
 import controller.artist.UpdateArtistController;
 import controller.collaboration.CreateCollaborationController;
+import controller.collaboration.DeleteCollaborationController;
+import controller.collaboration.ListCollaborationController;
+import controller.collaboration.SearchCollaborationController;
+import controller.collaboration.UpdateCollaborationController;
 import controller.collaboration.ViewCollaborationController;
 
 public class RequestMapping {
@@ -59,7 +63,7 @@ public class RequestMapping {
 		
 		mappings.put("/article/articleSearch", new SearchMusicController());
 
-		// findArtist 관련 RequestMapping		
+		// findArtist의 post 관련 RequestMapping	
 		mappings.put("/post/list", new ListPostController());
 		mappings.put("/post/create/form", new ForwardController("/post/createPost.jsp"));
 		mappings.put("/post/create/post", new CreatePostController());
@@ -67,8 +71,14 @@ public class RequestMapping {
 		mappings.put("/post/delete", new DeletePostController());
 		mappings.put("/post/update", new UpdatePostController());
 		mappings.put("/post/search", new SearchPostController());
+		
+		//findArtist의 collaboration 관련 RequestMapping	
+		mappings.put("/collaboration/list", new ListCollaborationController());
 		mappings.put("/collaboration/create", new CreateCollaborationController());
 		mappings.put("/collaboration/view", new ViewCollaborationController());
+		mappings.put("/collaboration/delete", new DeleteCollaborationController());
+		mappings.put("/collaboration/update", new UpdateCollaborationController());
+		mappings.put("/collaboration/search", new SearchCollaborationController());
 	
 		//myPage
 		mappings.put("/mypage", new MyPageController());

@@ -21,9 +21,9 @@ import model.dao.PostDAO;
 
 public class CreateCollaborationController implements Controller {
 
-	PostDAO postDAO = new PostDAO();
-	ArtistDAO artistDAO = new ArtistDAO();
-	CollaborationDAO collaborationDAO = new CollaborationDAO();
+	private PostDAO postDAO = new PostDAO();
+	private ArtistDAO artistDAO = new ArtistDAO();
+	private CollaborationDAO collaborationDAO = new CollaborationDAO();
 	private DMDAO dmDAO = new DMDAO();
 	
 	@Override
