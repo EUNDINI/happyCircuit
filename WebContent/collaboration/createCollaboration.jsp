@@ -22,7 +22,7 @@ function collaborationCreate() {
 </script>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>협업 신청</title>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
