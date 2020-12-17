@@ -160,6 +160,9 @@ function checkRemove(targetUri) {
 	</div>
 	
 	<div class="align-center like-list">
+		<div class="aling-cneter profile-nickname">
+			<span>좋아요 누른 음악</span>
+		</div>
 		<c:forEach var="music" items="${musicList}" varStatus="status">
 			<c:if test="${status.index % 5 == 0}">
 				<div class="music-container">
