@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구인 게시판</title>
+<title>협업 신청 내역</title>
 <!-- 
 	<link rel="stylesheet" href="../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/css/listPost.css">
@@ -42,34 +42,29 @@
                             <thead>
                             <tr>
 								<td colspan="3">
-									<b><font size="6">구인 게시판</font></b>
+									<b><font size="6">협업 신청 내역</font></b>
 								</td>
 							</tr>
                                 <tr>
                                     <th scope="col">번호</th>
-                                    <th scope="col">분류</th>
                                     <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
+                                    <th scope="col">작성자 ID</th>
                                     <th scope="col">작성일</th>
-                                    <th scope="col">조회</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach var="post" items="${postList}">
+                            	<c:forEach var="collaboration" items="${collaborationList}">
                             		<tr>
-                            			<th scope="row">${post.postId}</th>
-                            			<td>${post.postCategoryName}</td>
+                            			<th scope="row">${collaboration.collaborationId}</th>
                                     	
                                     	<td>
-	                                    	<a href="<c:url value='/post/view'>
-											   <c:param name='postId' value='${post.postId}'/>
+	                                    	<a href="<c:url value='/collaboration/view'>
+											   <c:param name='collaborationId' value='${collaboration.collaborationId}'/>
 									 		 	</c:url>">
-								  			${post.postTitle}</a>
+								  			${collaboration.collaborationTitle}</a>
 							  			</td>
-                                    		
-										<td>${post.nickname}</td>
-										<td>${post.postDate}</td>
-										<td>${post.postView}</td>
+                                    	<td>${collaboration.collaborationArtistId}</td>	
+										<td>${collaboration.collaborationDate}</td>
 									</tr>
                             	</c:forEach>
                             </tbody>
@@ -101,22 +96,9 @@
 					<div class="write-find-artist">
 				        
 				        <form name="listPost" method="POST">
-					        <c:choose>
-								<c:when test="${search eq true}">
-									<a href="<c:url value='/post/list' />">
-										<input type="button" name="goToPostList" value="구인글 목록으로 돌아가기"  class="btn btn-light">			        	
-							        </a>
-								</c:when>
-								<c:when test="${search eq false}">
-									<a href="<c:url value='/post/create/form' />">
-										<input type="button" name="goToPostList" value="구인글 작성"  class="btn btn-primary">		  	
-							        </a>
-							        
-							        <a href="<c:url value='/collaboration/list' />"> 
-							        	<input type="button" name="goToCollaborationList" value="협업 신청 내역"  class="btn btn-secondary">  
-						        	</a>
-								</c:when>
-							</c:choose>
+							<a href="<c:url value='/post/list' />">
+								<input type="button" name="goToPostList" value="구인글 목록으로 돌아가기"  class="btn btn-light">			        	
+					        </a>
 						</form>
 				        
 					</div>
@@ -124,9 +106,9 @@
 
 					<div class="col-sm-3">
 						<c:if test="${search eq false}">
-	        				<form class="searchPost" method="POST" action="<c:url value='/post/search' />" role="search">
+	        				<form class="searchCollaboration" method="POST" action="<c:url value='/collaboration/search' />" role="search">
 	       						 <div class="input-group">
-	            					<input type="text" name="postTitle" class="form-control" placeholder="제목 검색" >
+	            					<input type="text" name="collaborationTitle" class="form-control" placeholder="제목 검색" >
 					            	<div class="input-group-btn">
 					                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 					                	 <br>

@@ -16,6 +16,7 @@ function collaborationCreate() {
 		form.collaborationContent.focus();
 		return false;
 	}	
+	alert("협업 신청 DM을 성공적으로 보냈습니다.");
 	createCollaborationForm.submit();
 }
 </script>
