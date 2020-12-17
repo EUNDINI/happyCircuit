@@ -65,7 +65,7 @@ function userRemove() {
 
 	         <a href="<c:url value='/post/view'>
 			   <c:param name='postId' value='${collaboration.postId}'/></c:url>">
-			   <button type="button" class="btn btn-warning" style="float:right;">내가 신청한 구인글 원본 보러가기</button>
+			   <button type="button" class="btn btn-warning" style="float:right;">구인글 원본 보러가기</button>
 			</a>
 			
 	    </form>

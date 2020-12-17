@@ -27,8 +27,6 @@ public class ListCollaborationController implements Controller {
 			System.out.println("(CreatePostController) session: " + session);
 			return "redirect:/post/list";	
         }
-
-		// 나중에 페이징 추가
 		
 		// List<Post>를 request에 저장하여 전달
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
