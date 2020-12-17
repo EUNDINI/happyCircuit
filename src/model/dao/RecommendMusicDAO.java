@@ -82,7 +82,7 @@ public class RecommendMusicDAO {
 		return null;
 	}
 	
-//	해당 artist의 좋아요를 누른 music 목록
+//	해당 artist가 좋아요를 누른 music 목록
 	public List<Music> findMusicListByArtistId(String artistId) throws SQLException {
 		String sql = "SELECT m.musicId, NVL(originalMusicId,0) originalMusicId, NVL(priorMusicId,0) priorMusicId, m.artistId, m.musicName, m.genre, m.nth, m.musicPath "
 					+ "FROM LikeMusic l JOIN Music m ON l.musicId=m.musicId "
@@ -109,6 +109,8 @@ public class RecommendMusicDAO {
 		}	
 		return null;
 	}
+	
+	//해당 music을 create한 artist의 목록
 	
 	public void close() {
 		if (jdbcUtil != null) {
