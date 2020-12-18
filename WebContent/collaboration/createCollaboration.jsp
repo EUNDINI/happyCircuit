@@ -16,12 +16,13 @@ function collaborationCreate() {
 		form.collaborationContent.focus();
 		return false;
 	}	
+	alert("협업 신청 DM을 성공적으로 보냈습니다.");
 	createCollaborationForm.submit();
 }
 </script>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>협업 신청</title>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>

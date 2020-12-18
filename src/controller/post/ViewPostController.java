@@ -15,7 +15,7 @@ import model.service.FindArtistManager;
 
 public class ViewPostController implements Controller {
 
-	PostDAO postDAO = new PostDAO();
+	private PostDAO postDAO = new PostDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -15,14 +15,11 @@ import model.service.FindArtistManager;
 
 public class ListPostController implements Controller {
 
-	PostDAO postDAO = new PostDAO();
+	private PostDAO postDAO = new PostDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 구인 게시글 목록은 로그인 안해도 볼 수 있게 함
 
-		// 나중에 페이징 추가
-		
 		// List<Post>를 request에 저장하여 전달
 		List<Post> postList = postDAO.findPostList();
 		request.setAttribute("postList", postList);

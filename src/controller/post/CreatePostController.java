@@ -22,8 +22,8 @@ import model.service.FindArtistManager;
 
 public class CreatePostController implements Controller {
 
-	PostDAO postDAO = new PostDAO();
-	ArtistDAO artistDAO = new ArtistDAO();
+	private PostDAO postDAO = new PostDAO();
+	private ArtistDAO artistDAO = new ArtistDAO();
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
