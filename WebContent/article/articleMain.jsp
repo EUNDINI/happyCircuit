@@ -131,14 +131,16 @@ function isLogin() {
 				<tr>
 					<c:set var="num" value="${num-1}" />
 					<c:set var="music" value="${musicArticle.music}" />
+					<c:set var="artist" value="${musicArticle.artist}"/>
 					<td>${num}</td>
 					<td><a
 						href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${music.musicId}'/>
 						   </c:url>">${music.musicName}</a></td>
+					<td>${artist.nickname}</td>
 					<td><a href="<c:url value='/mypage'>
 									<c:param name='artistId' value='${music.artistId}'/>
-								 </c:url>">${music.artistId}</a></td>
+								 </c:url>">${artist.nickname}</a></td>
 					<td>${musicArticle.regDate}</td>
 					<td>${musicArticle.readCount}</td>
 					<td>${musicArticle.likeCount}</td>

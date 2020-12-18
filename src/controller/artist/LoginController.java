@@ -20,6 +20,8 @@ public class LoginController implements Controller {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute(ArtistSessionUtils.ARTIST_SESSION_KEY, artistId);
+			Artist artist = manager.findArtist(artistId);
+			session.setAttribute(ArtistSessionUtils.ARTIST_NICKNAME, artist.getNickname());
 
 			return "redirect:/article/articleMain";
 			

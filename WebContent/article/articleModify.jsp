@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String artistId = (String) session.getAttribute("artistId");
-
-//if (artistId == null || artistId.equals("")) {
-//	response.sendRedirect("articleMain.jsp");
-//}
-%>
 <c:set var="music" value="${musicArticle.music}" />
+<c:set var="artist" value="${musicArticle.artist}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +82,7 @@ isLogin();
 						<table id="writeTable" width='80%'>
 							<tr>
 								<th width="200px">작성자</th>
-								<td>${music.artistId}</td>
+								<td>${artist.nickname}</td>
 							</tr>
 
 							<tr>

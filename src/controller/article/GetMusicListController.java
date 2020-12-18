@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.ArticlePaging;
+import model.Artist;
 import model.MusicArticle;
+import model.dao.ArtistDAO;
 import model.dao.MusicDAO;
 
 public class GetMusicListController implements Controller {
 	private MusicDAO musicDAO = new MusicDAO();
+	private ArtistDAO artistDAO = new ArtistDAO();
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,6 +25,11 @@ public class GetMusicListController implements Controller {
 		paging.makeBlock(currentPage);
 		paging.makeLastPageNum();
 		List<MusicArticle> musicArticleList = musicDAO.findMusicArticleList(currentPage, 15);
+		
+		for(MusicArticle mA : musicArticleList) {
+			Artist artist = artistDAO.findArtistById(mA.getMusic().getArtistId());
+			mA.setArtist(artist);
+		}
 
 		request.setAttribute("musiArticleList", musicArticleList);
 

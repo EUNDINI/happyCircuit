@@ -43,7 +43,6 @@ public class CreateNthMusicController implements Controller {
 		String genre = multi.getParameter("genre");
 		String content = multi.getParameter("content");
 		
-		System.out.println(multi.getParameter("priorMusicId"));
 		
 		int priorMusicId = Integer.parseInt(multi.getParameter("priorMusicId"));
 		int originalMusicId = musicDAO.findOriginalMusicId(priorMusicId);
@@ -57,7 +56,13 @@ public class CreateNthMusicController implements Controller {
 		MusicArticle musicArticle = new MusicArticle(music, content, 0, 0);
 
 		try {
+			int musicId = musicDAO.createMusic(music);
+			music.setMusicId(musicId);
+			musicArticle.setMusicId(musicId);
+			musicArticle.getMusic().setMusicId(musicId);
 			musicDAO.createMusicArticle(musicArticle);
+			musicDAO.nthInsert(musicId, priorMusicId);
+			
 			return "redirect:/article/articleMain";
 
 		} catch (Exception e) { // 예외 발생 시 입력 form으로 forwarding

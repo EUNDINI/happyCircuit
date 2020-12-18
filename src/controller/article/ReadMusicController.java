@@ -1,7 +1,6 @@
 package controller.article;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +10,18 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import controller.artist.ArtistSessionUtils;
 import model.ArticlePaging;
+import model.Artist;
 import model.Music;
 import model.MusicArticle;
+import model.dao.ArtistDAO;
 import model.dao.MusicDAO;
 import model.dao.RecommendMusicDAO;
-import oracle.net.aso.n;
 
 public class ReadMusicController implements Controller {
 	private MusicDAO musicDAO = new MusicDAO();
 	private RecommendMusicDAO recommendMusicDAO = new RecommendMusicDAO();
-	private List<MusicArticle> nthCreationList;
-
+	private ArtistDAO artistDAO = new ArtistDAO();
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -34,35 +34,32 @@ public class ReadMusicController implements Controller {
 			musicDAO.decreaseReadCount(musicId);
 			recommendMusicDAO.create(artistId, musicId);
 		}
-
+		
+		musicDAO.increaseReadCount(musicId);
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
+		Artist artist = artistDAO.findArtistById(musicArticle.getMusic().getArtistId());
+		musicArticle.setArtist(artist);
+		
 		int original = musicArticle.getMusic().getOriginalMusicId();
-		nthCreationList = musicDAO.NthCreationMusicList(musicId);
 		
-		int i = 0;
-		while (i < nthCreationList.size()) {
-			List<MusicArticle> list = musicDAO.NthCreationMusicList(nthCreationList.get(i).getMusicId());
-
-			for (MusicArticle a : list) {
-				if(isExist(a.getMusicId()))
-					continue;
-				
-				nthCreationList.add(a);
-			}
-			
-			i++;
+		
+		List<Integer> nthListMusicId = musicDAO.nthList(musicId);
+		List<MusicArticle> nthList = new ArrayList<MusicArticle>();
+		
+		for(int i = 0; i < nthListMusicId.size(); i++) {
+			MusicArticle nth = musicDAO.findMusicArticle(nthListMusicId.get(i));
+			Artist a = artistDAO.findArtistById(nth.getMusic().getArtistId());
+			nth.setArtist(a);
+			nthList.add(nth);
 		}
-		
-		NthComparator comp = new NthComparator();
-		Collections.sort(nthCreationList, comp);
 		
 		int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 		ArticlePaging paging = new ArticlePaging();
 		paging.makeBlock(currentPage);
-		paging.makeLastPageNum(i);
+		paging.makeLastPageNum(nthListMusicId.size());
 		
 		request.setAttribute("musicArticle", musicArticle);
-		request.setAttribute("nthCreationList", nthCreationList);
+		request.setAttribute("nthCreationList", nthList);
 		request.setAttribute("blockStartNum", paging.getBlockStartNum());
 		request.setAttribute("blockLastNum", paging.getBlockLastNum());
 		request.setAttribute("lastPageNum", paging.getLastPageNum());
@@ -81,29 +78,4 @@ public class ReadMusicController implements Controller {
 		return "/article/articleRead.jsp";
 	}
 	
-	public Boolean isExist(int m) {
-		for (MusicArticle a : nthCreationList) {
-			if(a.getMusicId() == m)
-				return true;
-		}
-		
-		return false;
-	}
-	
-	class NthComparator implements Comparator<MusicArticle> {
-
-		@Override
-		public int compare(MusicArticle mA1, MusicArticle mA2) {
-			int mId1 = mA1.getMusicId();
-			int mId2 = mA2.getMusicId();
-			
-			if(mId1 > mId2)
-				return -1;
-			else if(mId1 < mId2)
-				return 1;
-			else
-				return 0;
-		}
-		
-	}
 }

@@ -79,7 +79,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${all.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${all.artistId} ]</strong>
+								<strong>[ ${all.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${all.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,7 +98,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rock.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${rock.artistId} ]</strong>
+								<strong>[ ${rock.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${rock.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -117,7 +117,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${rNb.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${rNb.artistId} ]</strong>
+								<strong>[ ${rNb.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${rNb.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,7 +136,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${pop.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${pop.artistId} ]</strong>
+								<strong>[ ${pop.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${pop.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -155,7 +155,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${edm.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${edm.artistId} ]</strong>
+								<strong>[ ${edm.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${edm.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -174,7 +174,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${hiphop.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${hiphop.artistId} ]</strong>
+								<strong>[ ${hiphop.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${hiphop.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -193,7 +193,7 @@ function isLogin() {
 							href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${etc.musicId}'/>
 						   </c:url>"><li>
-								<strong>[ ${etc.artistId} ]</strong>
+								<strong>[ ${etc.nickname} ]</strong>
 						</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<li><strong>${etc.musicName}</strong></li>
 							&nbsp;&nbsp;&nbsp;&nbsp;
