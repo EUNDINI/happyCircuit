@@ -22,7 +22,7 @@ private JDBCUtil jdbcUtil = null;
 				collaboration.getCollaborationTitle(), 
 				collaboration.getCollaborationContent(),
 				collaboration.getPostId(), 
-				collaboration.getPostArtistId()};				
+				collaboration.getCollaborationArtistId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 						
 		String key[] = { "CollaborationId" };
@@ -90,7 +90,7 @@ private JDBCUtil jdbcUtil = null;
 	
 	// Post의 자식인 Collaboration을 postId를 기준으로 찾기
 	public List<Collaboration> findCollaborationList(int postId) throws SQLException {
-		String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, c.postId, c.artistId, p.artistId as pId "
+		String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, c.postId, p.artistId as pId, c.artistId "
     			+ "FROM Collaboration c, Post p "
     			+ "WHERE c.postId = p.postId "
     			+ "AND c.postId=? ";
@@ -106,8 +106,8 @@ private JDBCUtil jdbcUtil = null;
 						rs.getDate("collaborationDate"),
 						rs.getString("collaborationContent"),
 						rs.getInt("postId"),
-						rs.getString("artistId"),
-						rs.getString("pId"));
+						rs.getString("pId"),
+						rs.getString("artistId"));
 				CollaborationList.add(collaboration);
 			}		
 			return CollaborationList;					
@@ -122,11 +122,11 @@ private JDBCUtil jdbcUtil = null;
 	
 	// 주어진 collaborationId에 해당하는 collaboration를 데이터베이스에서 찾아 도메인 클래스에 저장하여 반환
 	public Collaboration findCollaboration(int collaborationId) throws SQLException {
-		String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, p.postId, p.artistId, a.artistId AS aId "
-    			+ "FROM Collaboration c, Post p, Artist a "
-    			+ "WHERE c.postId = p.postId "
-    			+ "AND p.artistId = a.artistId " 
-				+ "AND c.collaborationId=? ";          
+		String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, c.postId, p.artistId as pId, c.artistId "
+				+ "FROM Collaboration c, Post p "
+				+ "WHERE c.postId = p.postId "
+				+ "AND c.collaborationId=? "; 
+		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {collaborationId});	// JDBCUtil에 query문과 매개 변수 설정
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
@@ -138,8 +138,8 @@ private JDBCUtil jdbcUtil = null;
 						rs.getDate("collaborationDate"),
 						rs.getString("collaborationContent"),
 						rs.getInt("postId"),
-						rs.getString("artistId"),
-						rs.getString("aId"));
+						rs.getString("pId"),
+						rs.getString("artistId"));
 			}
 			return collaboration;
 		} catch (Exception ex) {
@@ -149,6 +149,69 @@ private JDBCUtil jdbcUtil = null;
 		}
 		return null;
 		
+	}
+	
+	// 자신이 작성한 collaboration의 List를 반환
+	public List<Collaboration> findCollaborationList(String artistId) throws SQLException {
+		String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, c.postId, p.artistId as pId, c.artistId "
+    			+ "FROM Collaboration c, Post p "
+    			+ "WHERE c.postId = p.postId "
+    			+ "AND c.artistId=? "
+    			+ "ORDER BY c.collaborationId DESC ";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {artistId});	
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();			// query 실행			
+			List<Collaboration> CollaborationList = new ArrayList<Collaboration>();	
+			while (rs.next()) {
+				Collaboration collaboration = new Collaboration(		
+						rs.getInt("collaborationId"),
+						rs.getString("collaborationTitle"),
+						rs.getDate("collaborationDate"),
+						rs.getString("collaborationContent"),
+						rs.getInt("postId"),
+						rs.getString("pId"),
+						rs.getString("artistId"));
+				CollaborationList.add(collaboration);
+			}		
+			return CollaborationList;					
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return null;
+	}
+	
+	public List<Collaboration> searchCollaborationTitle(String collaborationTitle) throws SQLException {
+        String sql = "SELECT c.collaborationId, c.collaborationTitle, c.collaborationDate, c.collaborationContent, c.postId, p.artistId as pId, c.artistId "
+	        		+ "FROM Collaboration c, Post p "
+	        		+ "WHERE c.postId = p.postId "
+	        		+ "AND c.collaborationTitle LIKE ? ";
+        
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {'%' + collaborationTitle + '%'});	// JDBCUtil에 query문과 매개 변수 설정
+		List<Post> postList = new ArrayList<Post>();
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
+			List<Collaboration> CollaborationList = new ArrayList<Collaboration>();	
+			while (rs.next()) {
+				Collaboration collaboration = new Collaboration(		
+						rs.getInt("collaborationId"),
+						rs.getString("collaborationTitle"),
+						rs.getDate("collaborationDate"),
+						rs.getString("collaborationContent"),
+						rs.getInt("postId"),
+						rs.getString("pId"),
+						rs.getString("artistId"));
+				CollaborationList.add(collaboration);
+			}		
+			return CollaborationList;					
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return null;
 	}
 	
 }

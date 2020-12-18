@@ -138,6 +138,9 @@ function isLogin() {
 						      <c:param name='musicId' value='${music.musicId}'/>
 						   </c:url>">${music.musicName}</a></td>
 					<td>${artist.nickname}</td>
+					<td><a href="<c:url value='/mypage'>
+									<c:param name='artistId' value='${music.artistId}'/>
+								 </c:url>">${artist.nickname}</a></td>
 					<td>${musicArticle.regDate}</td>
 					<td>${musicArticle.readCount}</td>
 					<td>${musicArticle.likeCount}</td>

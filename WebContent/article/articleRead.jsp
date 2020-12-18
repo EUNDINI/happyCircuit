@@ -197,7 +197,10 @@ function isLogin() {
 						<tr>
 							<td><strong>제목 [${music.nth}차] </strong>&nbsp;
 								${music.musicName}</td>
-							<td align=right><strong>글쓴이</strong>&nbsp;${artist.nickname}</td>
+							<td align=right><strong>글쓴이</strong>&nbsp;
+											<a href="<c:url value='/mypage'>
+														<c:param name='artistId' value='${music.artistId}'/>
+													 </c:url>">{artist.nickname}</a></td>
 						</tr>
 
 						<tr>
@@ -269,7 +272,9 @@ function isLogin() {
 							<c:set var="nthMusic" value="${nthMusicList.music}" />
 							<c:set var="nthArtist" value="${nthMusicList.artist}" />
 							<td>${nthMusic.nth}</td>
-							<td>${nthArtist.nickname}</td>
+							<td><a href="<c:url value='/mypage'>
+											<c:param name='artistId' value='${nthMusic.artistId}'/>
+										 </c:url>">${nthArtist.nickname}</a></td>
 							<td><a
 								href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${nthMusic.musicId}'/>

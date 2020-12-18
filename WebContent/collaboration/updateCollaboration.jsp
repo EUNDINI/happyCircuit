@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구인글 작성</title>
-
+<title>협업 신청 수정</title>
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -14,23 +15,19 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/article/boardStyles.css">
 <script>
-function postCreate() {
-	if (createPostForm.postCategoryId.value == "0") {
-		alert("카테고리를 선택해주세요.");
-		createPostForm.postCategoryId.focus();
-		return false;
-	} 
-	if (createPostForm.postTitle.value == "") {
+function collaborationUpdate() {
+	if (updateCollaborationForm.collaborationTitle.value == "") {
 		alert("제목을 입력해주세요.");
-		createPostForm.postTitle.focus();
+		updateCollaborationForm.collaborationTitle.focus();
 		return false;
 	}	
-	if (createPostForm.postContent.value == "") {
+	if (updateCollaborationForm.collaborationContent.value == "") {
 		alert("내용을 입력해주세요.");
-		createPostForm.postContent.focus();
+		updateCollaborationForm.collaborationContent.focus();
 		return false;
 	}
-	createPostForm.submit();
+	alert("수정한 협업 신청 DM을 성공적으로 보냈습니다.");
+	updateCollaborationForm.submit();
 }
 </script>
 </head>
@@ -50,42 +47,26 @@ function postCreate() {
 	<br> <br>
 
 	<div class="container">
-	    <form name="createPostForm" method="POST" action="<c:url value='/post/create/post' />"
-	    	enctype="multipart/form-data"
-	     role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
-	        
-	        <div class="row">
-	        	<div class="col-sm-4">
-					<select name="postCategoryId" class="form-control" style="width:600px;height:32px;">
-				      <option value="0" selected>카테고리 선택</option>
-					  <option value="1">객원 보컬 구인</option>
-					  <option value="2">객원 세션 구인</option>
-					</select>
-				</div>
-			</div>
-			
-	        <br>
+	    <form name="updateCollaborationForm" method="POST" action="<c:url value='/collaboration/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
+	        <b><font size="6" color="black" align="center">협업 신청 수정</font></b><hr>
 	        
 	        <div class="required-field-block">
-	            <input type="text" name="postTitle" placeholder="제목을 입력해주세요." class="form-control">
+	            <input type="text" name="collaborationTitle" value="${collaboration.collaborationTitle}" class="form-control">
 	            <div class="required-icon">
 	                <div class="text"> <br></div>
 	            </div>
 	        </div>
 	 
 	        <div class="required-field-block">
-	            <textarea  name="postContent" rows="15" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+	            <textarea  name="collaborationContent" rows="15" class="form-control">${collaboration.collaborationContent}</textarea>
 	        </div>
 	        
 	        <br>
 	        
-	        <input type="file" name="postAttachment" />
+	        <input type="text" name="collaborationId" value="${collaboration.collaborationId}" style="display:none">
 	        
-	        <br>
-	        
-	        <input type="button" value="등록" onClick="postCreate()" class="btn btn-primary">  
-	         <br>  
+	        <input type="button" value="수정" onClick="collaborationUpdate()" class="btn btn-primary">
+	         <br>    
 	    </form>
 	</div>
 </body>
