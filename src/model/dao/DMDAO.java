@@ -216,6 +216,25 @@ public class DMDAO {
 		}	
 		return result;
 	}
+	
+	//Message 삭제
+	public int deleteMessage(int msgId) throws SQLException {
+		String sql = "DELETE FROM Message WHERE msgId=?";		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {msgId});	// JDBCUtil에 delete문과 매개 변수 설정
+
+		try {				
+			int result = jdbcUtil.executeUpdate();	// delete 문 실행
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}		
+		return 0;
+	}
 	 
 	//해당 DM방의 Message 리스트
 	public List<Message> findMessageList(int dmId) throws SQLException {
@@ -256,6 +275,7 @@ public class DMDAO {
 		}	
 		return null;
 	}
+	
 	
 	//마지막 Message
 	public Message findLastMessage(int dmId) throws SQLException {

@@ -24,16 +24,14 @@ public class RegisterArtistController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		request.setCharacterEncoding("UTF-8");
-		String realFolder = ""; 
-		String filename = ""; 
+		String filename = null; 
+		String realFolder = request.getServletContext().getRealPath("sample"); 
 		int maxSize = 1024*1024*5; 
-		realFolder = request.getServletContext().getRealPath("sample"); 
+		
 		MultipartRequest multi = null;
-		 
 		try{ 
 			multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy()); 
-			Enumeration<?> files = multi.getFileNames(); 
-			String file1 = (String)files.nextElement(); 
+			String file1 = (String) multi.getFileNames().nextElement(); 
 			filename = multi.getFilesystemName(file1); 
 		} catch(Exception e) { 
 			e.printStackTrace(); 
