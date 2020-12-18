@@ -49,6 +49,7 @@ public class UpdateArtistController implements Controller {
 //			return "/myPage/myPage.jsp";	// 사용자 보기 화면으로 이동 (forwarding)
 		}
 		
+		
 		//POST request (회원정보가 parameter로 전송됨)
 		
 //		String projectPath = "E:\\hw\\6\\databaseproject\\newclone";
@@ -56,16 +57,14 @@ public class UpdateArtistController implements Controller {
 //		String imgPath = projectPath + "\\" + filePath;
 		
 		request.setCharacterEncoding("UTF-8");
-		String realFolder = ""; 
-		String filename = ""; 
+		String filename = null; 
+		String realFolder = request.getServletContext().getRealPath("sample"); 
 		int maxSize = 1024*1024*5; 
-		realFolder = request.getServletContext().getRealPath("sample"); 
+		
 		MultipartRequest multi = null;
-		 
 		try{ 
 			multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy()); 
-			Enumeration<?> files = multi.getFileNames(); 
-			String file1 = (String)files.nextElement(); 
+			String file1 = (String) multi.getFileNames().nextElement(); 
 			filename = multi.getFilesystemName(file1); 
 		} catch(Exception e) { 
 			e.printStackTrace(); 

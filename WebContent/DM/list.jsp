@@ -84,9 +84,9 @@
 					<td onclick="location.href=`<c:url value='/DM/room'>
 											   		<c:param name='dmId' value='${dm.dmId}'/>
 											 	</c:url>`" class="hover-cursor">
-						<img src="${pageContext.request.contextPath}/sample/${artistList[status.index].image}" class="artist-img">
+						<img src="../sample/${artistList[status.index].image}" class="artist-img">
 						<div class="flex-container">
-							<div class="flex-item"><span>${artistList[status.index].nickname}</span></div>
+							<div class="flex-item"><span>${lastMsgList[status.index].artist.nickname}</span></div>
 							<div class="flex-item"><span>${lastMsgList[status.index].message}</span></div>
 						</div>
 					</td>	

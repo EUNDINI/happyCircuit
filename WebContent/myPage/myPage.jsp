@@ -127,7 +127,7 @@ function checkRemove(targetUri) {
 	</c:if>
 	
 	<div class="align-center profile-image">
-		<img src="${pageContext.request.contextPath}/sample/${artist.image}" class="profile-img">
+		<img src="$../sample/${artist.image}" class="profile-img">
 	</div>
 
 	<div class="aling-cneter profile-nickname">

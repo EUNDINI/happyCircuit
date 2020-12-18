@@ -93,6 +93,7 @@ public class RequestMapping {
 		mappings.put("/DM/room", new ViewDMController());
 		mappings.put("/DM/delete", new DeleteDMController());
 		mappings.put("/DM/message/create", new CreateMessageController());
+		mappings.put("/DM/message/delete", new DeleteMessageController());
 
 		//user.......... 이거 일단 마이페이지에 있는데 어카지
 		mappings.put("/artist/delete", new DeleteArtistController());

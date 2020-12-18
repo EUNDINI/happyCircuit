@@ -31,7 +31,7 @@ public class CreateMessageController implements Controller {
 		try {
 			dmDAO.createMessage(msg);
 			request.setAttribute("dmId", dmId);
-			return "/DM/room";
+			return "redirect:/DM/room?dmId=" + String.valueOf(dmId);
 		} catch (Exception e) {
 			return "redirect:/DM/list";
 		}

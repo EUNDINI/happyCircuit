@@ -31,17 +31,6 @@ public class ViewDMController implements Controller {
 		HttpSession session = request.getSession();
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 
-		//현재 로그인 된 artist와 msg를 보낸 artist가 같으면 true
-		List<Boolean> artistBooleanList = new ArrayList<Boolean>();
-		for (Message msg : msgList) {
-			if (msg.getArtist().getArtistId().equals(artistId)) {
-				artistBooleanList.add(true);
-			} else {
-				artistBooleanList.add(false);
-			}
-		}
-		
-		request.setAttribute("artistBooleanList", artistBooleanList);
 		request.setAttribute("msgList", msgList);
 		request.setAttribute("artistId", artistId);
 		request.setAttribute("dmId", dmId);

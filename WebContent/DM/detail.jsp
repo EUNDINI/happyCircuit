@@ -18,6 +18,9 @@
 		margin-top: 50px;
 		margin-bottom: 50px;
 	}
+	.img-delete {
+		display: inline-block;
+	}
 	.sender-left {
       	margin: 7px 10px 5px 10px;
 	}
@@ -116,8 +119,15 @@
 	<!-- 현재 로그인한 artist와 msg를 보낸 사람이 일치하면 right 아니면 left -->
 	<div class="dm align-center">
 		<c:forEach var="msg" items="${msgList}" varStatus="status">
-			<c:if test="${artistBooleanList[status.index]}">
+			<c:if test="${msg.artist.artistId eq artistId}">
 				<div align="right">
+					<div class="img-delete">
+						<img src="clear_icon.png" class="hover-cursor"
+							 onclick="location.href=`<c:url value='/DM/message/delete'>
+												   		<c:param name='msgId' value='${msg.msgId}'/>
+												   		<c:param name='dmId' value='${dmId}'/>
+												 	 </c:url>`">
+					</div>
 					<div class="time time-right">
 						${msg.getStringSentTime()}
 					</div>
@@ -126,10 +136,14 @@
 					</div>
 				</div>
 			</c:if>
-			<c:if test="${!artistBooleanList[status.index]}">
+			<c:if test="${msg.artist.artistId ne artistId}">
 				<div>
 					<div class="sender-left">
-						<span>${msg.artist.nickname}</span>
+						<span class="hover-cursor"
+							  onclick="location.href='<c:url value='/mypage'>
+													     <c:param name='artistId' value='${msg.artist.artistId}'/>
+													  </c:url>'">
+							${msg.artist.nickname}</span>
 					</div>
 					<div class="message message-left">
 						${msg.message}
