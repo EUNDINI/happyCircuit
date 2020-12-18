@@ -9,6 +9,15 @@ public class MusicArticle {
 	private int readCount; // 조회수
 	private int likeCount; // 좋아요
 	private Date regDate; // 등록일
+	private Artist artist;
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
 
 	public MusicArticle() {
 	}

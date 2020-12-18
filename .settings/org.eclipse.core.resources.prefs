@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//src/controller/RequestMapping.java=UTF-8
 encoding//src/controller/artist/RegisterArtistController.java=UTF-8
+encoding//src/model/dao/ConnectionManager.java=UTF-8

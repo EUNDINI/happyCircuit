@@ -56,7 +56,7 @@ function articleWrite() {
 						<table id="writeTable" width='80%'>
 							<tr>
 								<th width="200px">작성자</th>
-								<td>${artistId}</td>
+								<td>${nickname}</td>
 							</tr>
 
 							<tr>

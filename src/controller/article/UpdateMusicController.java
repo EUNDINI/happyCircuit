@@ -10,19 +10,24 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import controller.Controller;
+import model.Artist;
 import model.Music;
 import model.MusicArticle;
+import model.dao.ArtistDAO;
 import model.dao.MusicDAO;
 
 public class UpdateMusicController implements Controller {
 
 	private MusicDAO musicDAO = new MusicDAO();
+	private ArtistDAO artistDAO = new ArtistDAO();
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int musicId = Integer.parseInt(request.getParameter("musicId"));
 		Music music = musicDAO.findMusic(musicId);
 		MusicArticle musicArticle = musicDAO.findMusicArticle(musicId);
+		Artist artist = artistDAO.findArtistById(musicArticle.getMusic().getArtistId());
+		musicArticle.setArtist(artist);
 
 		// 검색해서 수정 폼 채우기!
 		if (request.getMethod().equals("GET")) {

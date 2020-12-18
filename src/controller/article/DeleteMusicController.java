@@ -34,6 +34,7 @@ public class DeleteMusicController implements Controller {
 		
 		musicDAO.deleteMusicArticle(musicId);
 		musicDAO.deleteMusic(musicId);
+		musicDAO.nthdelete(musicId);
 		
 		return "redirect:/article/articleMain";
 	}

@@ -1,11 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.dao.MusicDAO"%>
-<%@ page import="model.Music"%>
-<%@ page import="model.MusicArticle"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="music" value="${musicArticle.music}" />
+<c:set var="artist" value="${musicArticle.artist}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -199,7 +197,7 @@ function isLogin() {
 						<tr>
 							<td><strong>제목 [${music.nth}차] </strong>&nbsp;
 								${music.musicName}</td>
-							<td align=right><strong>글쓴이</strong>&nbsp;${music.artistId}</td>
+							<td align=right><strong>글쓴이</strong>&nbsp;${artist.nickname}</td>
 						</tr>
 
 						<tr>
@@ -236,7 +234,10 @@ function isLogin() {
 								<button id='btnLike' onClick="likeCount()">좋아요</button>&nbsp;&nbsp;&nbsp;
 								<button id='btnNthWrite'
 									onClick="location.href='<c:url value='/article/articleNthWrite/form' > <c:param name='priorMusicId' value='${music.musicId}'/></c:url>'">2차
-									창작</button></td>
+									창작</button>
+									<button onclick="window.open('<c:url value='/article/articleHistory' > <c:param name='musicId' value='${music.musicId}'/></c:url>'
+											,'History','scrollbars=yes width=650, height=700');return false" >History</button>
+									</td>
 						</tr>
 					</table> <br> <span id="btn">
 						<button
@@ -266,8 +267,9 @@ function isLogin() {
 					<c:forEach var="nthMusicList" items="${nthCreationList}" begin="${start}" end="${end}">
 						<tr>
 							<c:set var="nthMusic" value="${nthMusicList.music}" />
+							<c:set var="nthArtist" value="${nthMusicList.artist}" />
 							<td>${nthMusic.nth}</td>
-							<td>${nthMusic.artistId}</td>
+							<td>${nthArtist.nickname}</td>
 							<td><a
 								href="<c:url value='/article/articleRead'>
 						      <c:param name='musicId' value='${nthMusic.musicId}'/>

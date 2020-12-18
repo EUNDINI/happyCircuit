@@ -64,7 +64,7 @@ function articleList(targetUri) {
 						<table id="writeTable" width='80%'>
 							<tr>
 								<th width="200px">작성자</th>
-								<td>${artistId}</td>
+								<td>${nickname}</td>
 							</tr>
 
 							<tr>
@@ -94,7 +94,7 @@ function articleList(targetUri) {
 							</tr>
 						</table> <br> <span> <input type="button" value="작성"
 							onClick="articleWrite()" /> <input type="button" value="취소"
-							onClick="articleList('<c:url value='/article/articleMain.jsp' />')" />
+							onClick="articleList('<c:url value='/article/articleMain' />')" />
 					</span>
 					</td>
 				</tr>

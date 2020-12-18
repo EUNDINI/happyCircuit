@@ -15,6 +15,7 @@ import controller.article.CreateMusicController;
 import controller.article.CreateNthMusicController;
 import controller.article.DeleteMusicController;
 import controller.article.GetMusicListController;
+import controller.article.HistoryMusicController;
 import controller.article.LikeChartController;
 import controller.article.ReadMusicController;
 import controller.article.SearchMusicController;
@@ -51,6 +52,7 @@ public class RequestMapping {
 		mappings.put("/article/articleNthWrite", new CreateNthMusicController());
 		
 		mappings.put("/article/articleRead", new ReadMusicController());
+		mappings.put("/article/articleHistory", new HistoryMusicController());
 		
 		mappings.put("/article/articleModify/form", new UpdateMusicController());
 		mappings.put("/article/articleModify", new UpdateMusicController());

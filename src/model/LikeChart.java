@@ -9,6 +9,7 @@ public class LikeChart {
 	private String musicName;		// 음악이름
 	private String artistId;		// 등록자 이름
 	private Date regDate; 			// 등록일
+	private String nickname;
 	
 	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String artistId,
 			Date regDate) {
@@ -58,4 +59,13 @@ public class LikeChart {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }
+
