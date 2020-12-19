@@ -110,9 +110,13 @@ public class RecommendMusicDAO {
 	
 	//해당 artist가 좋아요를 누른 music 목록
 	public List<Music> findMusicListByArtistId(String artistId) throws SQLException {
-		String sql = "SELECT distinct m.musicId, NVL(originalMusicId,0) originalMusicId, NVL(priorMusicId,0) priorMusicId, m.artistId, m.musicName, m.genre, m.nth, m.musicPath "
+		String sql = "SELECT m.musicId, NVL(originalMusicId,0) originalMusicId, NVL(priorMusicId,0) priorMusicId, m.artistId, m.musicName, m.genre, m.nth, m.musicPath "
 					+ "FROM LikeMusic l JOIN Music m ON l.musicId=m.musicId "
-					+ "WHERE l.artistId=?";
+					+ "WHERE (l.musicId, likeId) in (SELECT musicId, max(likeId) " 
+												+ "FROM LikeMusic " 
+												+ "WHERE artistId=? "
+												+ "GROUP BY musicId) " 
+												+ "ORDER BY likeId";
 		Object[] param = new Object[] {artistId};				
 		jdbcUtil.setSqlAndParameters(sql, param);	// JDBCUtil 에 insert문과 매개 변수 설정
 	
