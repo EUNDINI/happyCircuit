@@ -84,7 +84,7 @@
 					<td onclick="location.href=`<c:url value='/DM/room'>
 											   		<c:param name='dmId' value='${dm.dmId}'/>
 											 	</c:url>`" class="hover-cursor">
-						<img src="../sample/${artistList[status.index].image}" class="artist-img">
+						<img src="../sample/${lastMsgList[status.index].artist.image}" class="artist-img">
 						<div class="flex-container">
 							<div class="flex-item"><span>${lastMsgList[status.index].artist.nickname}</span></div>
 							<div class="flex-item"><span>${lastMsgList[status.index].message}</span></div>
@@ -92,17 +92,6 @@
 					</td>	
 				</tr>
 			</c:forEach>
-			<!-- 
-			<tr>
-				<td onclick="" class="hover-cursor">
-					<img src="../sample/holding_onto_gravity.jpg" class="artist-img">
-					<div class="flex-container">
-						<div class="flex-item"><span>artist</span></div>
-						<div class="flex-item"><span>message 내용(마지막 메시지) 길게길게 여기엔 나중에 ...띄우는 거 메소드로 작업해서 넣자</span></div>
-					</div>
-				</td>			
-			</tr>
-			-->
 		</table>
 		<div class="align-center">
 			<a href="<c:url value='/mypage'>
