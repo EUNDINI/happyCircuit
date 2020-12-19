@@ -50,6 +50,7 @@ public class ListDMController implements Controller {
 		request.setAttribute("artistId", artistId);
 		request.setAttribute("dmList", dmList);
 		request.setAttribute("lastMsgList", lastMsgList);
+		request.setAttribute("artistList", artistList);
 		return "/DM/list.jsp";
 	}
 
