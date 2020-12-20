@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
+import controller.artist.ArtistSessionUtils;
 import model.Artist;
 import model.Music;
 import model.dao.ArtistDAO;
@@ -25,7 +27,17 @@ public class RecommendMusicController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// 로그인 여부 확인
+    	if (!ArtistSessionUtils.hasLogined(request.getSession())) {
+            return "redirect:/artist/login/form";		// login form 요청으로 redirect
+        }
+
 		artistId = request.getParameter("artistId");
+
+		HttpSession session = request.getSession();
+		if (!artistId.equals(ArtistSessionUtils.getLoginArtistId(session))) {
+			return "redirect:/home";
+		}
 		
 		List<Music> musicList = new ArrayList<Music>();
 		List<Music> likeMusicList = recommendDAO.findMusicListByArtistId(artistId); //artist가 좋아요를 누른 음악 list

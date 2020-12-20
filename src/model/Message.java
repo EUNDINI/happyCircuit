@@ -9,7 +9,7 @@ public class Message {
 	private String message;		//메시지 내용
 	private Date sentTime;		//메시지를 보낸 시간
 	private Artist artist;		//보내는 사람
-	private int dmId;			//메시지가 포함된 DM방의 id
+	private int dmId;			//메시지가 속한 DM방의 id
 	
 	private SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
 	

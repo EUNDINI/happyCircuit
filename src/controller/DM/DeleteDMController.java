@@ -15,6 +15,11 @@ public class DeleteDMController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		// 로그인 여부
+		if (!ArtistSessionUtils.hasLogined(request.getSession())) { // 로그인 안되어있는 있는 경우
+			return "redirect:/artist/login/form";	
+        }
+
 		HttpSession session = request.getSession();	
 		String artistId = ArtistSessionUtils.getLoginArtistId(session);
 		int dmId = Integer.parseInt(request.getParameter("dmId"));
