@@ -274,7 +274,6 @@ function isLogin() {
 							<c:set var="nthMusic" value="${nthMusicList.music}" />
 							<c:set var="nthArtist" value="${nthMusicList.artist}" />
 							<td>${nthMusic.nth}</td>
-							<td>${nthArtist.nickname}</td>
 							<td><a
 								href="<c:url value='/mypage'>
 											<c:param name='artistId' value='${nthMusic.artistId}'/>
