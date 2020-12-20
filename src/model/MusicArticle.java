@@ -4,11 +4,11 @@ import java.sql.Date;
 
 public class MusicArticle {
 	private int musicId;
-	private Music music; // 음악정보
-	private String content; // 게시물 내용
-	private int readCount; // 조회수
-	private int likeCount; // 좋아요
-	private Date regDate; // 등록일
+	private Music music; 				// 음악정보
+	private String content; 			// 게시물 내용
+	private int readCount; 				// 조회수
+	private int likeCount; 				// 좋아요
+	private Date regDate; 				// 등록일
 	private Artist artist;
 
 	public Artist getArtist() {
