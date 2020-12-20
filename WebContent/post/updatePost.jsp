@@ -52,7 +52,7 @@ function postUpdate() {
 
 	<div class="container">
 	    <form name="updatePostForm" method="POST" action="<c:url value='/post/update' />" role="form" style="width:600px; margin: 0 auto; margin-top:40px;">
-	        <b><font size="6" color="black" align="center">글쓰기</font></b><hr>
+	        <b><font size="6" color="black" align="center">글수정</font></b><hr>
 	        
 	        <div class="row">
 	        	<div class="col-sm-4">

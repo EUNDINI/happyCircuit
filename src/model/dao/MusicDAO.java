@@ -1,6 +1,4 @@
 package model.dao;
-
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,30 +8,15 @@ import model.Artist;
 import model.LikeChart;
 import model.Music;
 import model.MusicArticle;
-import model.dao.JDBCUtil;
 
 public class MusicDAO {
 	private JDBCUtil jdbcUtil = null;
-
-	// 음악에서 자동으로 id생성 -> board의 fk와 pk로 설정
-	// Music에 관한 DAO
-	// create = controller에서 1번
-	// read = controller에서 1번
-	// update = controller에서 1번
-	// delete = controller에서 2번
-	// isArticleWriter는 controller에서 부르자
-
+	
 	public MusicDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 
 	public int createMusic(Music music) throws Exception {
-		/*
-		 * musicId NUMBER NOT NULL , artistId VARCHAR2(30) NULL , musicName VARCHAR2(20)
-		 * NULL , genre VARCHAR2(20) NULL , musicPath VARCHAR2(20) NULL ,
-		 * originalMusicId NUMBER NULL , priorMusicId NUMBER NULL , nth NUMBER NULL
-		 */
-
 		Object[] param;
 		String sql;
 		if (music.getPriorMusicId() != 0) {
@@ -214,37 +197,7 @@ public class MusicDAO {
 		return null;
 	}
 
-	public List<MusicArticle> findMusicArticleList() throws Exception {
-		String sql = "SELECT * FROM MusicArticle ORDER BY regDate desc";
-		jdbcUtil.setSqlAndParameters(sql, null); // JDBCUtil에 query문 설정
-
-		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query 실행
-			List<MusicArticle> musicArticleList = new ArrayList<MusicArticle>();
-			while (rs.next()) {
-				MusicArticle musicArticle = new MusicArticle(rs.getInt("musicId"), rs.getString("content"),
-						rs.getDate("regDate"), rs.getInt("readCount"), rs.getInt("likeCount"));
-				musicArticleList.add(musicArticle);
-			}
-
-			for (int i = 0; i < musicArticleList.size(); i++) {
-				MusicArticle musicArticle = musicArticleList.get(i);
-				Music music = findMusic(musicArticle.getMusicId());
-				musicArticle.setMusic(music);
-			}
-
-			return musicArticleList;
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.close(); // resource 반환
-		}
-		return null;
-	}
-
 	public int createMusicArticle(MusicArticle musicArticle) throws Exception {
-		//int musicId = createMusic(musicArticle.getMusic());
 		String sql = "INSERT INTO MusicArticle VALUES (?, ?, SYSDATE, ?, ?)";
 		Object[] param = new Object[] { musicArticle.getMusicId(), musicArticle.getContent(), musicArticle.getReadCount(),
 				musicArticle.getLikeCount() };
@@ -264,11 +217,6 @@ public class MusicDAO {
 	}
 
 	public MusicArticle findMusicArticle(int musicArticleId) throws Exception {
-/*	int res = increaseReadCount(musicArticleId);
-
-		if (res == 0)
-			return null; */
-
 		String sql = "SELECT * FROM MusicArticle where musicId = ?";
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { musicArticleId });
 
@@ -350,13 +298,19 @@ public class MusicDAO {
 			throws Exception {
 		String sql;
 		int start = countPerPage * (currentPage - 1) + 1;
+		
+		if(condition.equals("artistId")) {
+			ArtistDAO artistDAO = new ArtistDAO();
+			Artist artist = artistDAO.findArtistByNickName(search);
+			search = artist.getArtistId();
+		}
+		
 		String contain = "%" + search + "%";
 
 		sql = "SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (select * from musicArticle where musicarticle.musicId in (SELECT music.musicid from music where "
 				+ condition + " like " + "'" + contain + "')"
 				+ " order by regdate desc) A WHERE ROWNUM <= ? ) WHERE RNUM >= ?";
-		// jdbcUtil.setSqlAndParameters(sql, new Object[] { condition, search, start +
-		// countPerPage - 1, start });
+		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { start + countPerPage - 1, start });
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -443,7 +397,7 @@ public class MusicDAO {
 		return null;
 	}
 	
-	public List<Integer>priorList(int musicId) {
+	public List<Integer> priorList(int musicId) {
 		String sql = "select musicId from nth where nthId=? order by musicId";
 		try {
 			jdbcUtil.setSqlAndParameters(sql, new Object[] { musicId});

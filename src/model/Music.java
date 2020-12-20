@@ -1,13 +1,13 @@
 package model;
 public class Music {
-	private int musicId;						// 음악의 아이디
-	private int originalMusicId;		// 원곡의 아이디	- 없으면 현재 음악이 원곡
-	private int priorMusicId;			// 이전음악의 아이디 - 없으면 2차
-	private String artistId;				// 사용자 아이디
-	private String musicName;			// 음악 이름
-	private String genre;		// 음악 장르
+	private int musicId;								// 음악의 아이디
+	private int originalMusicId;					// 원곡의 아이디	- 없으면 현재 음악이 원곡
+	private int priorMusicId;						// 이전음악의 아이디 - 없으면 2차
+	private String artistId;							// 사용자 아이디
+	private String musicName;						// 음악 이름
+	private String genre;							// 음악 장르
 	private int nth;
-	private String musicPath;				// 음악 파일 - DB에는 BLOB로 저장
+	private String musicPath;						// 음악 파일 - DB에는 BLOB로 저장
 	
 	public Music() {};
 	
