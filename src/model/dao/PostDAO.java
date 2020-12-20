@@ -130,7 +130,8 @@ public class PostDAO {
     				+ "FROM Post p, PostCategory pc, Artist a "
     				+ "WHERE p.postCategoryId = pc.postCategoryId "
     				+ "AND p.artistId = a.artistId "
-        			+ "AND p.postTitle LIKE ? ";              
+        			+ "AND p.postTitle LIKE ? "
+        			+ "ORDER BY p.postId DESC ";
         
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {'%' + postTitle + '%'});	// JDBCUtil에 query문과 매개 변수 설정
 		List<Post> postList = new ArrayList<Post>();
