@@ -3,12 +3,12 @@ package model;
 import java.sql.Date;
 
 public class LikeChart {
-	private int MusicId;			// 음악 아이디
-	private int ranking;				// 순위
-	private int likeCount;			// 좋아요
-	private String musicName;		// 음악이름
-	private String artistId;		// 등록자 이름
-	private Date regDate; 			// 등록일
+	private int MusicId;						// 음악 아이디
+	private int ranking;						// 순위
+	private int likeCount;					// 좋아요
+	private String musicName;				// 음악이름
+	private String artistId;					// 등록자 이름
+	private Date regDate; 					// 등록일
 	private String nickname;
 	
 	public LikeChart(int musicId, int ranking, int likeCount, String musicName, String artistId,
