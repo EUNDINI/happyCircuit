@@ -5,7 +5,7 @@ import java.util.List;
 public class DM {
 	
 	private int dmId;		//DM방의 id (채팅방같이)
-	private List<Artist> artistList;//해당 DM에 속한 artist의 id
+	private List<Artist> artistList;	//DM에 속한 artist의 list
 	
 	public DM(int dmId) {
 		super();
