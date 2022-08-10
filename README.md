@@ -1,25 +1,29 @@
-## 1. 서비스 개요 🎹
-### Music Ideas Chain(n차 창작이 가능한 음악 공유 서비스)
-* 많은 이들이 자신의 음악을 공유하고, n차 창작을 통해 서로의 작품을 발전시킬 수 있는 웹사이트
-* 음악을 좋아하는 사람들과 함께 작업하고 창작할 수 있는 환경 구상
-
-## 2. 세부 기능
-<img src="https://user-images.githubusercontent.com/72064966/150837613-9e41fa46-e3e5-4fb2-b6f5-50c2774b91bd.PNG">
+<h1 align="center">음악 공유 웹사이트 'Music Ideas Chain'</h1>
+<img src="https://user-images.githubusercontent.com/72064966/183706562-631741ac-9474-4685-977c-e23cc5f2bab4.PNG">
 
 
-## 3. 요구사항분석
-<img src="https://user-images.githubusercontent.com/72064966/150837726-b43c88a8-49b8-4beb-af5f-22151046cc51.PNG">
+## 기술 스택
+<p>
+  <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Oracle-DB3552?style=flat-square&logo=Oracle&logoColor=white"/>
+</p>
 
-## 4. MVC Architecture
+## 담당 기능
+### 1. 회원가입 및 탈퇴
+- 회원가입 폼을 통해 회원가입이 가능하며, 회원탈퇴도 제공
+### 2. 로그인 및 로그아웃
+- 가입한 아이디와 비밀번호로 로그인 및 로그아웃 가능
+- 로그인이 되어있지 않은 경우, 협업 신청 게시판 접근 불가
+### 3. 구인게시판 기능
+- 구인 게시글 CRUD
+- 글 검색, 목록 보기, 조회수 확인
+- 파일 업로드 기능
+### 4. 협업 신청 게시판 기능
+- 구인 게시글을 통해 협업신청 가능
+- 협업 신청글 CRUD
+
+## MVC Architecture
 <img src="https://user-images.githubusercontent.com/72064966/150838025-9e3238fa-714e-4fb7-87a0-8c41598d04fd.PNG">
 
-## 5. Database Schema
+## ERD
 <img src="https://user-images.githubusercontent.com/72064966/150838051-c72dcaec-73df-481d-988b-efa87bd17ed0.png">
-
-## 6. UI 설계 
-<img src="https://user-images.githubusercontent.com/72064966/150838350-94fe8319-ef0c-4115-b3cb-fad3379fe60d.PNG">
-<img src="https://user-images.githubusercontent.com/72064966/150838486-e4926f81-9b5c-43f7-9795-7acb13574bf0.PNG">
-
-## 7. Request 처리 흐름도
-<img src="https://user-images.githubusercontent.com/72064966/150838499-46599461-aa05-47a4-8a59-bfa897c4255d.PNG">
-<img src="https://user-images.githubusercontent.com/72064966/150838514-472cdaf1-c10b-4b95-a458-e8b75e4e32f8.PNG">
